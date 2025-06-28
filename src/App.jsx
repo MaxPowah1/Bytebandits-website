@@ -12,14 +12,12 @@ import servicesImg from './assets/section-services.png';
 import aboutImg    from './assets/section-about.png';
 import contactImg  from './assets/section-contact.png';
 
-// Hide native scrollbars but keep scroll
 const ScrollContainer = styled.div`
   width: 100vw;
   height: 100vh;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   background-color: #121212;
-
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
@@ -34,14 +32,14 @@ const Section = styled.section`
   align-items: center;
 `;
 
-// glitch keyframes
-const glitchAnim = keyframes`
-  0%   { clip: rect(10px, 9999px, 115px, 0); transform: translate(0); }
-  20%  { clip: rect(20px, 9999px,  90px, 0); transform: translate(-2px, -2px); }
-  40%  { clip: rect(80px, 9999px, 140px, 0); transform: translate(2px, 2px); }
-  60%  { clip: rect(30px, 9999px, 100px, 0); transform: translate(-2px, 2px); }
-  80%  { clip: rect(50px, 9999px, 130px, 0); transform: translate(2px, -2px); }
-  100% { clip: rect(10px, 9999px, 115px, 0); transform: translate(0); }
+/* bold distortion keyframes */
+const distort = keyframes`
+  0%   { transform: none; filter: none; }
+  10%  { transform: skew(3deg,1deg) translate(2px,-2px); filter: blur(1px) hue-rotate(10deg); }
+  30%  { transform: skew(-2deg,2deg) translate(-2px,2px); filter: blur(2px) hue-rotate(-10deg); }
+  50%  { transform: skew(1deg,-3deg) translate(3px,1px); filter: blur(1.5px) hue-rotate(5deg); }
+  70%  { transform: skew(-1deg,1deg) translate(-1px,-3px); filter: blur(1px) hue-rotate(-5deg); }
+  100% { transform: none; filter: none; }
 `;
 
 const Terminal = styled.div`
@@ -52,50 +50,45 @@ const Terminal = styled.div`
   background: #0d0d0d;
   border: 2px solid #00ff00;
   border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+  box-shadow: 0 0 20px rgba(0,255,0,0.6);
   overflow: visible;
 
-  /* scanlines overlay */
+  /* scanlines overlay stays static */
   &::before {
     content: '';
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background: repeating-linear-gradient(
       to bottom,
-      rgba(0,255,0,0.04) 0px,
-      rgba(0,255,0,0.04) 1px,
-      transparent 1px,
-      transparent 2px
+      rgba(0,255,0,0.1) 0px,
+      rgba(0,255,0,0.1) 2px,
+      transparent 2px,
+      transparent 4px
     );
     pointer-events: none;
     mix-blend-mode: overlay;
   }
+`;
 
-  &.glitch {
-    animation: ${glitchAnim} 0.4s ease-in-out;
+// New wrapper for text + input, where we apply distortion
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &.distort {
+    animation: ${distort} 0.8s ease-in-out 1;
   }
 `;
 
 const ImagePanel = styled.div`
   flex: 0 0 200px;
-  margin-left: -220px;   /* overlap */
+  margin-left: -220px;
   z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  img {
-    width: 400px;
-    height: auto;
-    object-fit: contain;
-  }
-`;
-
-const Inner = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
+  img { width: 400px; height: auto; object-fit: contain; }
 `;
 
 const LinesContainer = styled.div`
@@ -126,33 +119,26 @@ const CommandInput = styled.input`
   outline: none;
 `;
 
-/**
- * SectionComponent handles:
- * - glitch/scanline animation on enter
- * - line-by-line reveal
- * - a CLI prompt that only autofocuses Home
- */
 function SectionComponent({ id, lines, img, onCommand }) {
   const [count, setCount]     = useState(0);
   const [started, setStarted] = useState(false);
   const [input, setInput]     = useState('');
   const sectionRef = useRef();
-  const termRef    = useRef();
+  const contentRef = useRef();  // <- now targets <Content>
 
   useEffect(() => {
-    // Scroll glitch observer
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setStarted(true);
-          termRef.current.classList.add('glitch');
-          setTimeout(() => termRef.current.classList.remove('glitch'), 400);
+          contentRef.current.classList.add('distort');
+          setTimeout(() => contentRef.current.classList.remove('distort'), 800);
           obs.disconnect();
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.2 }
     );
-    sectionRef.current && obs.observe(sectionRef.current);
+    if (sectionRef.current) obs.observe(sectionRef.current);
     return () => obs.disconnect();
   }, []);
 
@@ -171,13 +157,13 @@ function SectionComponent({ id, lines, img, onCommand }) {
 
   return (
     <Section id={`${id}-section`} ref={sectionRef}>
-      <Terminal ref={termRef}>
+      <Terminal>
         {img && (
           <ImagePanel>
             <img src={img} alt={`${id} illustration`} />
           </ImagePanel>
         )}
-        <Inner>
+        <Content ref={contentRef}>
           <LinesContainer>
             {lines.slice(0, count).join('\n')}
           </LinesContainer>
@@ -190,20 +176,17 @@ function SectionComponent({ id, lines, img, onCommand }) {
               autoFocus={id === 'home'}
             />
           </InputLine>
-        </Inner>
+        </Content>
       </Terminal>
     </Section>
   );
 }
 
 export default function App() {
-  // ensure we start scrolled at top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
 
   function onCommand(cmd) {
-    const valid = ['home', 'services', 'about', 'contact', 'footer'];
+    const valid = ['home','services','about','contact','footer'];
     if (valid.includes(cmd)) {
       document
         .getElementById(`${cmd}-section`)
