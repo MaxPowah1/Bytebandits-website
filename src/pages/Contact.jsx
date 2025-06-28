@@ -1,15 +1,6 @@
-import React from 'react';
-
-export default function Contact() {
-  return (
-    <>
-      $ echo "Contact Information"
-      <br />
-      Email: developer@example.com
-      <br />
-      Twitter: @dev_handle
-      <br />
-      GitHub: github.com/dev_handle
-    </>
-  );
-}
+export const lines = [
+  '$ echo "Contact Information"',
+  'Email: developer@example.com',
+  'Twitter: @dev_handle',
+  'GitHub: github.com/dev_handle',
+];

@@ -1,13 +1,5 @@
-import React from 'react';
-
-export default function About() {
-  return (
-    <>
-      $ echo "About This Site"
-      <br />
-      Built with React, Vite, and styled-components.
-      <br />
-      Inspired by classic terminal UIs.
-    </>
-  );
-}
+export const lines = [
+  '$ echo "About This Site"',
+  'Built with React + Vite + styled-components',
+  'Inspired by old-school terminals.',
+];
