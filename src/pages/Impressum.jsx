@@ -1,9 +1,8 @@
 // src/pages/Impressum.jsx
-import React from 'react';
-import styled from 'styled-components';
-import ImpressumImg from '../assets/section-Impressum.png';
+import React from 'react'
+import styled from 'styled-components'
+import ImpressumImg from '../assets/section-Impressum.png'
 
-// terminal lines for the “Impressum” section
 export const lines = [
   '$ echo "Impressum"',
   'ByteBandits GmbH',
@@ -23,63 +22,74 @@ export const lines = [
   '',
   'Umsatzsteuer-ID:',
   'DE123456789',
-];
+]
 
 const Overlay = styled.div`
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
   z-index: 1000;
-`;
+`
 
-// pin to bottom-right, no scrollbars
 const Modal = styled.div`
   position: absolute;
   bottom: 1rem;
   right: 1rem;
+  display: flex;
+  align-items: flex-start;
   background: #0d0d0d;
   border: 2px solid #00ff00;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
-  width: 320px;
-  padding: 1rem;
-  padding-left: 5rem;       /* leave space for the image */
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1.25rem rgba(0,255,0,0.6);
+
+  /* fluid width: never below 280px, ideal 25vw, max 600px */
+  width: clamp(280px, 25vw, 600px);
+  padding: clamp(1rem, 2vw, 2rem);
+
   color: #00ff00;
   font-family: 'Courier New', monospace;
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  line-height: 1.4;
   white-space: pre-wrap;
-  overflow: hidden;          /* no scrollbars */
-`;
+  overflow: visible;
+`
 
-// overlap the left border
-const Image = styled.img`
+const Logo = styled.img`
   position: absolute;
-  top: 1rem;
-  left: calc(100% * -0.2);   /* 20% of modal width to the left */
-  width: 80px;
+  top: 50%;                         /* halfway down the modal */
+  left: 0%;                         /* exactly on the left edge */
+  transform: translate(-55%, -50%); /* move its own center to that point */
+  z-index: 1001;                    /* above overlay & content */
+  width: clamp(6rem, 20vw, 16rem);  /* min 6rem, ideal 20vw, max 16rem */
   height: auto;
   object-fit: contain;
-  border: 2px solid #00ff00;
-  border-radius: 4px;
-  background: #0d0d0d;
-`;
+`
 
-// close button
+const Content = styled.div`
+  margin-left: clamp(2.5rem, 10vw, 8rem); /* make room for half the logo */
+  flex: 1;
+  overflow-y: auto;
+  max-height: 80vh;
+  position: relative;
+  z-index: 0;
+`
+
 const CloseButton = styled.span`
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 0.5rem; right: 0.5rem;
   cursor: pointer;
   font-size: 1.2rem;
   &:hover { color: #ff0000; }
-`;
+`
 
 export default function Impressum({ onClose }) {
   return (
     <Overlay onClick={onClose}>
       <Modal onClick={e => e.stopPropagation()}>
+        <Logo src={ImpressumImg} alt="Logo" />
         <CloseButton onClick={onClose}>✕</CloseButton>
-        <Image src={ImpressumImg} alt="Impressum logo" />
-        {`
+        <Content>
+{`
 ByteBandits GmbH
 Musterstraße 1
 12345 Berlin
@@ -97,8 +107,9 @@ HRB 123456
 
 Umsatzsteuer-ID:
 DE123456789
-        `.trim()}
+`.trim()}
+        </Content>
       </Modal>
     </Overlay>
-  );
+  )
 }

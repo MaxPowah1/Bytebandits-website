@@ -1,20 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useState, useEffect, useRef } from 'react'
+import styled, { keyframes } from 'styled-components'
 
-import { lines as homeLines }     from './pages/Home';
-import { lines as servicesLines } from './pages/Services';
-import { lines as aboutLines }    from './pages/About';
-import { lines as contactLines }  from './pages/Contact';
-import { lines as footerLines }   from './pages/Footer';
-import { lines as impressumLines } from './pages/Impressum';
+import { lines as homeLines }     from './pages/Home'
+import { lines as servicesLines } from './pages/Services'
+import { lines as aboutLines }    from './pages/About'
+import { lines as contactLines }  from './pages/Contact'
+import { lines as footerLines }   from './pages/Footer'
 
-import homeImg        from './assets/section-home.png';
-import servicesImg    from './assets/section-services.png';
-import aboutImg       from './assets/section-about2.png';
-import contactImg     from './assets/section-contact2.png';
-import ImpressumImg   from './assets/section-Impressum.png';
+import homeImg        from './assets/section-home.png'
+import servicesImg    from './assets/section-services.png'
+import aboutImg       from './assets/section-about2.png'
+import contactImg     from './assets/section-contact2.png'
 
-import Impressum      from './pages/Impressum';
+import Impressum      from './pages/Impressum'
 
 const ScrollContainer = styled.div`
   width: 100vw;
@@ -25,7 +23,7 @@ const ScrollContainer = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
-`;
+`
 
 const Section = styled.section`
   width: 100vw;
@@ -34,7 +32,7 @@ const Section = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 /* bold distortion keyframes */
 const distort = keyframes`
@@ -44,7 +42,7 @@ const distort = keyframes`
   50%  { transform: skew(1deg,-3deg) translate(3px,1px); filter: blur(1.5px) hue-rotate(5deg); }
   70%  { transform: skew(-1deg,1deg) translate(-1px,-3px); filter: blur(1px) hue-rotate(-5deg); }
   100% { transform: none; filter: none; }
-`;
+`
 
 const Terminal = styled.div`
   position: relative;
@@ -71,7 +69,7 @@ const Terminal = styled.div`
     pointer-events: none;
     mix-blend-mode: overlay;
   }
-`;
+`
 
 const Content = styled.div`
   display: flex;
@@ -82,17 +80,17 @@ const Content = styled.div`
   &.distort {
     animation: ${distort} 0.8s ease-in-out 1;
   }
-`;
+`
 
 const ImagePanel = styled.div`
   flex: 0 0 200px;
-  margin-left: -220px;
+  margin-left: -280px;
   z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
   img { width: 400px; height: auto; object-fit: contain; }
-`;
+`
 
 const LinesContainer = styled.div`
   flex: 1;
@@ -102,16 +100,16 @@ const LinesContainer = styled.div`
   white-space: pre-wrap;
   overflow: hidden;
   text-shadow: 0 0 8px #00ff00;
-`;
+`
 
 const InputLine = styled.div`
   padding: 0 1rem 1rem;
   display: flex;
   color: #00ff00;
   font-family: 'Courier New', monospace;
-`;
+`
 
-const Prompt = styled.span`margin-right: 0.5rem;`;
+const Prompt = styled.span`margin-right: 0.5rem;`
 const CommandInput = styled.input`
   flex: 1;
   background: none;
@@ -120,17 +118,18 @@ const CommandInput = styled.input`
   font-family: 'Courier New', monospace;
   font-size: 1rem;
   outline: none;
-`;
+`
 
 // Impressum link styled at bottom right
 const ImpressumLink = styled.span`
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  color: #00ff00;\n  font-family: 'Courier New', monospace;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
   cursor: pointer;
   text-decoration: underline;
-`;
+`
 
 function SectionComponent({ id, lines, img, onCommand }) {
   const [count, setCount]     = useState(0);
@@ -192,7 +191,7 @@ function SectionComponent({ id, lines, img, onCommand }) {
         </Content>
       </Terminal>
     </Section>
-  );
+  )
 }
 
 export default function App() {
@@ -201,7 +200,7 @@ export default function App() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   function onCommand(cmd) {
-    const valid = ['home', 'services', 'about', 'contact', 'impressum', 'footer'];
+    const valid = ['home', 'services', 'about', 'contact', 'footer'];
     if (valid.includes(cmd)) {
       document
         .getElementById(`${cmd}-section`)
@@ -214,7 +213,6 @@ export default function App() {
     { id: 'services', lines: servicesLines, img: servicesImg },
     { id: 'about',    lines: aboutLines,    img: aboutImg },
     { id: 'contact',  lines: contactLines,  img: contactImg },
-    { id: 'impressum',lines: impressumLines,img: ImpressumImg },
     { id: 'footer',   lines: footerLines,   img: null },
   ];
 
@@ -234,5 +232,5 @@ export default function App() {
       </ImpressumLink>
       {showImpressum && <Impressum onClose={() => setShowImpressum(false)} />}
     </>
-  );
+  )
 }
