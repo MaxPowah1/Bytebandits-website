@@ -1,9 +1,21 @@
-import React from 'react';
-
-// just an array of terminal lines, no React markup
 export const lines = [
-  '$ echo "Welcome to the Home section"',
-  'Initializing modules…',
-  'Loading user settings…',
-  'Done.',
+
+    '    ____        __       __                    ___ __      ',
+    '   / __ )__  __/ /____  / /_  ____ _____  ____/ (_) /______',
+    '  / __  / / / / __/ _ \\/ __ \\/ __ `/ __ \\/ __  / / __/ ___/',
+    ' / /_/ / /_/ / /_/  __/ /_/ / /_/ / / / / /_/ / / /_(__  ) ',
+    '/_____\\/\\__, /\\__/\\___/_.___/\\__,_/_/ /_/\\__,_/_/\\__/____/  ',
+    '      /____/                                        ',
+    '',
+
+
+  '$ echo "Welcome to ByteBandits"',
+  'Initializing hacks…',
+  'Loading secure shell…',
 ];
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 export const lines = [
-  '$ echo "About This Site"',
-  'Built with React + Vite + styled-components',
-  'Inspired by old-school terminals.',
+  '$ echo "About ByteBandits"',
+  'We are a team of modern-day cyber mercenaries.',
+  'Building secure, lightning-fast applications.',
+  'Committed to open-source & community.',
 ];
