@@ -9,7 +9,7 @@ export const lines = [
     '',
 
 
-  '$ echo "Welcome to ByteBandits"',
+  'Welcome to ByteBandits',
   'Initializing hacks…',
   'Loading secure shell…',
 ];

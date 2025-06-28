@@ -6,11 +6,15 @@ import { lines as servicesLines } from './pages/Services';
 import { lines as aboutLines }    from './pages/About';
 import { lines as contactLines }  from './pages/Contact';
 import { lines as footerLines }   from './pages/Footer';
+import { lines as impressumLines } from './pages/Impressum';
 
-import homeImg     from './assets/section-home.png';
-import servicesImg from './assets/section-services.png';
-import aboutImg    from './assets/section-about.png';
-import contactImg  from './assets/section-contact.png';
+import homeImg        from './assets/section-home.png';
+import servicesImg    from './assets/section-services.png';
+import aboutImg       from './assets/section-about2.png';
+import contactImg     from './assets/section-contact2.png';
+import ImpressumImg   from './assets/section-Impressum.png';
+
+import Impressum      from './pages/Impressum';
 
 const ScrollContainer = styled.div`
   width: 100vw;
@@ -69,7 +73,6 @@ const Terminal = styled.div`
   }
 `;
 
-// New wrapper for text + input, where we apply distortion
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -119,12 +122,22 @@ const CommandInput = styled.input`
   outline: none;
 `;
 
+// Impressum link styled at bottom right
+const ImpressumLink = styled.span`
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  color: #00ff00;\n  font-family: 'Courier New', monospace;
+  cursor: pointer;
+  text-decoration: underline;
+`;
+
 function SectionComponent({ id, lines, img, onCommand }) {
   const [count, setCount]     = useState(0);
   const [started, setStarted] = useState(false);
   const [input, setInput]     = useState('');
   const sectionRef = useRef();
-  const contentRef = useRef();  // <- now targets <Content>
+  const contentRef = useRef();
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -144,7 +157,7 @@ function SectionComponent({ id, lines, img, onCommand }) {
 
   useEffect(() => {
     if (!started || count >= lines.length) return;
-    const t = setTimeout(() => setCount(c => c + 1), 600);
+    const t = setTimeout(() => setCount(c => c + 1), 200);
     return () => clearTimeout(t);
   }, [started, count, lines.length]);
 
@@ -183,10 +196,12 @@ function SectionComponent({ id, lines, img, onCommand }) {
 }
 
 export default function App() {
+  const [showImpressum, setShowImpressum] = useState(false);
+
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   function onCommand(cmd) {
-    const valid = ['home','services','about','contact','footer'];
+    const valid = ['home', 'services', 'about', 'contact', 'impressum', 'footer'];
     if (valid.includes(cmd)) {
       document
         .getElementById(`${cmd}-section`)
@@ -199,18 +214,25 @@ export default function App() {
     { id: 'services', lines: servicesLines, img: servicesImg },
     { id: 'about',    lines: aboutLines,    img: aboutImg },
     { id: 'contact',  lines: contactLines,  img: contactImg },
+    { id: 'impressum',lines: impressumLines,img: ImpressumImg },
     { id: 'footer',   lines: footerLines,   img: null },
   ];
 
   return (
-    <ScrollContainer>
-      {sections.map(s => (
-        <SectionComponent
-          key={s.id}
-          {...s}
-          onCommand={onCommand}
-        />
-      ))}
-    </ScrollContainer>
+    <>
+      <ScrollContainer>
+        {sections.map(s => (
+          <SectionComponent
+            key={s.id}
+            {...s}
+            onCommand={onCommand}
+          />
+        ))}
+      </ScrollContainer>
+      <ImpressumLink onClick={() => setShowImpressum(true)}>
+        Impressum
+      </ImpressumLink>
+      {showImpressum && <Impressum onClose={() => setShowImpressum(false)} />}
+    </>
   );
 }
