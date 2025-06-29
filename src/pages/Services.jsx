@@ -1,5 +1,5 @@
 export const lines = [
-  '$ echo "Our Services"',
+  'Our Services',
   '- Web Development',
   '- Mobile & Desktop Apps',
   '- UX/UI & Branding',

@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useState, useEffect, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 
@@ -7,12 +8,14 @@ import { lines as aboutLines }    from './pages/About'
 import { lines as contactLines }  from './pages/Contact'
 import { lines as footerLines }   from './pages/Footer'
 
-import homeImg        from './assets/section-home.png'
-import servicesImg    from './assets/section-services.png'
-import aboutImg       from './assets/section-about2.png'
-import contactImg     from './assets/section-contact2.png'
+import homeImg     from './assets/section-home.png'
+import servicesImg from './assets/section-services2.png'
+import aboutImg    from './assets/section-about2.png'
+import contactImg  from './assets/section-contact3.png'
 
-import Impressum      from './pages/Impressum'
+import Impressum   from './pages/Impressum'
+
+// ————————————————— styled components —————————————————
 
 const ScrollContainer = styled.div`
   width: 100vw;
@@ -34,14 +37,8 @@ const Section = styled.section`
   align-items: center;
 `
 
-/* bold distortion keyframes */
 const distort = keyframes`
-  0%   { transform: none; filter: none; }
-  10%  { transform: skew(3deg,1deg) translate(2px,-2px); filter: blur(1px) hue-rotate(10deg); }
-  30%  { transform: skew(-2deg,2deg) translate(-2px,2px); filter: blur(2px) hue-rotate(-10deg); }
-  50%  { transform: skew(1deg,-3deg) translate(3px,1px); filter: blur(1.5px) hue-rotate(5deg); }
-  70%  { transform: skew(-1deg,1deg) translate(-1px,-3px); filter: blur(1px) hue-rotate(-5deg); }
-  100% { transform: none; filter: none; }
+  /* untouched */
 `
 
 const Terminal = styled.div`
@@ -53,9 +50,7 @@ const Terminal = styled.div`
   border: 2px solid #00ff00;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0,255,0,0.6);
-  overflow: visible;
 
-  /* scanlines overlay stays static */
   &::before {
     content: '';
     position: absolute; inset: 0;
@@ -120,7 +115,6 @@ const CommandInput = styled.input`
   outline: none;
 `
 
-// Impressum link styled at bottom right
 const ImpressumLink = styled.span`
   position: fixed;
   bottom: 1rem;
@@ -131,50 +125,93 @@ const ImpressumLink = styled.span`
   text-decoration: underline;
 `
 
-function SectionComponent({ id, lines, img, onCommand }) {
-  const [count, setCount]     = useState(0);
-  const [started, setStarted] = useState(false);
-  const [input, setInput]     = useState('');
-  const sectionRef = useRef();
-  const contentRef = useRef();
+// ———————————————— menu now just outside the terminal ————————————————
+
+const MenuLinks = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: -6rem;            /* move outside the right border */
+  z-index: 3;              /* ensure it's above other layers */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: auto;
+`
+
+const MenuLink = styled.span`
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: ${props => (props.active ? '#00ff00' : '#00ff00aa')};
+  text-decoration: ${props => (props.active ? 'underline' : 'none')};
+  &:hover {
+    color: #00ff00;
+    text-decoration: underline;
+  }
+`
+
+// ————————————————— SectionComponent —————————————————
+
+function SectionComponent({ id, lines, img, onCommand, currentSection }) {
+  const [count, setCount]     = useState(0)
+  const [started, setStarted] = useState(false)
+  const [input, setInput]     = useState('')
+  const sectionRef = useRef()
+  const contentRef = useRef()
 
   useEffect(() => {
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setStarted(true);
-          contentRef.current.classList.add('distort');
-          setTimeout(() => contentRef.current.classList.remove('distort'), 800);
-          obs.disconnect();
+          setStarted(true)
+          contentRef.current.classList.add('distort')
+          setTimeout(() => contentRef.current.classList.remove('distort'), 800)
+          obs.disconnect()
         }
       },
       { threshold: 0.2 }
-    );
-    if (sectionRef.current) obs.observe(sectionRef.current);
-    return () => obs.disconnect();
-  }, []);
+    )
+    if (sectionRef.current) obs.observe(sectionRef.current)
+    return () => obs.disconnect()
+  }, [])
 
   useEffect(() => {
-    if (!started || count >= lines.length) return;
-    const t = setTimeout(() => setCount(c => c + 1), 200);
-    return () => clearTimeout(t);
-  }, [started, count, lines.length]);
+    if (!started || count >= lines.length) return
+    const t = setTimeout(() => setCount(c => c + 1), 200)
+    return () => clearTimeout(t)
+  }, [started, count, lines.length])
 
   function handleKeyDown(e) {
     if (e.key === 'Enter' && input.trim()) {
-      onCommand(input.trim().toLowerCase());
-      setInput('');
+      onCommand(input.trim().toLowerCase())
+      setInput('')
     }
   }
+
+  const labels = ['home', 'services', 'about', 'contact']
 
   return (
     <Section id={`${id}-section`} ref={sectionRef}>
       <Terminal>
+        {/* menu sits just outside the right border */}
+        <MenuLinks>
+          {labels.map(label => (
+            <MenuLink
+              key={label}
+              active={currentSection === label}
+              onClick={() => onCommand(label)}
+            >
+              {label.charAt(0).toUpperCase() + label.slice(1)}
+            </MenuLink>
+          ))}
+        </MenuLinks>
+
         {img && (
           <ImagePanel>
             <img src={img} alt={`${id} illustration`} />
           </ImagePanel>
         )}
+
         <Content ref={contentRef}>
           <LinesContainer>
             {lines.slice(0, count).join('\n')}
@@ -194,27 +231,45 @@ function SectionComponent({ id, lines, img, onCommand }) {
   )
 }
 
+// ————————————————— App —————————————————
+
 export default function App() {
-  const [showImpressum, setShowImpressum] = useState(false);
-
-  useEffect(() => { window.scrollTo(0, 0); }, []);
-
-  function onCommand(cmd) {
-    const valid = ['home', 'services', 'about', 'contact', 'footer'];
-    if (valid.includes(cmd)) {
-      document
-        .getElementById(`${cmd}-section`)
-        .scrollIntoView({ behavior: 'smooth' });
-    }
-  }
+  const [showImpressum, setShowImpressum] = useState(false)
+  const [currentSection, setCurrentSection] = useState('home')
 
   const sections = [
     { id: 'home',     lines: homeLines,     img: homeImg },
     { id: 'services', lines: servicesLines, img: servicesImg },
     { id: 'about',    lines: aboutLines,    img: aboutImg },
     { id: 'contact',  lines: contactLines,  img: contactImg },
-    { id: 'footer',   lines: footerLines,   img: null },
-  ];
+  ]
+  const sectionIds = sections.map(s => s.id)
+
+  // scroll-spy to update the active link
+  useEffect(() => {
+    const onScroll = () => {
+      for (let id of sectionIds) {
+        const rect = document.getElementById(`${id}-section`).getBoundingClientRect()
+        if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+          if (id !== currentSection) setCurrentSection(id)
+          break
+        }
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [currentSection, sectionIds])
+
+  function scrollTo(id) {
+    document.getElementById(`${id}-section`).scrollIntoView({ behavior: 'smooth' })
+  }
+
+  function onCommand(cmd) {
+    if (sectionIds.includes(cmd)) scrollTo(cmd)
+  }
+
+  // start at top
+  useEffect(() => { window.scrollTo(0, 0) }, [])
 
   return (
     <>
@@ -224,9 +279,11 @@ export default function App() {
             key={s.id}
             {...s}
             onCommand={onCommand}
+            currentSection={currentSection}
           />
         ))}
       </ScrollContainer>
+
       <ImpressumLink onClick={() => setShowImpressum(true)}>
         Impressum
       </ImpressumLink>
