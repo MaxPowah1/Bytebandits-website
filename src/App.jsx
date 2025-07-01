@@ -141,7 +141,6 @@ const glow = keyframes`
   100% { text-shadow: 0 0 8px #00ff00; }
 `
 
-// Your MenuLink
 const MenuLink = styled.span`
   position: relative;
   display: block;
@@ -150,7 +149,6 @@ const MenuLink = styled.span`
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
   color: ${p => (p.active ? '#00ff00' : '#00ff00aa')};
-  text-decoration: none;
   transition: color 0.2s ease;
 
   &::before {
@@ -171,7 +169,6 @@ const MenuLink = styled.span`
     background-color: #00ff00aa;
   }
 
-  /* Glow when active */
   ${p =>
     p.active &&
     css`
@@ -179,38 +176,30 @@ const MenuLink = styled.span`
     `}
 `
 
-
-
-
-
 // ————————————————— SectionComponent —————————————————
 
 function SectionComponent({ id, lines, img, onCommand, currentSection }) {
-  const [count, setCount]     = useState(0)
+  const [count, setCount] = useState(0)
   const [started, setStarted] = useState(false)
-  const [input, setInput]     = useState('')
-  const sectionRef = useRef()
+  const [input, setInput] = useState('')
   const contentRef = useRef()
 
+  // Reset typing animation whenever this section becomes active
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStarted(true)
-          contentRef.current.classList.add('distort')
-          setTimeout(() => contentRef.current.classList.remove('distort'), 800)
-          obs.disconnect()
-        }
-      },
-      { threshold: 0.2, root: sectionRef.current?.parentElement }
-    )
-    if (sectionRef.current) obs.observe(sectionRef.current)
-    return () => obs.disconnect()
-  }, [])
+    if (currentSection === id) {
+      setCount(0)
+      setStarted(true)
+      contentRef.current.classList.add('distort')
+      setTimeout(() => contentRef.current.classList.remove('distort'), 800)
+    } else {
+      setStarted(false)
+    }
+  }, [currentSection, id])
 
+  // Type one line every 200ms
   useEffect(() => {
     if (!started || count >= lines.length) return
-    const t = setTimeout(() => setCount(c => c + 1), 200)
+    const t = setTimeout(() => setCount(c => c + 1), 50)
     return () => clearTimeout(t)
   }, [started, count, lines.length])
 
@@ -224,7 +213,7 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
   const labels = ['home', 'services', 'about', 'contact']
 
   return (
-    <Section id={`${id}-section`} ref={sectionRef}>
+    <Section id={`${id}-section`}>
       <Terminal>
         <MenuLinks>
           {labels.map(label => (
@@ -266,8 +255,8 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
 // ————————————————— App —————————————————
 
 export default function App() {
-  const [showImpressum, setShowImpressum]     = useState(false)
-  const [currentSection, setCurrentSection]   = useState('home')
+  const [showImpressum, setShowImpressum]   = useState(false)
+  const [currentSection, setCurrentSection] = useState('home')
   const scrollRef = useRef(null)
 
   const sections = [
@@ -278,7 +267,7 @@ export default function App() {
   ]
   const sectionIds = sections.map(s => s.id)
 
-  // scroll-spy on the container, not window
+  // Scroll-spy to update currentSection
   useEffect(() => {
     const container = scrollRef.current
     function onScroll() {
@@ -286,14 +275,12 @@ export default function App() {
         const rect = document
           .getElementById(`${id}-section`)
           .getBoundingClientRect()
-        // since container is fullscreen, viewport checks still work:
         if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
           setCurrentSection(id)
           break
         }
       }
     }
-
     container.addEventListener('scroll', onScroll, { passive: true })
     return () => container.removeEventListener('scroll', onScroll)
   }, [sectionIds])
