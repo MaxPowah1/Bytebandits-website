@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState, useEffect, useRef } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 
 import { lines as homeLines }     from './pages/Home'
 import { lines as servicesLines } from './pages/Services'
@@ -135,37 +135,50 @@ const MenuLinks = styled.div`
   pointer-events: auto;
 `
 
+const glow = keyframes`
+  0%   { text-shadow: none; }
+  50%  { text-shadow: 0 0 12px #00ff00; }
+  100% { text-shadow: 0 0 8px #00ff00; }
+`
+
+// Your MenuLink
 const MenuLink = styled.span`
   position: relative;
-  display: block;           /* so padding affects the whole line */
+  display: block;
+  padding-left: 0.6rem;
   cursor: pointer;
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
-  color: ${props => (props.active ? '#00ff00' : '#00ff00aa')};
+  color: ${p => (p.active ? '#00ff00' : '#00ff00aa')};
   text-decoration: none;
-
-  /* reserve space for the bar */
-  padding-left: 1rem;       /* gutter width: indicator width + margin */
+  transition: color 0.2s ease;
 
   &::before {
     content: '';
     position: absolute;
     top: 50%;
-    left: 0;                /* flush against the left gutter */
+    left: 0;
     transform: translateY(-50%);
-    width: 2px;             /* thickness of your vertical line */
-    height: 1em;            /* same height as one line of text */
-    background-color: ${props =>
-      props.active ? '#00ff00' : 'transparent'};
+    width: 2px;
+    height: 1em;
+    background-color: ${p => (p.active ? '#00ff00' : 'transparent')};
   }
 
   &:hover {
     color: #00ff00;
   }
   &:hover::before {
-    background-color: #00ff00aa;  /* show a light bar on hover */
+    background-color: #00ff00aa;
   }
+
+  /* Glow when active */
+  ${p =>
+    p.active &&
+    css`
+      animation: ${glow} 1.8s ease-out forwards;
+    `}
 `
+
 
 
 
