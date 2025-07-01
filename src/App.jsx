@@ -136,16 +136,39 @@ const MenuLinks = styled.div`
 `
 
 const MenuLink = styled.span`
+  position: relative;
+  display: block;           /* so padding affects the whole line */
   cursor: pointer;
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
   color: ${props => (props.active ? '#00ff00' : '#00ff00aa')};
-  text-decoration: ${props => (props.active ? 'underline' : 'none')};
+  text-decoration: none;
+
+  /* reserve space for the bar */
+  padding-left: 1rem;       /* gutter width: indicator width + margin */
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;                /* flush against the left gutter */
+    transform: translateY(-50%);
+    width: 2px;             /* thickness of your vertical line */
+    height: 1em;            /* same height as one line of text */
+    background-color: ${props =>
+      props.active ? '#00ff00' : 'transparent'};
+  }
+
   &:hover {
     color: #00ff00;
-    text-decoration: underline;
+  }
+  &:hover::before {
+    background-color: #00ff00aa;  /* show a light bar on hover */
   }
 `
+
+
+
 
 // ————————————————— SectionComponent —————————————————
 
