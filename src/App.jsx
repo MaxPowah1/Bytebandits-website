@@ -6,7 +6,6 @@ import { lines as homeLines }     from './pages/Home'
 import { lines as servicesLines } from './pages/Services'
 import { lines as aboutLines }    from './pages/About'
 import { lines as contactLines }  from './pages/Contact'
-import { lines as footerLines }   from './pages/Footer'
 
 import homeImg     from './assets/section-home.png'
 import servicesImg from './assets/section-services2.png'
@@ -125,13 +124,11 @@ const ImpressumLink = styled.span`
   text-decoration: underline;
 `
 
-// ———————————————— menu now just outside the terminal ————————————————
-
 const MenuLinks = styled.div`
   position: absolute;
   top: 1rem;
-  right: -6rem;            /* move outside the right border */
-  z-index: 3;              /* ensure it's above other layers */
+  right: -6rem;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -169,7 +166,7 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
           obs.disconnect()
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2, root: sectionRef.current?.parentElement }
     )
     if (sectionRef.current) obs.observe(sectionRef.current)
     return () => obs.disconnect()
@@ -193,7 +190,6 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
   return (
     <Section id={`${id}-section`} ref={sectionRef}>
       <Terminal>
-        {/* menu sits just outside the right border */}
         <MenuLinks>
           {labels.map(label => (
             <MenuLink
@@ -234,8 +230,9 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
 // ————————————————— App —————————————————
 
 export default function App() {
-  const [showImpressum, setShowImpressum] = useState(false)
-  const [currentSection, setCurrentSection] = useState('home')
+  const [showImpressum, setShowImpressum]     = useState(false)
+  const [currentSection, setCurrentSection]   = useState('home')
+  const scrollRef = useRef(null)
 
   const sections = [
     { id: 'home',     lines: homeLines,     img: homeImg },
@@ -245,23 +242,29 @@ export default function App() {
   ]
   const sectionIds = sections.map(s => s.id)
 
-  // scroll-spy to update the active link
+  // scroll-spy on the container, not window
   useEffect(() => {
-    const onScroll = () => {
+    const container = scrollRef.current
+    function onScroll() {
       for (let id of sectionIds) {
-        const rect = document.getElementById(`${id}-section`).getBoundingClientRect()
+        const rect = document
+          .getElementById(`${id}-section`)
+          .getBoundingClientRect()
+        // since container is fullscreen, viewport checks still work:
         if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
-          if (id !== currentSection) setCurrentSection(id)
+          setCurrentSection(id)
           break
         }
       }
     }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [currentSection, sectionIds])
+
+    container.addEventListener('scroll', onScroll, { passive: true })
+    return () => container.removeEventListener('scroll', onScroll)
+  }, [sectionIds])
 
   function scrollTo(id) {
-    document.getElementById(`${id}-section`).scrollIntoView({ behavior: 'smooth' })
+    document.getElementById(`${id}-section`)
+      .scrollIntoView({ behavior: 'smooth' })
   }
 
   function onCommand(cmd) {
@@ -269,11 +272,13 @@ export default function App() {
   }
 
   // start at top
-  useEffect(() => { window.scrollTo(0, 0) }, [])
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, 0)
+  }, [])
 
   return (
     <>
-      <ScrollContainer>
+      <ScrollContainer ref={scrollRef}>
         {sections.map(s => (
           <SectionComponent
             key={s.id}
