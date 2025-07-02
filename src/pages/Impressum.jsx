@@ -1,28 +1,7 @@
 // src/pages/Impressum.jsx
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import ImpressumImg from '../assets/section-Impressum.png'
-
-export const lines = [
-  '$ echo "Impressum"',
-  'ByteBandits GmbH',
-  'Musterstraße 1',
-  '12345 Berlin',
-  'Deutschland',
-  '',
-  'Geschäftsführer: Max Mustermann',
-  '',
-  'Kontakt:',
-  'Telefon: +49 (0)30 1234567',
-  'E-Mail: impressum@bytebandits.com',
-  '',
-  'Handelsregister:',
-  'Amtsgericht Berlin Charlottenburg',
-  'HRB 123456',
-  '',
-  'Umsatzsteuer-ID:',
-  'DE123456789',
-]
 
 const Overlay = styled.div`
   position: fixed;
@@ -42,7 +21,6 @@ const Modal = styled.div`
   border-radius: 0.5rem;
   box-shadow: 0 0 1.25rem rgba(0,255,0,0.6);
 
-  /* fluid width: never below 280px, ideal 25vw, max 600px */
   width: clamp(280px, 25vw, 600px);
   padding: clamp(1rem, 2vw, 2rem);
 
@@ -56,17 +34,17 @@ const Modal = styled.div`
 
 const Logo = styled.img`
   position: absolute;
-  top: 50%;                         /* halfway down the modal */
-  left: 0%;                         /* exactly on the left edge */
-  transform: translate(-55%, -50%); /* move its own center to that point */
-  z-index: 1001;                    /* above overlay & content */
-  width: clamp(6rem, 20vw, 16rem);  /* min 6rem, ideal 20vw, max 16rem */
+  top: 50%;
+  left: 0%;
+  transform: translate(-55%, -50%);
+  z-index: 1001;
+  width: clamp(6rem, 20vw, 16rem);
   height: auto;
   object-fit: contain;
 `
 
 const Content = styled.div`
-  margin-left: clamp(2.5rem, 10vw, 8rem); /* make room for half the logo */
+  margin-left: clamp(2.5rem, 10vw, 8rem);
   flex: 1;
   overflow-y: auto;
   max-height: 80vh;
@@ -82,6 +60,41 @@ const CloseButton = styled.span`
   &:hover { color: #ff0000; }
 `
 
+const RevealEmail = () => {
+  const [visible, setVisible] = useState(false)
+  const emailUser = 'max'
+  const emailDomain = 'byte-bandits.com'
+  const email = `${emailUser}@${emailDomain}`
+
+  return (
+    <div>
+      {!visible ? (
+        <button
+          onClick={() => setVisible(true)}
+          style={{
+            background: 'transparent',
+            color: '#00ff00',
+            border: '1px solid #00ff00',
+            padding: '0.3rem 0.6rem',
+            fontFamily: 'Courier New, monospace',
+            cursor: 'pointer',
+            marginTop: '0.5rem',
+          }}
+        >
+          Show email
+        </button>
+      ) : (
+        <a
+          href={`mailto:${email}`}
+          style={{ color: '#00ff00', textDecoration: 'none', display: 'inline-block', marginTop: '0.5rem' }}
+        >
+          {email}
+        </a>
+      )}
+    </div>
+  )
+}
+
 export default function Impressum({ onClose }) {
   return (
     <Overlay onClick={onClose}>
@@ -90,23 +103,21 @@ export default function Impressum({ onClose }) {
         <CloseButton onClick={onClose}>✕</CloseButton>
         <Content>
 {`
-ByteBandits GmbH
-Musterstraße 1
-12345 Berlin
-Deutschland
+Impressum
 
-Geschäftsführer: Max Mustermann
+Bytebandits OÜ
+Tartu mnt 67/1-13b, Kesklinna linnaosa
+Tallinn 10115, Eesti
 
-Kontakt:
-Telefon: +49 (0)30 1234567
-E-Mail: impressum@bytebandits.com
+Juhatuse liige: M. Scherb
 
-Handelsregister:
-Amtsgericht Berlin Charlottenburg
-HRB 123456
+Kontakt:`}
+          <RevealEmail />
+{`
+Registrikood: 17265228
+Registreeritud: Harju maakohus
 
-Umsatzsteuer-ID:
-DE123456789
+KMKR: juriidiline isik ei ole KMKR-kohustuslane
 `.trim()}
         </Content>
       </Modal>
