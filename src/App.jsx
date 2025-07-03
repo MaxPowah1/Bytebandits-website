@@ -1,11 +1,13 @@
 // src/App.jsx
+
 import React, { useState, useEffect, useRef } from 'react'
 import styled, { keyframes, css } from 'styled-components'
 
-import { lines as homeLines }     from './pages/Home'
-import { lines as servicesLines } from './pages/Services'
-import { lines as aboutLines }    from './pages/About'
-import { lines as contactLines }  from './pages/Contact'
+import { lines as homeLines }       from './pages/Home'
+import { lines as servicesLines }   from './pages/Services'
+import { lines as aboutLines }      from './pages/About'
+import { lines as contactLines }    from './pages/Contact'
+import { lines as homeLinesMobile } from './pages/HomeMobile'
 
 import homeImg     from './assets/section-home.png'
 import servicesImg from './assets/section-services2.png'
@@ -14,8 +16,31 @@ import contactImg  from './assets/section-contact3.png'
 
 import Impressum   from './pages/Impressum'
 
-// ————————————————— styled components —————————————————
+// breakpoint
+const MOBILE_BREAK = 768  // in px
 
+// — custom hook to detect mobile width —
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined'
+      ? window.innerWidth <= MOBILE_BREAK
+      : false
+  )
+
+  useEffect(() => {
+    function onResize() {
+      setIsMobile(window.innerWidth <= MOBILE_BREAK)
+    }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  return isMobile
+}
+
+// — styled components —
+
+// scroll‐snap container (always on)
 const ScrollContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -37,20 +62,23 @@ const Section = styled.section`
 `
 
 const distort = keyframes`
-  /* untouched */
+  /* unchanged glitch animation */
 `
 
 const Terminal = styled.div`
   position: relative;
   display: flex;
-  width: 80vw;    max-width: 800px;
-  height: 60vh;   max-height: 600px;
+  width: 80vw;
+  max-width: 800px;
+  height: 60vh;
+  max-height: 600px;
   background: #0d0d0d;
   border: 2px solid #00ff00;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0,255,0,0.6);
 
   &::before {
+    /* CRT scanlines */
     content: '';
     position: absolute; inset: 0;
     background: repeating-linear-gradient(
@@ -62,6 +90,16 @@ const Terminal = styled.div`
     );
     pointer-events: none;
     mix-blend-mode: overlay;
+  }
+
+  @media (max-width: ${MOBILE_BREAK}px) {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    flex-direction: column;
+    /* push content down so menu doesn’t cover it */
+    padding-top: 4rem;
   }
 `
 
@@ -84,6 +122,23 @@ const ImagePanel = styled.div`
   justify-content: center;
   align-items: center;
   img { width: 400px; height: auto; object-fit: contain; }
+
+  @media (max-width: ${MOBILE_BREAK}px) {
+    display: flex;
+    position: absolute;
+
+    /* push it right down into the corner */
+    bottom: -2rem;
+    left: -1rem;
+
+    margin: 0;
+    flex: 0 0 auto;
+
+    img {
+      width: 50vw;
+      height: auto;
+    }
+  }
 `
 
 const LinesContainer = styled.div`
@@ -94,6 +149,12 @@ const LinesContainer = styled.div`
   white-space: pre-wrap;
   overflow: hidden;
   text-shadow: 0 0 8px #00ff00;
+  font-size: clamp(1rem, 2.5vw, 1rem);
+
+  @media (max-width: ${MOBILE_BREAK}px) {
+    padding: 0.5rem;
+    font-size: clamp(0.6rem, 2.5vw, 1rem);
+  }
 `
 
 const InputLine = styled.div`
@@ -102,8 +163,7 @@ const InputLine = styled.div`
   color: #00ff00;
   font-family: 'Courier New', monospace;
 `
-
-const Prompt = styled.span`margin-right: 0.5rem;`
+const Prompt = styled.span` margin-right: 0.5rem; `
 const CommandInput = styled.input`
   flex: 1;
   background: none;
@@ -124,6 +184,12 @@ const ImpressumLink = styled.span`
   text-decoration: underline;
 `
 
+const glow = keyframes`
+  0%   { text-shadow: none; }
+  50%  { text-shadow: 0 0 12px #00ff00; }
+  100% { text-shadow: 0 0 8px #00ff00; }
+`
+
 const MenuLinks = styled.div`
   position: absolute;
   top: 1rem;
@@ -132,13 +198,18 @@ const MenuLinks = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  pointer-events: auto;
-`
 
-const glow = keyframes`
-  0%   { text-shadow: none; }
-  50%  { text-shadow: 0 0 12px #00ff00; }
-  100% { text-shadow: 0 0 8px #00ff00; }
+  @media (max-width: ${MOBILE_BREAK}px) {
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0.75rem 0;
+    background: rgba(0, 0, 0, 0.8);
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
 `
 
 const MenuLink = styled.span`
@@ -174,9 +245,12 @@ const MenuLink = styled.span`
     css`
       animation: ${glow} 1.8s ease-out forwards;
     `}
-`
 
-// ————————————————— SectionComponent —————————————————
+  @media (max-width: ${MOBILE_BREAK}px) {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+  }
+`
 
 function SectionComponent({ id, lines, img, onCommand, currentSection }) {
   const [count, setCount] = useState(0)
@@ -184,7 +258,6 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
   const [input, setInput] = useState('')
   const contentRef = useRef()
 
-  // Reset typing animation whenever this section becomes active
   useEffect(() => {
     if (currentSection === id) {
       setCount(0)
@@ -196,7 +269,6 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
     }
   }, [currentSection, id])
 
-  // Type one line every 200ms
   useEffect(() => {
     if (!started || count >= lines.length) return
     const t = setTimeout(() => setCount(c => c + 1), 50)
@@ -252,22 +324,24 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
   )
 }
 
-// ————————————————— App —————————————————
-
 export default function App() {
+  const isMobile = useIsMobile()
   const [showImpressum, setShowImpressum]   = useState(false)
   const [currentSection, setCurrentSection] = useState('home')
   const scrollRef = useRef(null)
 
   const sections = [
-    { id: 'home',     lines: homeLines,     img: homeImg },
+    {
+      id:   'home',
+      lines: isMobile ? homeLinesMobile : homeLines,
+      img:  homeImg
+    },
     { id: 'services', lines: servicesLines, img: servicesImg },
     { id: 'about',    lines: aboutLines,    img: aboutImg },
     { id: 'contact',  lines: contactLines,  img: contactImg },
   ]
   const sectionIds = sections.map(s => s.id)
 
-  // Scroll-spy to update currentSection
   useEffect(() => {
     const container = scrollRef.current
     function onScroll() {
@@ -286,15 +360,14 @@ export default function App() {
   }, [sectionIds])
 
   function scrollTo(id) {
-    document.getElementById(`${id}-section`)
+    document
+      .getElementById(`${id}-section`)
       .scrollIntoView({ behavior: 'smooth' })
   }
-
   function onCommand(cmd) {
     if (sectionIds.includes(cmd)) scrollTo(cmd)
   }
 
-  // start at top
   useEffect(() => {
     scrollRef.current?.scrollTo(0, 0)
   }, [])

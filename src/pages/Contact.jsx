@@ -8,7 +8,7 @@ export const lines = [
   'No contracts. No BS. Just code that works.',
   '',
   '📬 Email us at:',
-  '   max [at] byte [minus ]bandits [dot] com',
+  '   max [at] byte [minus] bandits [dot] com',
   '',
   '💡 Tip: We speak human. Not just code.',
 ]
