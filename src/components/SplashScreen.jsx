@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import SplashVideo from '../assets/Splash.mp4'
 
-// filter out our transient prop
 const Container = styled.div.withConfig({
   shouldForwardProp: prop => prop !== '$fade'
 })`
@@ -15,13 +14,10 @@ const Container = styled.div.withConfig({
   align-items: center;
   justify-content: center;
   overflow: hidden;
-
-  /* fade transition */
   opacity: ${({ $fade }) => ($fade ? 0 : 1)};
   transition: opacity 1s ease;
 `
 
-// wrap the video so we can add a soft inset shadow
 const VideoWrapper = styled.div`
   position: absolute;
   top: 50%;
@@ -35,7 +31,7 @@ const VideoWrapper = styled.div`
     content: '';
     position: absolute;
     inset: 0;
-    box-shadow: inset 0 0 120px 80px black;
+    box-shadow: inset 0 0 120px 60px black;
     pointer-events: none;
     z-index: 2;
   }
@@ -60,6 +56,12 @@ const UIOverlay = styled.div`
   font-family: 'Courier New', monospace;
   color: #00ff00;
   pointer-events: none;
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+  }
 `
 
 const StatusLine = styled.div`
@@ -84,18 +86,11 @@ const ProgressBar = styled.div`
   transition: width 0.1s linear;
 `
 
-const SkipPrompt = styled.div`
-  align-self: center;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  opacity: ${({ show }) => (show ? 1 : 0)};
-  transition: opacity 0.3s ease;
-  pointer-events: auto;
-`
-
 export default function SplashScreen({ onFinish }) {
   const videoRef = useRef()
   const [fade, setFade] = useState(false)
+  const [currentLine, setCurrentLine] = useState(0)
+  const [progress, setProgress] = useState(0)
 
   const statusLines = [
     'Initializing modules…',
@@ -103,40 +98,30 @@ export default function SplashScreen({ onFinish }) {
     'Loading assets…',
     'Finalizing…'
   ]
-  const [currentLine, setCurrentLine] = useState(0)
-  const [progress, setProgress] = useState(0)
-  const [showSkip, setShowSkip] = useState(false)
 
   useEffect(() => {
     const video = videoRef.current
     let rafId
-    let skipTimer
 
-    // start playback
     video.play().catch(() => {})
 
-    // Called on each animation frame (~60fps) while playing
     function update() {
       const pct = (video.currentTime / video.duration) * 100
       setProgress(pct)
 
-      // advance status lines in equal intervals
       setCurrentLine(c => {
         const step = 100 / statusLines.length
         const next = Math.floor(pct / step)
         return next > c && next < statusLines.length ? next : c
       })
 
-      // queue next frame if still playing
       if (!video.ended) rafId = requestAnimationFrame(update)
     }
 
-    // when video actually starts
     function onPlay() {
       rafId = requestAnimationFrame(update)
     }
 
-    // fade out at end
     function onEnded() {
       setFade(true)
     }
@@ -144,30 +129,12 @@ export default function SplashScreen({ onFinish }) {
     video.addEventListener('play', onPlay)
     video.addEventListener('ended', onEnded)
 
-    // show skip prompt after 3s
-    skipTimer = setTimeout(() => setShowSkip(true), 3000)
-
     return () => {
       video.removeEventListener('play', onPlay)
       video.removeEventListener('ended', onEnded)
       cancelAnimationFrame(rafId)
-      clearTimeout(skipTimer)
     }
   }, [])
-
-  // allow skipping early
-  useEffect(() => {
-    if (!showSkip || fade) return
-    function skip() {
-      setFade(true)
-    }
-    window.addEventListener('keydown', skip)
-    window.addEventListener('click', skip)
-    return () => {
-      window.removeEventListener('keydown', skip)
-      window.removeEventListener('click', skip)
-    }
-  }, [showSkip, fade])
 
   function handleTransitionEnd(e) {
     if (e.propertyName === 'opacity' && fade) {
@@ -178,12 +145,7 @@ export default function SplashScreen({ onFinish }) {
   return (
     <Container $fade={fade} onTransitionEnd={handleTransitionEnd}>
       <VideoWrapper>
-        <Video
-          ref={videoRef}
-          src={SplashVideo}
-          muted
-          playsInline
-        />
+        <Video ref={videoRef} src={SplashVideo} muted playsInline />
       </VideoWrapper>
 
       <UIOverlay>
@@ -193,9 +155,6 @@ export default function SplashScreen({ onFinish }) {
         <ProgressContainer>
           <ProgressBar pct={progress} />
         </ProgressContainer>
-        <SkipPrompt show={showSkip}>
-          Press any key or click to skip…
-        </SkipPrompt>
       </UIOverlay>
     </Container>
   )
