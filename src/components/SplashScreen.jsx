@@ -19,43 +19,43 @@ const Container = styled.div.withConfig({
   /* fade transition */
   opacity: ${({ $fade }) => ($fade ? 0 : 1)};
   transition: opacity 1s ease;
+`
+
+// wrap the video so we can add a soft inset shadow
+const VideoWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* maintain portrait aspect and natural sizing */
+  width: auto;
+  height: 100%;
+  overflow: visible;
 
   &::before {
     content: '';
     position: absolute;
     inset: 0;
+    /* soft black glow from edges inward */
+    box-shadow: inset 0 0 120px 90px black;
     pointer-events: none;
-
-    /* blur what's behind (the video) */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-
-    /* only show that blur near the edges */
-    mask-image: radial-gradient(
-      circle at center,
-      transparent 80%,
-      black 100%
-    );
-    mask-mode: alpha;
+    z-index: 2;
   }
 `
 
 const Video = styled.video`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  position: relative;
   z-index: 1;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
 `
 
-// -- New overlay UI elements --
-
+// Overlay UI elements (status, progress, skip prompt)
 const UIOverlay = styled.div`
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -100,7 +100,6 @@ export default function SplashScreen({ onFinish }) {
   const videoRef = useRef()
   const [fade, setFade] = useState(false)
 
-  // UI overlay state
   const statusLines = [
     'Initializing modules…',
     'Decrypting payload…',
@@ -113,20 +112,15 @@ export default function SplashScreen({ onFinish }) {
 
   useEffect(() => {
     const video = videoRef.current
-
-    video.play().catch(() => {
-      /* autoplay blocked */
-    })
+    video.play().catch(() => {})
 
     function onTimeUpdate() {
       const pct = (video.currentTime / video.duration) * 100
       setProgress(pct)
-
       const next = Math.floor((pct / 100) * statusLines.length)
       if (next > currentLine && next < statusLines.length) {
         setCurrentLine(next)
       }
-
       if (video.currentTime > 3 && !showSkip) {
         setShowSkip(true)
       }
@@ -138,19 +132,16 @@ export default function SplashScreen({ onFinish }) {
 
     video.addEventListener('timeupdate', onTimeUpdate)
     video.addEventListener('ended', onEnded)
-
     return () => {
       video.removeEventListener('timeupdate', onTimeUpdate)
       video.removeEventListener('ended', onEnded)
     }
   }, [currentLine, showSkip])
 
-  // allow skipping early
   useEffect(() => {
     function skip() {
       setFade(true)
     }
-
     if (showSkip && !fade) {
       window.addEventListener('keydown', skip)
       window.addEventListener('click', skip)
@@ -169,22 +160,22 @@ export default function SplashScreen({ onFinish }) {
 
   return (
     <Container $fade={fade} onTransitionEnd={handleTransitionEnd}>
-      <Video
-        ref={videoRef}
-        src={SplashVideo}
-        muted
-        playsInline
-      />
+      <VideoWrapper>
+        <Video
+          ref={videoRef}
+          src={SplashVideo}
+          muted
+          playsInline
+        />
+      </VideoWrapper>
 
       <UIOverlay>
         <StatusLine>
           {statusLines.slice(0, currentLine + 1).join('\n')}
         </StatusLine>
-
         <ProgressContainer>
           <ProgressBar pct={progress} />
         </ProgressContainer>
-
         <SkipPrompt show={showSkip}>
           Press any key or click to skip…
         </SkipPrompt>
