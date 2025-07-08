@@ -1,7 +1,7 @@
 // src/App.jsx
-
 import React, { useState, useEffect, useRef } from 'react'
 import styled, { keyframes, css } from 'styled-components'
+import SplashScreen from './components/SplashScreen'
 
 import { lines as homeLines }       from './pages/Home'
 import { lines as servicesLines }   from './pages/Services'
@@ -17,7 +17,7 @@ import contactImg  from './assets/section-contact3.png'
 import Impressum   from './pages/Impressum'
 
 // breakpoint
-const MOBILE_BREAK = 768  // in px
+const MOBILE_BREAK = 768
 
 // — custom hook to detect mobile width —
 function useIsMobile() {
@@ -28,9 +28,7 @@ function useIsMobile() {
   )
 
   useEffect(() => {
-    function onResize() {
-      setIsMobile(window.innerWidth <= MOBILE_BREAK)
-    }
+    const onResize = () => setIsMobile(window.innerWidth <= MOBILE_BREAK)
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])
@@ -325,26 +323,35 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
 }
 
 export default function App() {
-  const isMobile = useIsMobile()
+  // 1) ALL hooks up-front in stable order
+  const isMobile           = useIsMobile()
   const [showImpressum, setShowImpressum]   = useState(false)
   const [currentSection, setCurrentSection] = useState('home')
-  const scrollRef = useRef(null)
+  const [showSplash, setShowSplash]         = useState(true)
+  const scrollRef         = useRef(null)
 
-  const sections = [
-    {
-      id:   'home',
-      lines: isMobile ? homeLinesMobile : homeLines,
-      img:  homeImg
-    },
-    { id: 'services', lines: servicesLines, img: servicesImg },
-    { id: 'about',    lines: aboutLines,    img: aboutImg },
-    { id: 'contact',  lines: contactLines,  img: contactImg },
+  // 2) Define your sections and helpers once
+  const sectionMap = [
+    { id: 'home',     lines: isMobile ? homeLinesMobile : homeLines, img: homeImg },
+    { id: 'services', lines: servicesLines,                         img: servicesImg },
+    { id: 'about',    lines: aboutLines,                            img: aboutImg },
+    { id: 'contact',  lines: contactLines,                          img: contactImg },
   ]
-  const sectionIds = sections.map(s => s.id)
+  const sectionIds = sectionMap.map(s => s.id)
 
+  const scrollTo = id => {
+    document
+      .getElementById(`${id}-section`)
+      .scrollIntoView({ behavior: 'smooth' })
+  }
+  const onCommand = cmd => {
+    if (sectionIds.includes(cmd)) scrollTo(cmd)
+  }
+
+  // 3) Scroll‐spy effect
   useEffect(() => {
     const container = scrollRef.current
-    function onScroll() {
+    const onScroll = () => {
       for (let id of sectionIds) {
         const rect = document
           .getElementById(`${id}-section`)
@@ -359,23 +366,23 @@ export default function App() {
     return () => container.removeEventListener('scroll', onScroll)
   }, [sectionIds])
 
-  function scrollTo(id) {
-    document
-      .getElementById(`${id}-section`)
-      .scrollIntoView({ behavior: 'smooth' })
-  }
-  function onCommand(cmd) {
-    if (sectionIds.includes(cmd)) scrollTo(cmd)
-  }
-
+  // 4) Reset to top on mount
   useEffect(() => {
     scrollRef.current?.scrollTo(0, 0)
   }, [])
 
+  // 5) Splash finish handler
+  const handleSplashFinish = () => {
+    setShowSplash(false)
+    // Ensure we start at top of main app
+    setTimeout(() => scrollRef.current?.scrollTo(0, 0), 0)
+  }
+
   return (
     <>
+      {/* Main site always mounted under the splash */}
       <ScrollContainer ref={scrollRef}>
-        {sections.map(s => (
+        {sectionMap.map(s => (
           <SectionComponent
             key={s.id}
             {...s}
@@ -389,6 +396,9 @@ export default function App() {
         Impressum
       </ImpressumLink>
       {showImpressum && <Impressum onClose={() => setShowImpressum(false)} />}
+
+      {/* Splash overlay */}
+      {showSplash && <SplashScreen onFinish={handleSplashFinish} />}
     </>
   )
 }
