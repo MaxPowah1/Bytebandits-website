@@ -92,12 +92,13 @@ export default function SplashScreen({ onFinish }) {
   const [currentLine, setCurrentLine] = useState(0)
   const [progress, setProgress] = useState(0)
 
-  const statusLines = [
-    'Initializing modules…',
-    'Decrypting payload…',
-    'Loading assets…',
-    'Finalizing…'
-  ]
+    const statusLines = [
+      'Injecting shellcode…',
+      'Bypassing ICE…',
+      'Decrypting the Mainframe…',
+      'Uploading payload…'
+    ]
+
 
   useEffect(() => {
     const video = videoRef.current
