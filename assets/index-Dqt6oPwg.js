@@ -169,13 +169,13 @@ Bytebandits OÜ
 Tartu mnt 67/1-13b, Kesklinna linnaosa
 Tallinn 10115, Eesti
 
-Juhatuse liige: M. Scherb
+Management Board: M. Scherb
 
 Kontakt:`,ct.jsx(im,{}),`
-Registrikood: 17265228
-Registreeritud: Harju maakohus
+Registration code: 17265228
+Registered with Harju County Court
 
-KMKR: juriidiline isik ei ole KMKR-kohustuslane
+VAT ID (KMKR): The legal entity is not liable for VAT registration.
 `.trim()]})]})})}const Pe=768;function fm(){const[i,s]=Ot.useState(typeof window<"u"?window.innerWidth<=Pe:!1);return Ot.useEffect(()=>{const o=()=>s(window.innerWidth<=Pe);return window.addEventListener("resize",o),()=>window.removeEventListener("resize",o)},[]),i}const sm=At.div`
   width: 100vw;
   height: 100vh;
