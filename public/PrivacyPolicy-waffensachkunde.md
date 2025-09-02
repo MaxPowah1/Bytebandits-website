@@ -7,9 +7,10 @@ Willkommen bei „Waffensachkunde²“. Der Schutz Ihrer persönlichen Daten ist
 
 ## 2. Verantwortliche Stelle
 Verantwortlich für die Datenverarbeitung ist
-[Ihr Name oder Firmenname]
-[Adresse]
-[E-Mail-Adresse]
+Bytebandits OÜ
+Tartu mnt 67/1-13b
+Tallinn 10115, Eesti
+max@byte-bandits.com
 
 ---
 
@@ -103,9 +104,10 @@ Welcome to “Waffensachkunde²”. Protecting your personal data is important t
 
 ## 2. Data Controller
 The entity responsible for data processing is:
-[Your Name or Company Name]
-[Address]
-[E-mail Address]
+Bytebandits OÜ
+Tartu mnt 67/1-13b
+Tallinn 10115, Eesti
+max@byte-bandits.com
 
 ## 3. Collection and Use of Personal Data
 
