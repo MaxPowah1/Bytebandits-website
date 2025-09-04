@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imposter – Rechtstexte (DE/EN)</title>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    /* ===== App Theme (aus deinem Flutter-Theme) ===== */
+    :root{
+      --bgLight: #F7F6F9;      /* AppColors.bgLight */
+      --ink:     #0F1115;      /* AppColors.ink */
+      --accent:  #FF5A7A;      /* AppColors.accent */
+
+      /* Pastell-Verlauf wie im Screenshot: Lavendel → Rosa → Pfirsich */
+      --grad-a: #CFCDF7;   /* soft lavender */
+      --grad-b: #F6B3CF;   /* rosy pink */
+      --grad-c: #FFD3A3;   /* peach */
+      --card: rgba(255,255,255,.65);
+      --card-border: rgba(255,255,255,.55);
+      --shadow: 0 10px 30px rgba(15,17,21,.08), 0 2px 10px rgba(15,17,21,.05);
+      --muted: rgba(15,17,21,.65);
+      --link: var(--ink);
+      --border-soft: rgba(15,17,21,.06);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --ink: #EAEAF0;
+        --card: rgba(17,18,22,.55);
+        --card-border: rgba(255,255,255,.12);
+        --shadow: 0 10px 28px rgba(0,0,0,.35), 0 2px 10px rgba(0,0,0,.25);
+        --muted: rgba(234,234,240,.75);
+        --link: #ffffff;
+        --border-soft: rgba(234,234,240,.08);
+
+        /* dunkler Verlauf – gleiche Töne, satter */
+        --grad-a: #9E99F2;
+        --grad-b: #E285B1;
+        --grad-c: #FFBC7A;
+      }
+    }
+
+    /* ===== Base ===== */
+    html,body{height:100%}
+    html,body{margin:0; padding:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; line-height:1.6; color:var(--ink);}
+    body{
+      /* Hintergrund: kombinierter Verlauf + sanfte Körnung */
+      background:
+        radial-gradient(1200px 800px at 20% 15%, rgba(255,255,255,.35), transparent 60%),
+        linear-gradient(135deg, var(--grad-a) 0%, var(--grad-b) 45%, var(--grad-c) 100%);
+      min-height:100%;
+    }
+
+    .wrap{max-width: 980px; margin: 0 auto; padding: clamp(16px,2.5vw,32px);}
+    header{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; padding: 8px 0 18px;}
+    .brand{
+      font-weight:800; letter-spacing:.2px; font-size:clamp(18px,2.2vw,22px);
+      color: var(--ink);
+      background: rgba(255,255,255,.5);
+      border: 1px solid var(--card-border);
+      padding: 8px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+    nav{display:flex; flex-wrap:wrap; gap:8px;}
+    nav a{
+      color:var(--link); text-decoration:none; font-weight:600; font-size:.95rem;
+      padding:8px 12px; border-radius:12px;
+      background: rgba(255,255,255,.55);
+      border:1px solid var(--card-border);
+      backdrop-filter: blur(6px);
+    }
+    nav a:hover{outline:2px solid rgba(255,255,255,.7)}
+
+    .lang-switch{display:flex; gap:8px; align-items:center;}
+    .btn{
+      appearance:none; border:1px solid var(--card-border);
+      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
+      color:var(--ink);
+      padding:8px 14px; border-radius:999px; cursor:pointer; font-weight:700;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    .btn.active{
+      background: linear-gradient(180deg, var(--accent), color-mix(in oklab, var(--accent), white 25%));
+      color:#fff; border-color: color-mix(in oklab, var(--accent), #000 10%);
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--card-border);
+      border-radius: 24px;
+      padding: clamp(18px, 2.4vw, 26px);
+      margin: 16px 0;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px) saturate(140%);
+    }
+    .card h2{margin: 0 0 8px 0}
+    .muted{color:var(--muted); font-size:.95rem}
+
+    footer{margin:28px 0 12px; padding:16px 0; color:var(--muted); font-size:.95rem}
+    footer a{color:inherit}
+
+    /* language visibility */
+    .lang[hidden]{display:none !important;}
+
+    /* fine borders for sections inside articles */
+    article > h3{margin-top:1.2em}
+    article hr{
+      border:0; height:1px; background:var(--border-soft);
+      margin: 16px 0;
+    }
+
+    @media print{
+      header, .lang-switch, nav, footer { display:none !important; }
+      .card{break-inside: avoid;}
+      body{background:#fff}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">Imposter – Rechtliches</div>
+      <div class="lang-switch" role="group" aria-label="Sprachauswahl">
+        <button type="button" data-lang="de" class="btn active" aria-pressed="true">Deutsch</button>
+        <button type="button" data-lang="en" class="btn" aria-pressed="false">English</button>
+      </div>
+    </header>
+
+    <nav class="toc" aria-label="Inhaltsverzeichnis">
+      <a href="#privacy">Datenschutz / Privacy</a>
+      <a href="#terms">Nutzungsbedingungen / Terms</a>
+      <a href="#cookies">Cookie-Hinweis / Cookie Notice</a>
+    </nav>
+
+    <!-- Datenschutzerklärung -->
+    <section id="privacy" class="card" aria-labelledby="privacy-title">
+      <h2 id="privacy-title">Datenschutzerklärung / Privacy Policy</h2>
+
+      <!-- Deutsch -->
+      <article class="lang lang-de" lang="de" aria-label="Datenschutzerklärung Deutsch">
+        <p class="muted">
+          <strong>Version (DE)</strong> · <span>Stand: September 2025</span>
+        </p>
+        Verantwortliche Stelle und Kontakt
+
+Anbieter der App Imposter und datenschutzrechtlich Verantwortlicher ist Bytebandits OÜ, Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn 10115, Estland (nachfolgend "Bytebandits" oder "wir"). Bei Fragen zum Datenschutz können Sie uns unter der E-Mail-Adresse max@byte-bandits.com kontaktieren.
+
+Verarbeitung personenbezogener Daten
+
+Diese App verarbeitet keine personenbezogenen Daten der Nutzer. Es werden keine Nutzerkonten benötigt, und die App kann genutzt werden, ohne persönliche Informationen anzugeben. Während der Nutzung werden keinerlei persönliche Daten an uns oder Dritte übermittelt. Insbesondere verwenden wir keine Analysetools (wie z.B. Google Analytics), keine Tracking-Dienste oder Werbenetzwerke, und es werden keine In-App-Käufe oder sonstige Funktionen angeboten, die personenbezogene Daten erfordern würden. Alle Funktionen der App stehen ohne Registrierung und ohne Eingabe von personenbezogenen Daten zur Verfügung.
+
+Offline-Nutzung und lokale Daten
+
+Imposter ist als datensparsame Anwendung konzipiert. Die App kann vollständig offline genutzt werden. Sämtliche Spieldaten (z.B. gespeicherte Fortschritte oder Einstellungen) verbleiben auf Ihrem Gerät und werden nicht an Bytebandits oder andere Parteien übertragen. Wenn Sie die Web-Version der App nutzen, werden nur technisch notwendige Informationen (z.B. die IP-Adresse) kurzfristig verarbeitet, um die Auslieferung der App zu ermöglichen; diese Daten werden jedoch nicht dauerhaft gespeichert oder zur Identifizierung genutzt.
+
+Weitergabe von Daten an Dritte
+
+Da wir keine personenbezogenen Daten verarbeiten, findet auch keine Weitergabe von personenbezogenen Daten an Dritte statt. Es werden keine externen Dienstleister mit der Verarbeitung von Nutzerdaten beauftragt. Wir binden keine Dienste von Drittanbietern in die App ein, die Daten über Sie erheben könnten.
+
+Rechte der betroffenen Personen
+
+Auch wenn wir keine personenbezogenen Daten verarbeiten, weisen wir Sie auf Ihre Rechte hin. Sie haben nach der EU-Datenschutz-Grundverordnung (DSGVO) grundsätzlich folgende Rechte:
+
+Auskunft (Art. 15 DSGVO): Recht auf Auskunft über die ggf. zu Ihrer Person gespeicherten Daten.
+
+Berichtigung (Art. 16 DSGVO): Recht, unrichtige Daten berichtigen zu lassen.
+
+Löschung (Art. 17 DSGVO): Recht auf Löschung Ihrer personenbezogenen Daten, sofern wir welche gespeichert hätten.
+
+Einschränkung der Verarbeitung (Art. 18 DSGVO): Recht, die Verarbeitung Ihrer Daten unter bestimmten Voraussetzungen einschränken zu lassen.
+
+Widerspruch (Art. 21 DSGVO): Recht, der Datenverarbeitung zu widersprechen.
+
+Datenübertragbarkeit (Art. 20 DSGVO): Recht, Daten, die Sie uns gegeben haben, in einem gängigen Format zu erhalten.
+
+Da in Imposter keine personenbezogenen Daten erhoben werden, können diese Rechte im Kontext dieser App mangels vorhandener Daten faktisch nicht ausgeübt werden. Sollten Sie dennoch Fragen zum Datenschutz haben oder der Ansicht sein, dass die App Ihre Privatsphäre verletzt, können Sie sich jederzeit an uns wenden (Kontakt siehe oben). Außerdem haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren.
+
+Änderungen dieser Datenschutzerklärung
+
+Da wir keinerlei personenbezogene Daten verarbeiten, werden sich diese Datenschutzhinweise voraussichtlich nur selten ändern. Falls die App in Zukunft Funktionen einführt, die eine Verarbeitung personenbezogener Daten erforderlich machen, werden wir diese Datenschutzerklärung entsprechend anpassen. Das Aktualisierungsdatum finden Sie unten.
+      </article>
+
+      <!-- English -->
+      <article class="lang lang-en" lang="en" aria-label="Privacy Policy English" hidden>
+        <p class="muted">
+          <strong>Version (EN)</strong> · <span>Last updated: September 2025</span>
+        </p>
+        The provider of the Imposter app and the entity responsible for data protection (the "controller") is Bytebandits OÜ, Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn 10115, Estonia (hereinafter "Bytebandits" or "we"). If you have any questions about privacy, you can contact us at max@byte-bandits.com.
+
+Personal Data Processing
+
+This app does not process any personal data of its users. We do not require you to create an account or provide any personal information to use Imposter. No personal data is transmitted to us or to any third party during the use of the app. In particular, we do not use any analytics tools (such as Google Analytics), no tracking services or advertising networks, and the app contains no in-app purchases that would involve personal data. All features of the app are available without registration and without submitting any personal details.
+
+Offline Use and Local Data
+
+Imposter is designed with data minimization in mind. The app can be used entirely offline. All game data (for example, saved progress or settings) remain on your device and are not transmitted to Bytebandits or any other party. If you use the web version of the app, only technically necessary information (e.g. your IP address) is processed briefly to deliver the app to your device; this data is not stored permanently nor used to identify you.
+
+Disclosure to Third Parties
+
+Since we do not process any personal data, no personal data is shared with third parties. We do not employ any external service providers to process user data, and we do not integrate any third-party services into the app that could collect data about you.
+
+User Rights
+
+Even though we do not process personal data in Imposter, we would like to inform you of your rights under the EU General Data Protection Regulation (GDPR). In principle, you have the following rights regarding your personal data:
+
+Right of access (Art. 15 GDPR) – to request information about any personal data we might hold about you.
+
+Right to rectification (Art. 16 GDPR) – to have inaccurate data corrected.
+
+Right to erasure (Art. 17 GDPR) – to request deletion of your personal data, if we had any.
+
+Right to restriction of processing (Art. 18 GDPR) – to restrict processing of your data under certain conditions.
+
+Right to object (Art. 21 GDPR) – to object to data processing.
+
+Right to data portability (Art. 20 GDPR) – to receive any data you provided to us in a commonly used format.
+
+However, since Imposter does not collect or store any personal data, these rights will generally not need to be exercised in the context of this app (as there is no data on file). If you nonetheless have privacy-related questions or believe the app infringes on your privacy, you can contact us at any time (see contact information above). You also have the right to lodge a complaint with a data protection supervisory authority.
+
+Changes to this Privacy Policy
+
+Because we do not process any personal data, we anticipate changes to this privacy policy will be rare. If in the future the app introduces features that involve processing personal data, we will update this privacy policy accordingly. The effective date of this policy is listed below.
+      </article>
+    </section>
+
+    <!-- Nutzungsbedingungen -->
+    <section id="terms" class="card" aria-labelledby="terms-title">
+      <h2 id="terms-title">Nutzungsbedingungen / Terms of Use</h2>
+
+      <!-- Deutsch -->
+      <article class="lang lang-de" lang="de" aria-label="Nutzungsbedingungen Deutsch">
+        Geltungsbereich und Anbieter
+Diese Nutzungsbedingungen gelten für die Nutzung der App Imposter (nachfolgend "App"). Anbieter der App ist Bytebandits OÜ mit Sitz in Tallinn, Estland (Anschrift: Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estland). Durch das Herunterladen bzw. die Nutzung der App erklären Sie sich mit diesen Nutzungsbedingungen einverstanden.
+
+Nutzung der App
+Die Nutzung der App ist kostenlos und erfordert keine Registrierung. Sie dürfen die App ausschließlich für persönliche, nicht-kommerzielle Zwecke verwenden. Sie sind verpflichtet, alle anwendbaren Gesetze einzuhalten und jede missbräuchliche Nutzung der App zu unterlassen. Insbesondere dürfen Sie die App nicht in einer Weise verwenden, die die Rechte Dritter verletzt oder die App, ihre Funktionen oder die zugrunde liegenden Systeme beeinträchtigt.
+
+Rechte an der App
+Die App sowie alle darin enthaltenen Inhalte, Texte, Grafiken, Logos und Bilder sind geistiges Eigentum von Bytebandits oder lizenziert an Bytebandits. Wir räumen Ihnen als Nutzer ein einfaches, nicht übertragbares Recht ein, die App in unveränderter Form zu nutzen. Sie dürfen die App oder Inhalte der App nicht vervielfältigen, veröffentlichen, bearbeiten oder anderweitig verwerten, soweit nicht nach zwingendem Recht erlaubt oder in diesen Nutzungsbedingungen ausdrücklich gestattet.
+
+Gewährleistung und Haftung
+Wir stellen die App "wie besehen" und nach Verfügbarkeit bereit. Wir übernehmen keine Gewähr dafür, dass die App jederzeit fehlerfrei oder ohne Unterbrechung funktioniert. Eine Haftung von Bytebandits für Schäden ist ausgeschlossen, soweit nicht gesetzlich zwingend gehaftet wird. Wir haften unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit. Bei leichter Fahrlässigkeit haften wir nur bei Verletzung einer wesentlichen Vertragspflicht (Kardinalpflicht), jedoch der Höhe nach beschränkt auf den bei Vertragsschluss vorhersehbaren, vertragstypischen Schaden. Eine wesentliche Vertragspflicht ist eine Pflicht, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung der Nutzer regelmäßig vertrauen darf. Die vorstehende Haftungsbeschränkung gilt ebenso zugunsten unserer gesetzlichen Vertreter und Erfüllungsgehilfen.
+
+Änderungen und Beendigung
+Bytebandits behält sich das Recht vor, diese Nutzungsbedingungen bei Bedarf zu ändern, beispielsweise um rechtliche Änderungen oder Funktionsänderungen der App abzubilden. Über wesentliche Änderungen der Bedingungen werden wir Sie in geeigneter Weise informieren. Wenn Sie mit den geänderten Bedingungen nicht einverstanden sind, müssen Sie die Nutzung der App einstellen. Wir können zudem die Bereitstellung der App jederzeit ohne Angabe von Gründen einstellen; in einem solchen Fall enden Ihre Rechte zur Nutzung der App automatisch.
+
+Anwendbares Recht
+Es gilt das Recht der Republik Estland. Wenn Sie Verbraucher mit Wohnsitz in der Europäischen Union sind, gelten zusätzlich die zwingenden Verbraucherschutzbestimmungen Ihres Aufenthaltslandes, soweit diese für Sie günstiger sind. Die Anwendung des UN-Kaufrechts wird ausgeschlossen.
+
+Salvatorische Klausel
+Sollte eine Bestimmung dieser Nutzungsbedingungen unwirksam oder undurchsetzbar sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. Anstelle der unwirksamen Bestimmung gilt diejenige wirksame Bestimmung als vereinbart, die dem wirtschaftlichen Zweck der unwirksamen Bestimmung am nächsten kommt. Gleiches gilt für etwaige Regelungslücken.
+      </article>
+
+      <!-- English -->
+      <article class="lang lang-en" lang="en" aria-label="Terms of Use English" hidden>
+        Scope and Provider
+These Terms of Use govern the use of the Imposter application (the "App"). The provider of the App is Bytebandits OÜ, located in Tallinn, Estonia (address: Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estonia). By downloading or using the App, you agree to these Terms of Use.
+
+Use of the App
+The App is provided to you free of charge and no registration is required. You may use the App solely for personal, non-commercial purposes. You must comply with all applicable laws and refrain from any abusive or improper use of the App. In particular, you shall not use the App in any way that violates the rights of others or that could impair the App, its functionalities, or the underlying systems.
+
+Rights to the App
+The App and all content included therein, such as text, graphics, logos, and images, are the intellectual property of Bytebandits or are licensed to Bytebandits. We grant you as a user a non-exclusive, non-transferable license to use the App in its unmodified form. You may not reproduce, publish, edit, or otherwise exploit the App or its content except as permitted by mandatory law or expressly allowed by these Terms of Use.
+
+Warranty and Liability
+We provide the App on an "as is" and "as available" basis. We do not warrant that the App will be error-free or available at all times without interruption. To the extent permitted by law, Bytebandits disclaims all liability for damages arising out of or in connection with the use of the App. We are liable without limit in cases of intent or gross negligence and for damages resulting in injury to life, body, or health. In cases of slight (ordinary) negligence, we are only liable for breach of an essential contractual obligation (a duty whose fulfillment is essential to the proper execution of the contract and on which the user routinely relies); in such cases, our liability is limited to the foreseeable, typical damages at the time of agreeing to these terms. The above limitations of liability shall likewise apply in favor of our legal representatives and vicarious agents.
+
+Changes and Termination
+Bytebandits reserves the right to modify these Terms of Use as necessary to reflect legal or functional changes to the App. We will inform you in an appropriate manner about any material changes to the Terms. If you do not agree with the updated Terms, you must stop using the App. We also reserve the right to discontinue the App at any time without notice or explanation; in such an event, your right to use the App will terminate automatically.
+
+Governing Law
+These Terms of Use are governed by the laws of the Republic of Estonia. If you are a consumer residing in the European Union, you also enjoy the protection of any mandatory provisions of the law of your country of residence that are more favorable to you. The application of the United Nations Convention on Contracts for the International Sale of Goods (CISG) is excluded.
+
+Severability
+If any provision of these Terms of Use is held to be invalid or unenforceable, the remaining provisions shall remain in full force and effect. In place of the invalid provision, a valid provision shall be deemed to be agreed which comes closest to the economic intent of the invalid provision. The same applies in the event of any omissions in these Terms.
+      </article>
+    </section>
+
+    <!-- Cookie-Hinweis -->
+    <section id="cookies" class="card" aria-labelledby="cookies-title">
+      <h2 id="cookies-title">Cookie-Hinweis / Cookie Notice</h2>
+
+      <!-- Deutsch -->
+      <article class="lang lang-de" lang="de" aria-label="Cookie-Hinweis Deutsch">
+        Diese App setzt keine Cookies ein, die einer Einwilligung der Nutzer bedürfen. Sofern überhaupt Cookies verwendet werden, handelt es sich ausschließlich um technisch notwendige Cookies, für die gemäß § 25 Abs. 2 TTDSG kein Cookie-Banner oder ausdrücklicher Hinweis erforderlich ist. Insbesondere kommen keine Analyse-Cookies oder Werbe-Cookies zum Einsatz.
+      </article>
+
+      <!-- English -->
+      <article class="lang lang-en" lang="en" aria-label="Cookie Notice English" hidden>
+        This app does not use any cookies that require user consent. If any cookies are used at all, they are strictly technical and necessary for the operation of the app/website, which under applicable law (e.g. EU ePrivacy rules) do not require a cookie banner or explicit consent. In particular, no analytics or advertising cookies are employed.
+      </article>
+    </section>
+
+    <footer>
+      <div class="muted">
+        Betreiber: Bytebandits OÜ, Tallinn, Estonia •
+		Tartu mnt 67/1-13b, Kesklinna linnaosa\nTallinn 10115, Eesti
+		
+        Kontakt: max [at] byte-bandits.com •
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      const KEY = 'preferredLang';
+      const $buttons = document.querySelectorAll('[data-lang]');
+      const $langs = document.querySelectorAll('.lang');
+
+      function setLang(lang){
+        const isEN = lang === 'en';
+        document.documentElement.lang = isEN ? 'en' : 'de';
+        $langs.forEach(el => el.hidden = !el.classList.contains('lang-' + lang));
+        $buttons.forEach(btn => {
+          const active = btn.dataset.lang === lang;
+          btn.classList.toggle('active', active);
+          btn.setAttribute('aria-pressed', String(active));
+        });
+        try{ localStorage.setItem(KEY, lang); }catch(e){}
+      }
+
+      const saved = (() => { try { return localStorage.getItem(KEY); } catch(e){ return null; } })();
+      const initial = saved || (navigator.language && navigator.language.startsWith('en') ? 'en' : 'de');
+      setLang(initial);
+
+      $buttons.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    })();
+  </script>
+</body>
+</html>
