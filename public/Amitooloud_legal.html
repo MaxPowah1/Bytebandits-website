@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rechtliches • Am I Too Loud?</title>
+    <style>
+        :root{
+          --mint:#7EE0D3;
+          --leaf:#8FE388;
+          --sun:#FFE08A;
+          --pink:#FFB3BA;
+
+          /* Light */
+          --ink:#12323A;        /* primäre Textfarbe */
+          --softInk:#355A63;    /* sekundär/muted */
+          --surface:#F7FBFC;    /* Seitenhintergrund */
+          --panel:#FFFFFF;      /* Kartenhelligkeit */
+          --panelBorder: rgba(18,50,58,0.12);
+          --link:#0b7285;
+
+          --ok:#5ED59A; --warn:#FFD569; --alert:#FF6B6B;
+        }
+
+        @media (prefers-color-scheme: dark){
+          :root{
+            /* Dark (deutlich kontrastreicher) */
+            --surface:#0B1518;
+            --ink:#F1F6F7;
+            --softInk:#C9D7DB;
+            --panel: rgba(255,255,255,0.12);      /* mehr Opazität */
+            --panelBorder: rgba(255,255,255,0.22);/* klarere Kante */
+            --link:#7EE0D3;
+          }
+          body{ background: var(--surface); color: var(--ink); }
+          .tabs button{ color: var(--ink); }
+        }
+
+        *{ box-sizing:border-box; }
+        html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+        body{
+          margin:0;
+          font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
+          background: var(--surface);
+          color: var(--ink);
+          line-height:1.55;
+          font-size:16px;
+        }
+
+        header{
+          position:sticky; top:0; z-index:5;
+          backdrop-filter:saturate(140%) blur(8px);
+          background: linear-gradient(180deg, rgba(126,224,211,0.18), rgba(126,224,211,0.06));
+          border-bottom:1px solid var(--panelBorder);
+        }
+
+        .wrap{ max-width:980px; margin:0 auto; padding: 14px 18px; }
+        h1{ margin:0; font-weight:800; font-size:22px; letter-spacing:0.2px; color:var(--ink); }
+
+        .tabs{
+          display:flex; flex-wrap:wrap; gap:8px; padding:10px 0 4px 0;
+        }
+        .tabs button{
+          appearance:none; border:1px solid var(--panelBorder);
+          background: var(--panel);
+          color: var(--ink);
+          padding:8px 12px; border-radius:999px; font-weight:700; cursor:pointer;
+        }
+        .tabs button.active{
+          background: var(--mint);
+          border-color: transparent;
+          color:#062a2b; /* gute Lesbarkeit auf Mint */
+        }
+
+        main{ padding: 20px 18px 40px; }
+
+        .card{
+          background: var(--panel);
+          border:1px solid var(--panelBorder);
+          border-radius:16px; padding:20px 18px; margin:0 auto 16px; max-width:980px;
+          box-shadow:0 6px 22px rgba(0,0,0,0.10);
+        }
+
+        h2{ font-size:20px; margin:6px 0 12px; font-weight:800; color:var(--ink); }
+        h3{ font-size:16px; margin:16px 0 8px; font-weight:800; color:var(--ink); }
+
+        /* WICHTIG: Bodytext jetzt volle Primärfarbe, nicht „muted“ */
+        p, li{ color: var(--ink); }
+        small, .muted{ color: var(--softInk); }
+
+        code{
+          background: rgba(18,50,58,0.08);
+          padding:2px 6px; border-radius:6px;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+        @media (prefers-color-scheme: dark){
+          code{ background: rgba(255,255,255,0.12); }
+        }
+
+        .langswitch{ display:flex; gap:6px; align-items:center; }
+        .langswitch .tag{
+          display:inline-block; padding:3px 8px; border-radius:999px;
+          background: rgba(18,50,58,0.12); color: var(--softInk); font-size:12px; font-weight:800;
+        }
+        .langswitch button{
+          border:none; background:transparent; font-weight:800; cursor:pointer; color:var(--ink);
+          opacity:.85;
+        }
+        .langswitch button.active{ opacity:1; text-decoration:underline; }
+
+        .notice{
+          border-left:4px solid var(--ok);
+          padding:10px 12px; border-radius:10px; background: rgba(94,213,154,0.15);
+          color: var(--ink);
+        }
+        @media (prefers-color-scheme: dark){
+          .notice{ background: rgba(94,213,154,0.20); }
+        }
+
+        a{ color: var(--link); font-weight:700; text-decoration:none; }
+        a:hover{ text-decoration:underline; }
+
+        .foot{ text-align:center; font-size:12px; opacity:0.9; margin-top:24px; }
+        .hid{ display:none; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="wrap">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+            <h1>Am I Too Loud? • Rechtliches</h1>
+            <div class="langswitch" aria-label="Sprachauswahl">
+                <span class="tag">Language</span>
+                <button id="lang-de" class="active" onclick="setLang('de')">Deutsch</button>
+                <button id="lang-en" onclick="setLang('en')">English</button>
+            </div>
+        </div>
+        <nav class="tabs" role="tablist" aria-label="Dokument-Navigation">
+            <button class="active" data-tab="imprint" onclick="showTab('imprint')">Impressum</button>
+            <button data-tab="privacy" onclick="showTab('privacy')">Datenschutz / Privacy</button>
+            <button data-tab="agb" onclick="showTab('agb')">AGB (DE)</button>
+            <button data-tab="tos" onclick="showTab('tos')">Terms of Service (EN)</button>
+        </nav>
+    </div>
+</header>
+
+<main class="wrap">
+    <!-- IMPRESSUM -->
+    <section id="tab-imprint" class="card">
+        <h2>Impressum</h2>
+        <p><strong>Verantwortlich i.S.d. § 5 TMG / Art. 4 Nr. 7 DSGVO</strong><br>
+            <span id="org-de">Bytebandits OÜ</span><br>
+            Tartu mnt 67/1-13b<br>
+            Tallinn 10115, Eesti<br>
+            E-Mail: <a href="mailto:[max@byte-bandits.com]">eMail</a><br>
+        </p>
+        <p><strong>Kontakt für Anfragen zum Datenschutz</strong><br>
+            <a href="mailto:[max@byte-bandits.com]">eMail</a>
+        </p>
+        <div class="notice"><strong>Hinweis:</strong> Diese App dient ausschließlich als Orientierungshilfe zur eigenen Sprechlautstärke. Sie ist kein geeichtes Messgerät und nicht für sicherheitsrelevante Zwecke gedacht.</div>
+    </section>
+
+    <!-- DATENSCHUTZ -->
+    <section id="tab-privacy" class="card">
+        <h2>Datenschutzerklärung (DE)</h2>
+        <p>Diese App verarbeitet Audio-Pegel lokal auf deinem Gerät, um dir Live-Feedback zu geben. Es werden <strong>keine Sprachinhalte gespeichert</strong> und <strong>keine personenbezogenen Daten</strong> an Server übertragen.</p>
+
+        <h3>1. Verantwortlicher</h3>
+        <p><span class="muted">Siehe Impressum.</span></p>
+
+        <h3>2. Verarbeitete Datenkategorien</h3>
+        <ul>
+            <li><strong>Mikrofon-Pegel (dBFS)</strong> – fortlaufende Amplitudenwerte zur Anzeige von grün/gelb/rot. <em>Die Verarbeitung erfolgt ausschließlich lokal on-device.</em></li>
+            <li><strong>Temporäre Audiodatei</strong> – zur Pegelerfassung legt die App eine <em>temporäre</em> Datei im App-Cache an und löscht sie beim Stoppen der Messung (Best-Effort).</li>
+            <li><strong>Einstellungsdaten</strong> – Onboarding-Status (<code>SharedPreferences</code>) sowie Grenzwerte (zur Laufzeit im Speicher). Keine Cloud-Synchronisation.</li>
+        </ul>
+
+        <h3>3. Zwecke & Rechtsgrundlagen</h3>
+        <ul>
+            <li><strong>Zweck:</strong> Anzeige der eigenen Lautstärke in Echtzeit.</li>
+            <li><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertrag/ Nutzung der App) und Art. 6 Abs. 1 lit. a DSGVO (Einwilligung in Mikrofonzugriff über das Betriebssystem-Prompt).</li>
+        </ul>
+
+        <h3>4. Empfänger & Drittlandtransfer</h3>
+        <p>Keine Übermittlung an Dritte, keine Serverkommunikation, kein Drittlandtransfer.</p>
+
+        <h3>5. Speicherdauer</h3>
+        <ul>
+            <li>Temporäre Audiodatei: wird beim Stoppen entfernt (Best-Effort). </li>
+            <li>Onboarding-Flag: bis Zurücksetzen/Deinstallation.</li>
+        </ul>
+
+        <h3>6. Bereitstellungspflicht</h3>
+        <p>Ohne Mikrofonberechtigung ist die Kernfunktion nicht nutzbar.</p>
+
+        <h3>7. Rechte der betroffenen Personen</h3>
+        <p>Du hast Rechte nach Art. 15–21 DSGVO (Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch). Wende dich an den im Impressum genannten Kontakt.</p>
+
+        <h3>8. Sicherheit</h3>
+        <p>Verarbeitung erfolgt lokal. Es findet keine Profilbildung statt.</p>
+
+        <h3>9. Drittanbieter-Bibliotheken (on-device)</h3>
+        <ul>
+            <li>Flutter (UI-Framework)</li>
+            <li>record (Mikrofonzugriff, Pegel), permission_handler, path_provider</li>
+            <li>shared_preferences (Onboarding-Flag), url_launcher (Links öffnen)</li>
+        </ul>
+
+        <hr style="margin:18px 0; opacity:.3;">
+
+        <h2>Privacy Policy (EN)</h2>
+        <p>This app processes <strong>microphone levels locally on your device</strong> to provide real-time feedback. <strong>No speech content is stored</strong> and <strong>no personal data</strong> is sent to any server.</p>
+
+        <h3>1. Controller</h3>
+        <p><span class="muted">See imprint.</span></p>
+
+        <h3>2. Data Categories</h3>
+        <ul>
+            <li><strong>Microphone level (dBFS)</strong> – amplitude values for green/yellow/red. Processing is strictly on-device.</li>
+            <li><strong>Temporary audio file</strong> – created in cache for level capture and removed on stop (best-effort).</li>
+            <li><strong>Settings</strong> – onboarding flag (<code>SharedPreferences</code>) and threshold values (in-memory). No cloud sync.</li>
+        </ul>
+
+        <h3>3. Purposes & Legal Bases</h3>
+        <ul>
+            <li><strong>Purpose:</strong> real-time loudness feedback.</li>
+            <li><strong>Legal bases:</strong> GDPR Art. 6(1)(b) (app use/contract) and Art. 6(1)(a) (OS-level microphone permission).</li>
+        </ul>
+
+        <h3>4. Recipients & Transfers</h3>
+        <p>No disclosure to third parties, no server communication, no third-country transfers.</p>
+
+        <h3>5. Retention</h3>
+        <ul>
+            <li>Temp audio file: removed on stop (best-effort).</li>
+            <li>Onboarding flag: until reset/uninstall.</li>
+        </ul>
+
+        <h3>6. Data Subject Rights</h3>
+        <p>GDPR rights (access, rectification, erasure, restriction, objection). Contact as per imprint.</p>
+
+        <h3>7. Security</h3>
+        <p>Processing is local; no profiling.</p>
+
+        <h3>8. Third-party libraries (on-device)</h3>
+        <p>See “Licenses & Permissions”.</p>
+    </section>
+
+    <!-- AGB (DE) -->
+    <section id="tab-agb" class="card hid">
+        <h2>Allgemeine Geschäftsbedingungen (AGB)</h2>
+        <p class="muted">Diese AGB regeln die Nutzung der App „Am I Too Loud?“. Trage ggf. abweichende Zahlungs-/Lizenzinfos ein.</p>
+
+        <h3>1. Geltungsbereich</h3>
+        <p>Diese AGB gelten zwischen dem/der Anbieter:in (siehe Impressum) und den Nutzenden der App.</p>
+
+        <h3>2. Leistungsbeschreibung</h3>
+        <p>Die App bietet Orientierung zur eigenen Sprechlautstärke über farbliches Live-Feedback. Es handelt sich nicht um ein geeichtes Messgerät und nicht um eine medizinische oder sicherheitsrelevante Anwendung.</p>
+
+        <h3>3. Nutzungsvoraussetzungen</h3>
+        <p>Erforderlich ist die Mikrofonberechtigung des Geräts. Die Verfügbarkeit kann je nach Gerät/OS variieren.</p>
+
+        <h3>4. Preise & Zahlung</h3>
+        <p>[Trage hier ein: kostenlos / Kaufpreis / ggf. zukünftige In-App-Käufe.]</p>
+
+        <h3>5. Rechte an der App</h3>
+        <p>Alle Rechte verbleiben beim/bei der Anbieter:in. Nutzenden wird eine einfache, nicht übertragbare Lizenz zur Installation und Nutzung auf ihren Geräten eingeräumt.</p>
+
+        <h3>6. Verbotene Nutzungen</h3>
+        <ul>
+            <li>Reverse Engineering, Dekompilieren (soweit rechtlich unzulässig),</li>
+            <li>Weitergabe an Dritte ohne Zustimmung,</li>
+            <li>Nutzung in sicherheitskritischen Umgebungen.</li>
+        </ul>
+
+        <h3>7. Gewährleistung / Haftung</h3>
+        <p>Die App wird „wie besehen“ bereitgestellt. Bei Vorsatz und grober Fahrlässigkeit haftet der/die Anbieter:in unbeschränkt. Im Übrigen ist die Haftung auf vorhersehbare, vertragstypische Schäden begrenzt; die Haftung für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit bleibt unberührt.</p>
+
+        <h3>8. Updates</h3>
+        <p>Es besteht kein Anspruch auf bestimmte Updates oder Funktionsumfänge.</p>
+
+        <h3>9. Laufzeit & Kündigung</h3>
+        <p>Die Nutzung ist zeitlich unbefristet; sie endet durch Deinstallation oder Widerruf der Nutzungsrechte bei Verstößen.</p>
+
+        <h3>10. Schlussbestimmungen</h3>
+        <p>Es gilt [deutsches Recht / Recht des Sitzlandes]. Verbraucherrechtlich zwingende Vorschriften bleiben unberührt. Gerichtsstand ist — soweit zulässig — der Sitz des/der Anbieter:in.</p>
+    </section>
+
+    <!-- TERMS (EN) -->
+    <section id="tab-tos" class="card hid">
+        <h2>Terms of Service</h2>
+
+        <h3>1. Scope</h3>
+        <p>These Terms govern your use of the “Am I Too Loud?” app.</p>
+
+        <h3>2. Service</h3>
+        <p>The app provides indicative feedback on your speaking loudness. It is not a calibrated sound level meter and must not be used for medical or safety-critical purposes.</p>
+
+        <h3>3. Requirements</h3>
+        <p>The app requires microphone permission. Availability may vary by device/OS.</p>
+
+        <h3>4. Fees</h3>
+        <p>[Insert: free / one-time purchase / future in-app purchases].</p>
+
+        <h3>5. License</h3>
+        <p>Non-exclusive, non-transferable license for installation and use on your devices. All rights reserved by the provider.</p>
+
+        <h3>6. Acceptable Use</h3>
+        <ul>
+            <li>No reverse engineering or decompilation where prohibited by law,</li>
+            <li>No redistribution without permission,</li>
+            <li>No use in safety-critical environments.</li>
+        </ul>
+
+        <h3>7. Warranty & Liability</h3>
+        <p>Provided “as is”. Liability is unlimited for intent and gross negligence; otherwise limited to foreseeable, typical damages. Liability for death, personal injury or health impairment remains unaffected.</p>
+
+        <h3>8. Updates</h3>
+        <p>No entitlement to specific features or updates.</p>
+
+        <h3>9. Term & Termination</h3>
+        <p>Indefinite term; ends upon uninstall or revocation for breach.</p>
+
+        <h3>10. Governing Law</h3>
+        <p>[Insert applicable law and venue, subject to consumer protection rules].</p>
+    </section>
+
+
+
+    <p class="muted foot">Kein Rechtsrat: Dieses Dokument ist eine Vorlage basierend auf deiner App-Funktionalität. Lass es bei Bedarf rechtlich prüfen.</p>
+</main>
+
+<script>
+    // Tab-Steuerung
+    function showTab(id){
+      for (const b of document.querySelectorAll('.tabs button')) {
+        b.classList.toggle('active', b.dataset.tab === id);
+      }
+      for (const s of document.querySelectorAll('main .card')) {
+        s.classList.toggle('hid', s.id !== 'tab-'+id);
+      }
+      // Scroll an den Anfang des Inhalts
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+    // Sprache: blendet jeweils DE/EN-Abschnitte in der Datenschutzkarte ein/aus
+    function setLang(l){
+      document.getElementById('lang-de').classList.toggle('active', l==='de');
+      document.getElementById('lang-en').classList.toggle('active', l==='en');
+      const privacy = document.getElementById('tab-privacy');
+      // einfache Steuerung: EN-Abschnitte sind die Elemente nach dem HR
+      const nodes = privacy.querySelectorAll('h2,h3,p,ul,ol,hr');
+      let en = false;
+      nodes.forEach(n=>{
+        if(n.tagName==='HR') { en = true; n.style.display = (l==='en')?'block':'none'; return; }
+        if(!en){ n.style.display = (l==='de')?'':'none'; }
+        else   { n.style.display = (l==='en')?'':'none'; }
+      });
+      // Imprint fields could be the same — we keep them DE by default
+    }
+    // Init
+    document.addEventListener('DOMContentLoaded', ()=>{
+      showTab('imprint'); setLang('de');
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+</script>
+</body>
+</html>
