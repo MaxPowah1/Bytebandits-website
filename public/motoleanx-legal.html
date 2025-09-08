@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MotoLean X – Rechtliches / Legal</title>
+  <style>
+    :root {
+      --bg: #0b0d10; --card:#12161c; --muted:#9aa4b2; --fg:#e6edf3; --accent:#31c48d;
+      --danger:#e12d39; --warn:#f0b429;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; color: var(--fg); background: radial-gradient(1200px 700px at 10% -10%, #1a2130 0, #0b0d10 60%); }
+    header { padding: 24px 16px; border-bottom: 1px solid #1f2430; background: rgba(0,0,0,.35); position: sticky; top: 0; backdrop-filter: blur(6px); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 12px; }
+    h1 { margin: 6px 0 0 0; font-size: 1.5rem; }
+    .meta { color: var(--muted); font-size: .9rem; }
+    .lang-switch { display: flex; gap: 8px; margin-top: 8px; }
+    .lang-switch button { background: #1b2230; color: var(--fg); border: 1px solid #2a3242; padding: 6px 10px; border-radius: 10px; cursor: pointer; }
+    .lang-switch button.active { outline: 2px solid var(--accent); border-color: transparent; background: #17212b; }
+    main { padding: 28px 16px 64px; }
+    section { background: var(--card); border: 1px solid #1f2633; border-radius: 18px; padding: 20px; margin: 18px 0; }
+    h2 { margin-top: 0; font-size: 1.25rem; }
+    h3 { margin: 1.2rem 0 .2rem; font-size: 1.05rem; }
+    .badge { display: inline-block; font-size: .8rem; padding: 2px 8px; border-radius: 999px; background: #1f2633; color: var(--muted); border: 1px solid #2a3242; }
+    .warn { color: var(--warn); }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); }
+    a { color: #7dd3fc; }
+    ul { margin: .4rem 0 .8rem 1rem; }
+    .small { font-size: .9rem; color: var(--muted); }
+    footer { padding: 24px 16px 56px; color: var(--muted); }
+    .split { display: none; }
+    .split.active { display: block; }
+    .box-warn { border: 1px solid #3a2b00; background: #1b1603; padding: 12px 14px; border-radius: 12px; }
+  </style>
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('.split').forEach(e => e.classList.remove('active'));
+      document.getElementById('de').classList.toggle('active', lang==='de');
+      document.getElementById('en').classList.toggle('active', lang==='en');
+      document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+      document.querySelector('.lang-switch button[data-lang="'+lang+'"]').classList.add('active');
+      localStorage.setItem('mlx-lang', lang);
+      document.documentElement.lang = lang;
+    }
+    window.addEventListener('DOMContentLoaded', () => setLang(localStorage.getItem('mlx-lang') || 'de'));
+  </script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="grid" style="align-items:center">
+      <div>
+        <div class="badge">MotoLean X</div>
+        <h1>Rechtliches / Legal</h1>
+        <div class="meta">Version 1.0.0 · Gültig ab / Effective: 2025-09-08</div>
+      </div>
+      <div style="text-align:right">
+        <div class="lang-switch">
+          <button data-lang="de" onclick="setLang('de')">Deutsch</button>
+          <button data-lang="en" onclick="setLang('en')">English</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- ==================== GERMAN ==================== -->
+  <div id="de" class="split">
+    <section>
+      <h2>Impressum</h2>
+      <div class="grid">
+        <div>
+          <strong>Bytebandits OÜ</strong><br/>
+          Tartu mnt 67/1-13b, Kesklinna linnaosa<br/>
+          Tallinn 10115, Eesti<br/>
+          Estland
+        </div>
+        <div>
+          <div>Management Board: M. Scherb</div>
+          <div>E-Mail: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></div>
+          <div>Registration code: 17265228</div>
+          <div>Registered with Harju County Court</div>
+          <div>VAT ID (KMKR): The legal entity is not liable for VAT registration.</div>
+        </div>
+      </div>
+      <p class="small">Anbieterkennzeichnung nach § 5 DDG (Digitale-Dienste-Gesetz). Wir nehmen nicht an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teil und sind hierzu auch nicht verpflichtet.</p>
+    </section>
+
+    <section>
+      <h2>Allgemeine Geschäftsbedingungen (AGB)</h2>
+      <div class="box-warn">
+        <p class="warn"><strong>Wichtiger Sicherheitshinweis:</strong> Die App darf während der Fahrt nicht ablenken. Beachten Sie stets die Straßenverkehrsordnung (u. a. § 23 StVO). Verwenden Sie die App ausschließlich in einer sicheren Halterung und nur mit kurzen Blicken. Fahren Sie stets verantwortungsvoll.</p>
+      </div>
+
+      <h3>1. Geltungsbereich</h3>
+      <p>Diese AGB gelten für die Nutzung der mobilen Anwendung „MotoLean X“ („App“) zwischen der Bytebandits OÜ („wir“) und den Nutzenden („Sie“). Abweichende Bedingungen gelten nur, wenn wir ihnen ausdrücklich zustimmen.</p>
+
+      <h3>2. Leistungsumfang</h3>
+      <p>Die App misst und protokolliert den Neigungswinkel eines Motorrads und – sofern freigegeben – Standort- und Bewegungsdaten des Geräts. Die Anzeige ist bewusst dezent gehalten, um Ablenkung zu vermeiden. <strong>Es handelt sich nicht um ein geeichtes oder zertifiziertes Messverfahren; alle Messwerte sind Näherungswerte und können je nach Sensorik, Montage, Fahrstil und Umgebungsbedingungen abweichen.</strong></p>
+
+      <h3>3. Zulässige Nutzung</h3>
+      <ul>
+        <li>Die App dient ausschließlich Informations- und Trainingszwecken; sie ist kein sicherheitskritisches System und ersetzt keine Fahrpraxis oder Fahrerassistenzsysteme.</li>
+        <li>Bedienen Sie die App nur, wenn dies ohne Ablenkung und im Einklang mit den geltenden Gesetzen möglich ist (Halterung/Sprachsteuerung).</li>
+        <li>Unterlassen Sie jede missbräuchliche Nutzung (z. B. unzulässiges Reverse Engineering, Umgehung von Schutzmechanismen).</li>
+      </ul>
+
+      <h3>4. Entgelt / Verfügbarkeit</h3>
+      <p>Sofern Kosten anfallen, werden diese im Store ausgewiesen. Wir bemühen uns um eine hohe Verfügbarkeit; ein Anspruch auf jederzeitige Störungsfreiheit besteht nicht.</p>
+
+      <h3>5. Haftung & Haftungsausschluss (umfassend)</h3>
+      <p><strong>Die Nutzung der App erfolgt auf eigene Gefahr.</strong> Soweit gesetzlich zulässig, schließen wir jede Haftung aus für Schäden, die mittelbar oder unmittelbar aus der Nutzung der App entstehen, insbesondere für:</p>
+      <ul>
+        <li>Ungenauigkeiten, Verzögerungen oder Unvollständigkeiten von Mess-, Sensor- oder Standortdaten,</li>
+        <li>Folge-, Neben-, Sonder-, indirekte oder zufällige Schäden (einschließlich Datenverlust, entgangenen Gewinns, Sach- oder Vermögensschäden),</li>
+        <li>Nutzungen in sicherheitskritischen Kontexten (z. B. als Entscheidungsgrundlage für Fahrmanöver),</li>
+        <li>Schäden durch Geräte-/Halterungsfehler, Software-/Betriebssystem-/Netz-Störungen, oder durch Dritte.</li>
+      </ul>
+      <p>Wir geben keinerlei Zusicherungen oder Garantien, weder ausdrücklich noch konkludent, einschließlich – aber nicht beschränkt auf – Marktgängigkeit, zufriedenstellende Qualität, Eignung für einen bestimmten Zweck, Genauigkeit oder Nichtverletzung von Rechten Dritter. Die App wird „wie besehen“ bereitgestellt.</p>
+      <p><strong>Zwingende Haftung</strong> bleibt unberührt: Wir haften unbeschränkt bei Vorsatz und grober Fahrlässigkeit sowie bei Schäden aus der Verletzung von Leben, Körper oder Gesundheit. Bei einfacher Fahrlässigkeit haften wir nur bei Verletzung einer wesentlichen Vertragspflicht (Kardinalpflicht); in diesem Fall ist die Haftung auf den vorhersehbaren, typischen Schaden begrenzt. Gesetzlich zwingende Haftungen – insbesondere nach dem Produkthaftungsgesetz – bleiben unberührt.</p>
+
+      <h3>6. Gewährleistung</h3>
+      <p>Die App wird in der jeweils aktuellen Fassung bereitgestellt. Standort- und Messdaten können ungenau, verzögert oder unvollständig sein. Es wird keine Gewähr für die Eignung zu einem bestimmten Zweck übernommen.</p>
+
+      <h3>7. Datenschutz</h3>
+      <p>Informationen zur Verarbeitung personenbezogener Daten finden Sie in der <em>Datenschutzerklärung</em>.</p>
+
+      <h3>8. Änderungen</h3>
+      <p>Wir können diese AGB anpassen, wenn sich Funktionen oder Rechtslagen ändern. Es gilt die jeweils veröffentlichte Fassung.</p>
+
+      <h3>9. Schlussbestimmungen</h3>
+      <p>Es gilt estnisches Recht unter Ausschluss des UN-Kaufrechts. Zwingende Verbraucherschutzvorschriften Ihres Wohnsitzstaates bleiben unberührt. Soweit zulässig, ist Gerichtsstand Tallinn, Estland. Sollten einzelne Bestimmungen unwirksam sein, bleibt die Wirksamkeit der übrigen Regelungen unberührt.</p>
+    </section>
+
+    <section>
+      <h2>Datenschutzerklärung</h2>
+      <p>Verantwortlicher (Art. 4 Nr. 7 DSGVO) ist die <strong>Bytebandits OÜ</strong>, Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estland; E-Mail: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>.</p>
+
+      <h3>1. Verarbeitete Daten & Zwecke</h3>
+      <ul>
+        <li><strong>Standortdaten (GPS, ggf. im Hintergrund):</strong> Aufzeichnung von Fahrten, Anzeige der Strecke, Verknüpfung mit Neigungsdaten.</li>
+        <li><strong>Bewegungs-/Gerätesensordaten:</strong> Berechnung des Neigungswinkels.</li>
+        <li><strong>Sitzungs-/Protokolldaten:</strong> Zeitstempel, App-Ereignisse (z. B. Start/Stop), Fehlermeldungen zur Funktion und Diagnose.</li>
+        <li><strong>Benachrichtigungen/Vordergrunddienst:</strong> Sicherstellung laufender Aufzeichnungen.</li>
+        <li><strong>Netzwerkzugriff:</strong> Kartenkacheln und optionale Online-Funktionen (keine Werbung, kein Drittanbieter-Tracking-SDK).</li>
+      </ul>
+      <p class="small">Hinweis: Die App kann Berechtigungen für präzise/ungefähre und Hintergrund-Standortdaten, Vordergrunddienst, Benachrichtigungen, Internet/Netzwerk sowie hochfrequente Sensoren verwenden.</p>
+
+      <h3>2. Rechtsgrundlagen (Art. 6 DSGVO)</h3>
+      <ul>
+        <li><strong>Vertrag (Art. 6 Abs. 1 b):</strong> Bereitstellung der Kernfunktionen (Aufzeichnen/Anzeigen von Lean- und GPS-Daten).</li>
+        <li><strong>Einwilligung (Art. 6 Abs. 1 a):</strong> z. B. Hintergrund-Standort oder Benachrichtigungen, soweit vom System angefragt.</li>
+        <li><strong>Berechtigtes Interesse (Art. 6 Abs. 1 f):</strong> App-Sicherheit, Fehlerdiagnose, Missbrauchsvermeidung.</li>
+      </ul>
+
+      <h3>3. Speicherort & Speicherdauer</h3>
+      <p>Mess- und Sitzungsdaten werden primär <strong>lokal auf Ihrem Gerät</strong> gespeichert. Eine Übermittlung an uns oder Dritte erfolgt nur, wenn Sie aktiv exportieren/teilen. Löschung ist in der App möglich.</p>
+
+      <h3>4. Empfänger & Drittlandtransfers</h3>
+      <p>Keine regelmäßigen Übermittlungen an Dritte. Bei Support-Anfragen verarbeiten wir Ihre Angaben ausschließlich zur Bearbeitung. Sollten künftig optionale Cloud-Dienste angeboten werden, informieren wir vorab und holen erforderliche Einwilligungen ein.</p>
+
+      <h3>5. Ihre Rechte</h3>
+      <p>Sie haben Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit sowie Widerspruch (Art. 12–22 DSGVO). Zudem besteht ein Beschwerderecht bei einer Aufsichtsbehörde, z. B. Estonian Data Protection Inspectorate.</p>
+
+      <h3>6. Minderjährige</h3>
+      <p>Die App richtet sich nicht an Kinder. Soweit eine Einwilligung erforderlich ist, gilt sie in Estland ab 13 Jahren als wirksam; jüngere Personen benötigen die Zustimmung der Erziehungsberechtigten.</p>
+
+      <h3>7. Sicherheit & Haftungsausschluss für Daten</h3>
+      <p>Wir ergreifen angemessene technische und organisatorische Maßnahmen. Gleichwohl kann ein absoluter Schutz vor Datenverlust, unbefugtem Zugriff oder Übertragungsschwierigkeiten nicht garantiert werden. <strong>Soweit rechtlich zulässig, schließen wir hierfür die Haftung aus.</strong></p>
+
+      <h3>8. Änderungen</h3>
+      <p>Wir passen diese Erklärung an, wenn sich Funktionen oder Rechtslagen ändern. Die jeweils gültige Fassung ist über diese Seite einsehbar.</p>
+    </section>
+
+    <section>
+      <h2>Sicherheits- & Rechtshinweise beim Fahren</h2>
+      <ul>
+        <li>Beachten Sie gesetzliche Verbote der Gerätebedienung während der Fahrt (z. B. § 23 StVO). Nutzen Sie die App nur montiert und mit Sprach-/Kurzbedienung.</li>
+        <li>Halten Sie Ihre Aufmerksamkeit stets auf den Verkehr gerichtet; nur kurze Blicke aufs Display.</li>
+        <li>Messwerte sind nicht zur sicherheitskritischen Entscheidung geeignet; kein Ersatz für Training oder Assistenzsysteme.</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- ==================== ENGLISH ==================== -->
+  <div id="en" class="split">
+    <section>
+      <h2>Legal Notice (Impressum)</h2>
+      <div class="grid">
+        <div>
+          <strong>Bytebandits OÜ</strong><br/>
+          Tartu mnt 67/1-13b, Kesklinna linnaosa<br/>
+          10115 Tallinn, Estonia
+        </div>
+        <div>
+          <div>Management Board: M. Scherb</div>
+          <div>Email: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></div>
+          <div>Registration code: 17265228</div>
+          <div>Registered with Harju County Court</div>
+          <div>VAT ID (KMKR): The legal entity is not liable for VAT registration.</div>
+        </div>
+      </div>
+      <p class="small">Provider identification pursuant to Section 5 of the German Digital Services Act (DDG). We are not willing or obliged to participate in consumer dispute resolution.</p>
+    </section>
+
+    <section>
+      <h2>Terms of Service</h2>
+      <div class="box-warn">
+        <p class="warn"><strong>Safety first:</strong> Never allow the App to distract you while riding. Comply with traffic laws at all times. Use a secure mount and limit glances to the shortest possible.</p>
+      </div>
+
+      <h3>1. Scope</h3>
+      <p>These Terms govern the use of the “MotoLean X” mobile application (“App”) between Bytebandits OÜ (“we”) and the user (“you”). Deviating terms apply only if expressly agreed.</p>
+
+      <h3>2. Service</h3>
+      <p>The App measures and logs motorcycle lean angle and—if permitted—device location and motion data. Visuals are deliberately minimal to reduce distraction. <strong>The App is not a certified or calibrated measuring device; all readings are approximate and may vary with hardware, mounting, riding and environment.</strong></p>
+
+      <h3>3. Permitted Use</h3>
+      <ul>
+        <li>The App is for information and training only; it is not a safety-critical system and does not replace rider training or safety systems.</li>
+        <li>Operate the App only lawfully and without distraction (hands-free / mounted use).</li>
+        <li>Do not misuse the App (e.g., unlawful reverse engineering or circumventing security features).</li>
+      </ul>
+
+      <h3>4. Fees / Availability</h3>
+      <p>If fees apply, they are shown in the store. We strive for high availability but do not warrant uninterrupted, error-free operation.</p>
+
+      <h3>5. Liability & Disclaimer (comprehensive)</h3>
+      <p><strong>You use the App entirely at your own risk.</strong> To the fullest extent permitted by law, we disclaim all liability for any loss or damage arising out of or in connection with the App, including in particular:</p>
+      <ul>
+        <li>inaccurate, delayed or incomplete measurements, sensor or location data,</li>
+        <li>indirect, incidental, consequential, special or exemplary damages (including data loss, loss of profit, property or financial damage),</li>
+        <li>use in safety-critical contexts (e.g., as a basis for riding maneuvers),</li>
+        <li>harm caused by mounting/device failures, OS/network/service outages, or third parties.</li>
+      </ul>
+      <p>The App is provided “as is” and “as available,” without warranties of any kind, whether express or implied, including merchantability, satisfactory quality, fitness for a particular purpose, accuracy, or non-infringement.</p>
+      <p><strong>Mandatory liability</strong> remains unaffected: we are liable without limitation for intent and gross negligence and for injury to life, body or health. For simple negligence, we are liable only for breach of essential contractual duties (cardinal duties), limited to the foreseeable, typical damage. Mandatory statutory liability (including product liability) remains unaffected.</p>
+
+      <h3>6. Warranty</h3>
+      <p>The App is provided in its current form. Location and sensor readings may be inaccurate, delayed or incomplete. No guarantee of fitness for any particular purpose.</p>
+
+      <h3>7. Privacy</h3>
+      <p>See the <em>Privacy Policy</em> below.</p>
+
+      <h3>8. Changes</h3>
+      <p>We may amend these Terms when features or laws change. The published version applies.</p>
+
+      <h3>9. Governing Law / Miscellaneous</h3>
+      <p>Estonian law applies, excluding the UN Sales Convention. Mandatory consumer protection laws of your country of residence remain unaffected. Venue, where permitted, is Tallinn, Estonia. If any provision is invalid, the remainder remains in effect.</p>
+    </section>
+
+    <section>
+      <h2>Privacy Policy</h2>
+      <p>The controller is <strong>Bytebandits OÜ</strong>, Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estonia; Email: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>.</p>
+
+      <h3>1. Data We Process & Purposes</h3>
+      <ul>
+        <li><strong>Location data (GPS, possibly in background):</strong> to record rides, show tracks and correlate with lean data.</li>
+        <li><strong>Motion/device sensor data:</strong> to compute lean angle.</li>
+        <li><strong>Session/log data:</strong> timestamps and app events (e.g., start/stop), error logs for functionality and troubleshooting.</li>
+        <li><strong>Notifications/foreground service:</strong> to keep recordings active and visible to the OS.</li>
+        <li><strong>Network access:</strong> map tiles and optional online features (no ads, no third-party tracking SDK).</li>
+      </ul>
+      <p class="small">Note: The App may request permissions for precise/approximate and background location, foreground service, notifications, Internet/network and high-frequency sensors.</p>
+
+      <h3>2. Legal Bases (GDPR Art. 6)</h3>
+      <ul>
+        <li><strong>Contract (Art. 6(1)(b)):</strong> provide core features (record/display lean & GPS data).</li>
+        <li><strong>Consent (Art. 6(1)(a)):</strong> e.g., background location or notifications as prompted by the OS.</li>
+        <li><strong>Legitimate interests (Art. 6(1)(f)):</strong> app security, troubleshooting and abuse prevention.</li>
+      </ul>
+
+      <h3>3. Storage & Retention</h3>
+      <p>Records are stored primarily <strong>locally on your device</strong>. We do not receive your rides unless you actively export/share them. You can delete data at any time in the App.</p>
+
+      <h3>4. Recipients & International Transfers</h3>
+      <p>No routine sharing. If you contact support, we process your message solely to handle your request. If we later offer optional cloud services, we will inform you in advance and obtain any required consent.</p>
+
+      <h3>5. Your Rights</h3>
+      <p>You have rights of access, rectification, erasure, restriction, portability and to object (GDPR Arts. 12–22). You may lodge a complaint with a supervisory authority, e.g., the Estonian Data Protection Inspectorate.</p>
+
+      <h3>6. Children</h3>
+      <p>The App is not directed to children. Where consent is required, in Estonia consent is valid from age 13; younger users need parental approval.</p>
+
+      <h3>7. Security & Data Disclaimer</h3>
+      <p>We implement appropriate technical and organizational measures; however, absolute protection against data loss, unauthorized access or transmission issues cannot be guaranteed. <strong>To the extent permitted by law, we disclaim liability for such events.</strong></p>
+
+      <h3>8. Changes</h3>
+      <p>We will update this notice when features or laws change. The current version will be published here.</p>
+
+      <h3>California Notice (CPRA/CCPA)</h3>
+      <p>California residents have rights to know/access, delete, correct, and to opt-out of the sale or sharing of personal information. We do <strong>not</strong> sell or share personal information and do not use cross-context behavioral advertising. Submit requests to <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>. We will verify requests and respond within statutory timeframes and will not discriminate for exercising your rights.</p>
+    </section>
+
+    <section>
+      <h2>Safety & Legal While Riding</h2>
+      <ul>
+        <li>Comply with local hands-free / anti-distraction laws. Use a proper mount and keep your eyes on the road.</li>
+        <li>Minimize glances; the App is not a substitute for rider training or safety systems.</li>
+        <li>Readings are not suitable for safety-critical decisions.</li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<footer class="wrap small">
+  © 2025 Bytebandits OÜ. All rights reserved. · Build 1.0.0
+</footer>
+</body>
+</html>
