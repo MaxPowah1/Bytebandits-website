@@ -2,81 +2,166 @@
 <html lang="de">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <title>MotoLeanX GPX Viewer (Lean/Speed-Overlay)</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* Vollhöhe + Flex-Layout */
+        :root{
+          --gap:12px;
+          --pad:10px;
+          --radius:12px;
+          --border:#ddd;
+          --bg:#fff;
+          --chip-bg:#fff;
+          --hud-bg:#fafafa;
+          --font: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+        }
+
+        /* Vollhöhe + Flex-Layout (mit Mobile-Addressleisten-Fix) */
         html, body { height: 100%; margin: 0; }
-        body {
-          min-height: 100dvh;          /* korrekt mit Mobile-Adressleiste */
-          display: flex;
-          flex-direction: column;
+        body{
+          min-height: 100svh; /* bevorzugt */
+          min-height: 100dvh; /* fallback neue Spec */
+          display:flex; flex-direction:column;
+          font-family: var(--font);
+          -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+          background: var(--bg);
         }
 
-        /* Topbar bleibt oben, Karte füllt den Rest */
-        .topbar {
-          display:flex; gap:12px; align-items:center; padding:10px 12px;
-          background:#fff; border-bottom:1px solid #ddd; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-          flex-wrap: wrap;
-          flex: 0 0 auto;
+        /* Topbar als responsive Grid */
+        .topbar{
+          display:grid;
+          grid-template-columns: 1fr auto auto;
+          gap: var(--gap);
+          align-items:center;
+          padding: calc(var(--pad) + env(safe-area-inset-top)) var(--pad) var(--pad);
+          border-bottom:1px solid var(--border);
+          position: sticky; top: 0; z-index: 10;
+          background: rgba(255,255,255,.96);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+        }
+        .left { display:flex; align-items:center; gap:var(--gap); flex-wrap:wrap; }
+        .controls { display:flex; align-items:center; gap:8px; min-width:0; }
+        .right { display:flex; align-items:center; gap:var(--gap); margin-left:auto; }
+
+        /* Map füllt den Rest */
+        #map{ flex:1 1 auto; min-height:0; }
+
+        /* UI-Bausteine */
+        input[type="file"]{ display:none; }
+        label.button, button, .seg button{
+          padding: 10px 12px; border:1px solid var(--border); border-radius: var(--radius);
+          background:#fff; cursor:pointer; font-weight:600; line-height:1;
+        }
+        label.button{ white-space:nowrap; }
+        button:disabled{ opacity:.5; cursor:not-allowed; }
+
+        .seg{ display:inline-flex; border:1px solid var(--border); border-radius: var(--radius); overflow:hidden; }
+        .seg button{ border:0; padding:10px 14px; }
+        .seg button.active{ background:#111; color:#fff; }
+
+        .chip{
+          display:inline-flex; align-items:center; gap:6px;
+          padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:var(--chip-bg);
+          white-space:nowrap;
+        }
+        #slider{
+          width: min(520px, 40vw);
         }
 
-        /* Karte bekommt flex:1 statt fixer Höhe */
-        #map {
-          flex: 1 1 auto;
-          min-height: 0;               /* wichtig, damit flex-Child schrumpfen darf */
+        .hud{
+          padding:8px 12px; border-radius: var(--radius); border:1px solid var(--border);
+          background: var(--hud-bg); font-weight:700; min-width: 180px; text-align:center;
         }
 
-        .hud {
-          margin-left:auto; padding:8px 12px; border-radius:12px; border:1px solid #ddd; background:#fafafa;
-          font-weight:600; min-width:190px; text-align:center;
-        }
-        .controls { display:flex; align-items:center; gap:8px; }
-        .legend { font-size:12px; opacity:.95; display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; }
-        .legend .block { display:flex; flex-direction:column; gap:6px; }
-        .legend .title { font-weight:600; }
-        .chip { display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border:1px solid #ddd; border-radius:12px; background:#fff; }
-        .swatch { width:14px; height:14px; border-radius:3px; display:inline-block; }
-        #slider { width:320px; }
-        input[type="file"] { display:none; }
-        label.button, button, .seg button {
-          padding:8px 12px; border:1px solid #ddd; border-radius:10px; background:#fff; cursor:pointer; font-weight:600;
-        }
-        button:disabled { opacity:.5; cursor:not-allowed; }
-        .seg { display:inline-flex; border:1px solid #ddd; border-radius:12px; overflow:hidden; }
-        .seg button { border:0; padding:8px 14px; }
-        .seg button.active { background:#111; color:#fff; }
+        /* Legende als „auf/zu“ auf Mobile */
+        .legend-wrap{ display:flex; align-items:flex-start; gap:var(--gap); flex-wrap:wrap; }
+        #legend{ font-size:12px; opacity:.95; display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; }
+        .legend-toggle{ display:none; }
 
-        /* Skalen */
-        .scale { width:320px; height:14px; border-radius:6px; border:1px solid #ddd; position:relative; }
-        .ticks { display:flex; justify-content:space-between; width:320px; font-variant-numeric: tabular-nums; }
+        .legend .block{ display:flex; flex-direction:column; gap:6px; min-width: 220px; }
+        .legend .title{ font-weight:600; }
+        .scale{ width:min(360px, 70vw); height:14px; border-radius:6px; border:1px solid var(--border); position:relative; }
+        .ticks{ display:flex; justify-content:space-between; width:min(360px, 70vw); font-variant-numeric:tabular-nums; }
+
+        /* Leaflet Controls höher setzen, damit sie die Topbar nicht schneiden */
+        .leaflet-top.leaflet-left{ top: calc(54px + env(safe-area-inset-top)); }
+
+        /* ====== Mobile Layout ====== */
+        @media (max-width: 768px){
+          .topbar{
+            grid-template-columns: 1fr auto;
+            grid-auto-rows: auto;
+          }
+          .left{ grid-column: 1 / -1; }
+          .right{ grid-column: 2 / 3; }
+          .controls{
+            grid-column: 1 / -1;
+            order: 3;
+            width: 100%;
+          }
+          #slider{ width: 100%; flex: 1 1 auto; }
+          .hud{ display:none; } /* HUD klein halten; optional per Toggle wieder anzeigen */
+          /* Legende zuklappbar machen */
+          .legend-toggle{
+            display:inline-flex;
+            align-items:center; gap:6px;
+            padding:10px 12px; border:1px solid var(--border);
+            border-radius: var(--radius); background:#fff; font-weight:600;
+          }
+          .legend-wrap{ width:100%; grid-column: 1 / -1; }
+          #legend{ display:none; width:100%; }
+          #legend.open{ display:flex; }
+          .leaflet-top.leaflet-left{ top: calc(64px + env(safe-area-inset-top)); }
+        }
+
+        /* Größere Touch-Tiles auf sehr kleinen Phones */
+        @media (max-width: 420px){
+          label.button, button, .seg button{ padding:12px 14px; }
+          .seg button{ padding:12px 14px; }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce){
+          .topbar{ backdrop-filter:none; -webkit-backdrop-filter:none; }
+        }
     </style>
 </head>
 <body>
-<div class="topbar">
-    <label class="button">
-        GPX laden
-        <input id="fileInput" type="file" accept=".gpx,application/gpx+xml" />
-    </label>
+<div class="topbar" role="banner">
+    <div class="left">
+        <label class="button">
+            GPX laden
+            <input id="fileInput" type="file" accept=".gpx,application/gpx+xml" />
+        </label>
 
-    <div class="seg" role="tablist" aria-label="Layer">
-        <button id="modeLean" class="active" role="tab" aria-selected="true">Lean</button>
-        <button id="modeSpeed" role="tab" aria-selected="false">Speed</button>
+        <div class="seg" role="tablist" aria-label="Layer">
+            <button id="modeLean" class="active" role="tab" aria-selected="true">Lean</button>
+            <button id="modeSpeed" role="tab" aria-selected="false">Speed</button>
+        </div>
+    </div>
+
+    <div class="right">
+        <button id="legendToggle" class="legend-toggle" aria-expanded="false" aria-controls="legend">Legende</button>
     </div>
 
     <div class="controls">
-        <button id="playBtn" disabled>▶︎</button>
-        <input id="slider" type="range" min="0" max="0" value="0" step="1" disabled />
-        <span id="timeLbl" class="chip">Zeit: –</span>
+        <button id="playBtn" disabled aria-label="Play/Pause">▶︎</button>
+        <input id="slider" type="range" min="0" max="0" value="0" step="1" disabled aria-label="Position" />
+        <span id="timeLbl" class="chip" aria-live="polite">Zeit: –</span>
     </div>
 
-    <div id="legend" class="legend"></div>
-
-    <div id="hud" class="hud">Lean: – °</div>
+    <div class="legend-wrap">
+        <div id="legend" class="legend" aria-live="polite"></div>
+        <div id="hud" class="hud" aria-live="polite">Lean: – °</div>
+    </div>
 </div>
 
-<div id="map"></div>
+<div id="map" role="region" aria-label="Karte"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -85,14 +170,35 @@
       maxZoom: 19, attribution: '&copy; OpenStreetMap'
     }).addTo(map);
 
-    const fileInput = document.getElementById('fileInput');
-    const slider = document.getElementById('slider');
-    const playBtn = document.getElementById('playBtn');
-    const timeLbl = document.getElementById('timeLbl');
-    const hud = document.getElementById('hud');
-    const legend = document.getElementById('legend');
+    const fileInput   = document.getElementById('fileInput');
+    const slider      = document.getElementById('slider');
+    const playBtn     = document.getElementById('playBtn');
+    const timeLbl     = document.getElementById('timeLbl');
+    const hud         = document.getElementById('hud');
+    const legend      = document.getElementById('legend');
+    const legendToggle= document.getElementById('legendToggle');
     const modeLeanBtn = document.getElementById('modeLean');
-    const modeSpeedBtn = document.getElementById('modeSpeed');
+    const modeSpeedBtn= document.getElementById('modeSpeed');
+
+    // Mobile: Legende auf/zu
+    function applyLegendToggleBehavior(){
+      const isNarrow = window.matchMedia('(max-width: 768px)').matches;
+      if(isNarrow){
+        legend.classList.remove('open');
+        legendToggle.setAttribute('aria-expanded','false');
+      }else{
+        legend.classList.add('open');           // Desktop: immer sichtbar
+        legendToggle.setAttribute('aria-expanded','true');
+      }
+      map.invalidateSize();
+    }
+    legendToggle.addEventListener('click', ()=>{
+      const open = legend.classList.toggle('open');
+      legendToggle.setAttribute('aria-expanded', String(open));
+      setTimeout(()=>map.invalidateSize(), 0);
+    });
+    window.addEventListener('resize', applyLegendToggleBehavior);
+    window.addEventListener('load', applyLegendToggleBehavior);
 
     let points = [];
     let segLayers = [];
@@ -106,8 +212,8 @@
     function colorForLean(lean) {
       const a = Math.min(Math.abs(lean), LEAN_MAX) / LEAN_MAX;
       const intensity = Math.round(70 + a * 185);
-      if (lean >= 0) return `rgb(${intensity},60,60)`;
-      return `rgb(43,108,176)`;
+      if (lean >= 0) return `rgb(${intensity},60,60)`;   // rechts: rot
+      return `rgb(43,108,176)`;                          // links: blau
     }
     function colorForSpeed(speedKmh) {
       const v = Math.max(0, Math.min(speedKmh, SPEED_MAX)) / SPEED_MAX;
@@ -142,7 +248,7 @@
           </div>
         `;
       }
-      map.invalidateSize();          // <— neu: nach Layout-Änderungen
+      setTimeout(()=>map.invalidateSize(), 0); // nach Layout-Änderungen
     }
 
     function clearMap() {
@@ -170,7 +276,7 @@
       slider.disabled = false;
       playBtn.disabled = false;
       updateHUD(0);
-      map.invalidateSize();          // <— neu: sicherstellen, dass die Karte die Flex-Höhe kennt
+      setTimeout(()=>map.invalidateSize(), 0);
     }
 
     function redrawSegments() {
@@ -191,12 +297,10 @@
     function updateHUD(i) {
       const p = points[i];
       if (!p) return;
-      marker.setLatLng([p.lat, p.lon]);
-      if (currentMode === 'lean') {
-        hud.textContent = `Lean: ${isFinite(p.lean) ? p.lean.toFixed(2) : '–'} °`;
-      } else {
-        hud.textContent = `Speed: ${isFinite(p.speed) ? p.speed.toFixed(1) : '–'} km/h`;
-      }
+      if (marker) marker.setLatLng([p.lat, p.lon]);
+      hud.textContent = currentMode === 'lean'
+        ? `Lean: ${isFinite(p.lean) ? p.lean.toFixed(2) : '–'} °`
+        : `Speed: ${isFinite(p.speed) ? p.speed.toFixed(1) : '–'} km/h`;
       timeLbl.textContent = 'Zeit: ' + (p.time ? p.time.toISOString() : '–');
     }
 
@@ -239,8 +343,9 @@
     function haversineKm(lat1, lon1, lat2, lon2) {
       const R = 6371; const toRad = d => d * Math.PI / 180;
       const dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
-      const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+      const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*sin2(dLon/2);
       return 2 * R * Math.asin(Math.sqrt(a));
+      function sin2(x){ return Math.sin(x)*Math.sin(x); }
     }
 
     fileInput.addEventListener('change', async (e) => {
@@ -250,17 +355,18 @@
       const text = await file.text();
       const xml = new DOMParser().parseFromString(text, "application/xml");
 
-      const trkpts = xml.getElementsByTagNameNS('http://www.topografix.com/GPX/1/1', 'trkpt');
+      const ns = 'http://www.topografix.com/GPX/1/1';
+      const trkpts = xml.getElementsByTagNameNS(ns, 'trkpt');
       const tmp = [];
       for (const node of trkpts) {
         const lat = parseFloat(node.getAttribute('lat'));
         const lon = parseFloat(node.getAttribute('lon'));
         const timeNode = node.getElementsByTagName('time')[0];
-        const extNode = node.getElementsByTagName('extensions')[0];
+        const extNode  = node.getElementsByTagName('extensions')[0];
         let lean = NaN, speed = NaN;
         if (extNode) {
-          const leanNode = extNode.getElementsByTagName('lean')[0];
-          if (leanNode && leanNode.textContent) lean = parseFloat(leanNode.textContent);
+          const leanNode  = extNode.getElementsByTagName('lean')[0];
+          if (leanNode && leanNode.textContent)  lean  = parseFloat(leanNode.textContent);
           const speedNode = extNode.getElementsByTagName('speed')[0];
           if (speedNode && speedNode.textContent) speed = parseFloat(speedNode.textContent);
         }
@@ -270,7 +376,7 @@
         }
       }
       if (tmp.length < 2) { alert('Zu wenige Punkte gefunden.'); return; }
-      // Speed fallback
+      // Speed-Fallback
       for (let i = 0; i < tmp.length; i++) {
         if (!isFinite(tmp[i].speed)) {
           const i0 = Math.max(0, i - 1), i1 = Math.min(tmp.length - 1, i + 1);
@@ -287,9 +393,9 @@
       setLegend(currentMode);
     });
 
-
-    window.addEventListener('resize', () => map.invalidateSize());
-    window.addEventListener('load', () => map.invalidateSize());
+    // Reflow-Events
+    window.addEventListener('resize', ()=>map.invalidateSize());
+    window.addEventListener('load',  ()=>map.invalidateSize());
 
     setLegend(currentMode);
 </script>
