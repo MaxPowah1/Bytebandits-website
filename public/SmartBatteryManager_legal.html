@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Information - Smart Battery Manager</title>
+    <style>
+        :root {
+            --bg-primary: #111418;
+            --bg-surface: #1A1F25;
+            --bg-surface-hover: #1F252C;
+            --text-primary: #E8EAED;
+            --text-secondary: #A9B3BE;
+            --text-muted: #6C7A89;
+            --border: #28313A;
+            --accent-primary: #2E5C9A;
+            --accent-neon-cyan: #00E5FF;
+            --accent-neon-blue: #4AB3FF;
+            --accent-neon-green: #00FF7F;
+            --accent-glow: rgba(74, 179, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(26, 31, 37, 0.95);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-neon-cyan), var(--accent-neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            color: var(--accent-neon-blue);
+            background: var(--bg-surface-hover);
+            border-color: var(--border);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 0;
+        }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--accent-neon-cyan), var(--accent-neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin: 40px 0 20px 0;
+            color: var(--accent-neon-blue);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        h3 {
+            font-size: 20px;
+            margin: 24px 0 12px 0;
+            color: var(--accent-neon-cyan);
+        }
+
+        h4 {
+            font-size: 18px;
+            margin: 20px 0 10px 0;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin: 12px 0;
+            color: var(--text-secondary);
+        }
+
+        ul, ol {
+            margin: 12px 0;
+            padding-left: 24px;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--accent-neon-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-neon-cyan);
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            border-color: var(--accent-neon-blue);
+            box-shadow: 0 4px 20px var(--accent-glow);
+            transition: all 0.3s ease;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: var(--bg-surface);
+            border-left: 4px solid var(--accent-neon-green);
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .contact-info p {
+            margin: 8px 0;
+        }
+
+        /* Last Updated */
+        .last-updated {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+        /* Divider */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        /* Note Box */
+        .note {
+            background: rgba(74, 179, 255, 0.1);
+            border: 1px solid var(--accent-neon-blue);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+
+        .note strong {
+            color: var(--accent-neon-blue);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border);
+            padding: 32px 0;
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: center;
+            }
+
+            nav a {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            header {
+                position: static;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <div class="logo">Smart Battery Manager</div>
+        <nav>
+            <a href="#impressum">Impressum</a>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Service</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <!-- Impressum Section -->
+    <section id="impressum">
+        <h1>Impressum / Legal Notice</h1>
+        <p class="last-updated"><strong>Last Updated:</strong> November 2025</p>
+
+        <div class="card">
+            <h2>Publisher Information</h2>
+
+            <h3>Company Details</h3>
+            <p><strong>Company Name:</strong> Bytebandits OÜ</p>
+            <p><strong>Legal Form:</strong> OÜ (Estonian Private Limited Company)</p>
+
+            <h3>Registered Address</h3>
+            <p>
+                Tartu mnt 67/1-13b<br>
+                Tallinn 10115<br>
+                Eesti (Estonia)
+            </p>
+
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p><strong>Email:</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+            </div>
+
+            <h3>Responsible Person</h3>
+            <p><strong>Verantwortlich i.S.d. § 5 TMG / Art. 4 Nr. 7 DSGVO:</strong></p>
+            <p>
+                Bytebandits OÜ<br>
+                Tartu mnt 67/1-13b<br>
+                Tallinn 10115, Eesti<br>
+                E-Mail: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>
+            </p>
+
+            <h3>Data Protection Contact</h3>
+            <p><strong>Kontakt für Anfragen zum Datenschutz:</strong></p>
+            <p><a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+        </div>
+
+        <div class="card">
+            <h2>Disclaimer</h2>
+            <p>The information contained in this mobile application is for general information purposes only. While we endeavor to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability with respect to the app or the information, products, services, or related graphics contained in the app for any purpose.</p>
+            <p>Any reliance you place on such information is therefore strictly at your own risk.</p>
+        </div>
+
+        <div class="card">
+            <h2>Liability for Content</h2>
+            <p>As service providers, we are liable for own contents of these websites according to Sec. 7, paragraph 1 German Telemedia Act (TMG). However, according to Sec. 8 to 10 German Telemedia Act (TMG), service providers are not under obligation to permanently monitor submitted or stored information or to search for evidences that indicate illegal activities.</p>
+        </div>
+
+        <div class="card">
+            <h2>Liability for Links</h2>
+            <p>Our offer includes links to external websites of third parties on whose contents we have no influence. Therefore, we cannot assume any liability for these external contents. The respective provider or operator of the websites is always responsible for the contents of the linked websites.</p>
+        </div>
+
+        <div class="card">
+            <h2>Copyright</h2>
+            <p>The content and works created by the site operators on these pages are subject to German copyright law. Duplication, processing, distribution and any kind of exploitation outside the limits of copyright require the written consent of the respective author or creator.</p>
+        </div>
+
+    </section>
+
+    <hr>
+
+    <!-- Privacy Policy Section -->
+    <section id="privacy">
+        <h1>Privacy Policy</h1>
+        <p class="last-updated"><strong>Last Updated:</strong> November 2025</p>
+
+        <div class="card">
+            <h2>1. Introduction</h2>
+            <p>Smart Battery Manager ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.</p>
+        </div>
+
+        <div class="card">
+            <h2>2. Information We Collect</h2>
+
+            <h3>2.1 Data Collected by the App</h3>
+            <p>Our app collects the following information <strong>exclusively on your device</strong>:</p>
+
+            <h4>Battery Metrics:</h4>
+            <ul>
+                <li>Battery level (percentage)</li>
+                <li>Battery temperature</li>
+                <li>Voltage readings</li>
+                <li>Current flow (charge/discharge)</li>
+                <li>Charging status and source (AC, USB, Wireless)</li>
+                <li>Battery health indicators</li>
+                <li>Battery technology information</li>
+            </ul>
+
+            <h4>Device State:</h4>
+            <ul>
+                <li>Screen on/off status</li>
+                <li>Power save mode status</li>
+                <li>Thermal status</li>
+                <li>Device idle mode</li>
+            </ul>
+
+            <h4>App Usage Statistics (Optional):</h4>
+            <ul>
+                <li>App usage data (only if you grant "Usage Access" permission)</li>
+                <li>Used to identify which apps consume the most battery</li>
+            </ul>
+
+            <h3>2.2 Data Storage</h3>
+            <p><strong>All data is stored locally on your device only.</strong> We do not:</p>
+            <ul>
+                <li>Transmit any data to external servers</li>
+                <li>Share data with third parties</li>
+                <li>Use analytics or tracking services</li>
+                <li>Collect personal identification information</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>3. Legal Basis for Processing (GDPR)</h2>
+            <p>For users in the European Economic Area (EEA), we process your data based on:</p>
+            <ul>
+                <li><strong>Legitimate Interest:</strong> Battery monitoring is essential for the app's core functionality</li>
+                <li><strong>Consent:</strong> App usage statistics are only collected with your explicit permission</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>4. How We Use Your Information</h2>
+            <p>The collected data is used solely for:</p>
+            <ul>
+                <li>Displaying battery status and health information</li>
+                <li>Providing insights about battery usage patterns</li>
+                <li>Calculating battery cycles and wear estimates</li>
+                <li>Showing charging efficiency and patterns</li>
+                <li>Identifying power-consuming apps (if usage access is granted)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>5. Data Retention</h2>
+            <p>Data is retained on your device as long as:</p>
+            <ul>
+                <li>The app is installed on your device</li>
+                <li>You have not cleared the app's data through device settings</li>
+            </ul>
+            <p>You can delete all collected data at any time by:</p>
+            <ul>
+                <li>Clearing the app's data in your device settings</li>
+                <li>Uninstalling the app</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>6. Your Rights (GDPR)</h2>
+            <p>If you are located in the EEA, you have the following rights:</p>
+            <ul>
+                <li><strong>Right to Access:</strong> Request information about the data we have collected</li>
+                <li><strong>Right to Rectification:</strong> Correct inaccurate data</li>
+                <li><strong>Right to Erasure:</strong> Request deletion of your data</li>
+                <li><strong>Right to Data Portability:</strong> Export your data</li>
+                <li><strong>Right to Object:</strong> Object to processing of your data</li>
+                <li><strong>Right to Restrict Processing:</strong> Limit how we process your data</li>
+            </ul>
+            <p>To exercise these rights, contact us at: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+        </div>
+
+        <div class="card">
+            <h2>7. California Privacy Rights (CCPA)</h2>
+            <p>If you are a California resident, you have the right to:</p>
+            <ul>
+                <li>Know what personal information is collected</li>
+                <li>Know whether your personal information is sold or disclosed</li>
+                <li>Opt-out of the sale of personal information (we do not sell data)</li>
+                <li>Access your personal information</li>
+                <li>Request deletion of your personal information</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>8. Children's Privacy</h2>
+            <p>Our app is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us.</p>
+        </div>
+
+        <div class="card">
+            <h2>9. Third-Party Services</h2>
+            <p>Our app does not integrate with third-party analytics, advertising, or tracking services. All data processing occurs locally on your device.</p>
+        </div>
+
+        <div class="card">
+            <h2>10. Data Security</h2>
+            <p>We implement appropriate technical measures to protect your data:</p>
+            <ul>
+                <li>All data is stored locally on your device</li>
+                <li>No data transmission occurs</li>
+                <li>Data is encrypted at rest using device-level encryption (if supported by your device)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>11. International Data Transfers</h2>
+            <p><strong>No data is transferred outside your device.</strong> All data remains on your local device and is never transmitted to external servers.</p>
+        </div>
+
+        <div class="card">
+            <h2>12. Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by:</p>
+            <ul>
+                <li>Posting the new Privacy Policy in the app</li>
+                <li>Updating the "Last Updated" date</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>13. Contact Us</h2>
+            <p>If you have questions about this Privacy Policy or wish to exercise your rights, please contact us:</p>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+                <p><strong>Address:</strong> Bytebandits OÜ, Tartu mnt 67/1-13b, Tallinn 10115, Eesti</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>14. Data Protection Officer</h2>
+            <p>For users in the EEA, you can contact us regarding data protection at: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+        </div>
+
+    </section>
+
+    <hr>
+
+    <!-- Terms of Service Section -->
+    <section id="terms">
+        <h1>Terms of Service / End User License Agreement</h1>
+        <p class="last-updated"><strong>Last Updated:</strong> November 2025</p>
+
+        <div class="card">
+            <h2>1. Agreement to Terms</h2>
+            <p>By downloading, installing, or using Smart Battery Manager ("the App"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the App.</p>
+        </div>
+
+        <div class="card">
+            <h2>2. License Grant</h2>
+            <p>Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to:</p>
+            <ul>
+                <li>Download and install the App on your personal device(s)</li>
+                <li>Use the App for your personal, non-commercial use</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>3. Restrictions</h2>
+            <p>You agree <strong>not to</strong>:</p>
+            <ul>
+                <li>Copy, modify, or create derivative works of the App</li>
+                <li>Reverse engineer, decompile, or disassemble the App</li>
+                <li>Remove, alter, or obscure any proprietary notices</li>
+                <li>Use the App for any illegal or unauthorized purpose</li>
+                <li>Attempt to gain unauthorized access to the App or related systems</li>
+                <li>Use the App in any way that could damage, disable, or impair the App</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>4. Intellectual Property Rights</h2>
+            <p>The App, including its original content, features, and functionality, is owned by Bytebandits OÜ and is protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.</p>
+        </div>
+
+        <div class="card">
+            <h2>5. User Content</h2>
+            <p>The App processes battery and device data locally on your device. You retain all rights to your data. By using the App, you grant us permission to process this data locally for the App's functionality.</p>
+        </div>
+
+        <div class="card">
+            <h2>6. Disclaimer of Warranties</h2>
+            <p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:</p>
+            <ul>
+                <li>WARRANTIES OF MERCHANTABILITY</li>
+                <li>FITNESS FOR A PARTICULAR PURPOSE</li>
+                <li>NON-INFRINGEMENT</li>
+                <li>ACCURACY OR RELIABILITY OF BATTERY DATA</li>
+            </ul>
+            <p>We do not warrant that:</p>
+            <ul>
+                <li>The App will be uninterrupted or error-free</li>
+                <li>Battery readings or estimates are accurate</li>
+                <li>The App will meet your requirements</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>7. Limitation of Liability</h2>
+            <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL BYTEBANDITS OÜ BE LIABLE FOR:</p>
+            <ul>
+                <li>ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES</li>
+                <li>LOSS OF PROFITS, DATA, USE, OR OTHER INTANGIBLE LOSSES</li>
+                <li>DAMAGES RESULTING FROM YOUR USE OR INABILITY TO USE THE APP</li>
+            </ul>
+            <p>Some jurisdictions do not allow the exclusion or limitation of liability for consequential or incidental damages, so the above limitation may not apply to you.</p>
+        </div>
+
+        <div class="card">
+            <h2>8. Indemnification</h2>
+            <p>You agree to indemnify and hold harmless Bytebandits OÜ from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from:</p>
+            <ul>
+                <li>Your use of the App</li>
+                <li>Your violation of these Terms</li>
+                <li>Your violation of any third-party rights</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>9. Refund Policy</h2>
+            <p>If you purchased the App:</p>
+            <ul>
+                <li><strong>Google Play Store:</strong> Refunds are handled according to Google's refund policy (typically within 48 hours of purchase)</li>
+                <li><strong>Apple App Store:</strong> Refunds are handled according to Apple's refund policy</li>
+                <li>Contact the respective app store for refund requests</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>10. Age Restrictions</h2>
+            <p>The App is intended for users who are at least 13 years of age. If you are under 13, you may not use the App. If you are between 13 and 18, you represent that you have your parent's or guardian's permission to use the App.</p>
+        </div>
+
+        <div class="card">
+            <h2>11. Termination</h2>
+            <p>We may terminate or suspend your access to the App immediately, without prior notice, for any reason, including:</p>
+            <ul>
+                <li>Breach of these Terms</li>
+                <li>Request by law enforcement</li>
+                <li>Extended periods of inactivity</li>
+            </ul>
+            <p>Upon termination, your right to use the App will cease immediately.</p>
+        </div>
+
+        <div class="card">
+            <h2>12. Dispute Resolution</h2>
+
+            <h3>For EU Users:</h3>
+            <ul>
+                <li>EU consumers have the right to use the European Online Dispute Resolution platform: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a></li>
+                <li>You may also contact your local consumer protection authority</li>
+            </ul>
+
+            <h3>For US Users:</h3>
+            <ul>
+                <li>Any disputes will be resolved through binding arbitration in accordance with the rules of [Arbitration Organization]</li>
+                <li>Class action waivers may apply as permitted by law</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>13. Governing Law</h2>
+            <ul>
+                <li><strong>EU Users:</strong> These Terms are governed by the laws of [Your EU Country], without regard to conflict of law principles</li>
+                <li><strong>US Users:</strong> These Terms are governed by the laws of [Your US State], without regard to conflict of law principles</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>14. Changes to Terms</h2>
+            <p>We reserve the right to modify these Terms at any time. We will notify you of material changes by:</p>
+            <ul>
+                <li>Posting the updated Terms in the App</li>
+                <li>Updating the "Last Updated" date</li>
+            </ul>
+            <p>Your continued use of the App after changes constitutes acceptance of the new Terms.</p>
+        </div>
+
+        <div class="card">
+            <h2>15. Severability</h2>
+            <p>If any provision of these Terms is found to be unenforceable or invalid, that provision will be limited or eliminated to the minimum extent necessary, and the remaining provisions will remain in full force and effect.</p>
+        </div>
+
+        <div class="card">
+            <h2>16. Entire Agreement</h2>
+            <p>These Terms constitute the entire agreement between you and Bytebandits OÜ regarding the use of the App.</p>
+        </div>
+
+        <div class="card">
+            <h2>17. Contact Information</h2>
+            <p>If you have questions about these Terms, please contact us:</p>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+                <p><strong>Address:</strong> Bytebandits OÜ, Tartu mnt 67/1-13b, Tallinn 10115, Eesti</p>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Smart Battery Manager. All rights reserved.</p>
+        <p style="margin-top: 8px; font-size: 14px;">Last updated: November 2025</p>
+    </div>
+</footer>
+</body>
+</html>
+
