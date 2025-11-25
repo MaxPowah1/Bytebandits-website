@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal - Kinder Zahnputz Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, rgba(126, 224, 211, 0.85) 0%, rgba(143, 227, 136, 0.85) 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #12323A;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .language-selector {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(126, 224, 211, 0.1);
+            border-radius: 12px;
+        }
+
+        .language-selector select {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 2px solid rgba(126, 224, 211, 0.3);
+            border-radius: 8px;
+            background: white;
+            color: #12323A;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .language-selector select:focus {
+            outline: none;
+            border-color: rgba(126, 224, 211, 0.6);
+        }
+
+        h1 {
+            color: #12323A;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #345C65;
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 3px solid rgba(126, 224, 211, 0.4);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #345C65;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #345C65;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #12323A;
+            text-align: justify;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            margin-bottom: 12px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #345C65;
+            display: inline-block;
+            min-width: 140px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 2px solid rgba(126, 224, 211, 0.3);
+            text-align: center;
+            color: #345C65;
+            font-size: 14px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .last-updated {
+            font-style: italic;
+            color: #345C65;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+                border-radius: 16px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 16px;
+            }
+
+            .info-label {
+                display: block;
+                margin-bottom: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="language-selector">
+            <select id="langSelect" onchange="switchLanguage(this.value)">
+                <option value="de">Deutsch</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+                <option value="pt">Português</option>
+                <option value="hi">हिन्दी</option>
+                <option value="zh">中文</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+            </select>
+        </div>
+
+        <!-- GERMAN CONTENT -->
+        <div id="content-de" class="lang-content active">
+            <h1>🦷 Rechtliches</h1>
+            <p class="subtitle">Kinder Zahnputz Timer</p>
+            <p class="last-updated">Letzte Aktualisierung: 25. November 2025</p>
+
+            <div class="section" id="impressum">
+                <h2>1. Impressum</h2>
+                <h3>Angaben gemäß § 5 TMG</h3>
+                <div class="info-item">
+                    <span class="info-label">Name/Unternehmen:</span>
+                    <span>Bytebandits OÜ</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Anschrift:</span>
+                    <span>Tartu mnt 67/1-13b, Kesklinna linnaosa</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">PLZ, Ort:</span>
+                    <span>10115 Tallinn</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Land:</span>
+                    <span>Estland</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Vertretungsberechtigt:</span>
+                    <span>Management Board – M. Scherb</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Registrierungsnummer:</span>
+                    <span>17265228 (Handelsregister Harju County Court)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">USt-ID:</span>
+                    <span>Nicht umsatzsteuerpflichtig</span>
+                </div>
+                <h3>Kontakt</h3>
+                <div class="info-item">
+                    <span class="info-label">E-Mail:</span>
+                    <span><a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></span>
+                </div>
+                <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
+                <p>M. Scherb, Bytebandits OÜ</p>
+                <p>Tartu mnt 67/1-13b, 10115 Tallinn, Estland</p>
+            </div>
+
+            <div class="section" id="privacy">
+                <h2>2. Datenschutzerklärung</h2>
+                <h3>2.1 Allgemeine Hinweise</h3>
+                <p>Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. In dieser Datenschutzerklärung informieren wir Sie ausführlich über die Verarbeitung personenbezogener Daten bei der Nutzung unserer mobilen Anwendung "Kinder Zahnputz Timer" (nachfolgend "App" genannt). Diese Datenschutzerklärung gilt für alle Nutzer der App, unabhängig davon, ob diese kostenlos oder kostenpflichtig genutzt wird. Die Verarbeitung personenbezogener Daten erfolgt stets im Einklang mit der Datenschutz-Grundverordnung (DSGVO), dem Bundesdatenschutzgesetz (BDSG) und anderen anwendbaren datenschutzrechtlichen Bestimmungen.</p>
+                <h3>2.2 Verantwortlicher</h3>
+                <p>Verantwortlicher für die Datenverarbeitung im Sinne der DSGVO ist der oben im Impressum genannte Anbieter. Für Fragen zum Datenschutz können Sie sich jederzeit an die im Impressum angegebene E-Mail-Adresse wenden. Wir verpflichten uns, Ihre Anfragen innerhalb angemessener Fristen zu beantworten und Ihnen Auskunft über die von uns gespeicherten personenbezogenen Daten zu erteilen, soweit dies gesetzlich vorgeschrieben ist.</p>
+                <h3>2.3 Erhebung und Speicherung personenbezogener Daten</h3>
+                <p>Unsere App erhebt und speichert grundsätzlich keine personenbezogenen Daten. Die App funktioniert vollständig offline und erfordert keine Registrierung, keine Anmeldung und keine Angabe persönlicher Informationen. Alle Funktionen der App, einschließlich Timer-Einstellungen, Lautstärkepräferenzen und andere Nutzungseinstellungen, werden ausschließlich lokal auf Ihrem Gerät gespeichert und werden nicht an uns oder Dritte übertragen. Wir haben keinen Zugriff auf diese lokal gespeicherten Daten und können diese weder einsehen noch auswerten noch weitergeben.</p>
+                <p>Die App verwendet keine Tracking-Technologien, keine Analytics-Tools, keine Werbenetzwerke und keine Social-Media-Plugins. Es werden keine Cookies, keine Pixel, keine Fingerprinting-Technologien oder ähnliche Methoden zur Identifikation oder Verfolgung von Nutzern eingesetzt. Die App kommuniziert nicht mit externen Servern, es sei denn, Sie öffnen explizit den Link zur Impressum-Seite, in welchem Fall die Standard-Browser-Funktionalität Ihres Geräts verwendet wird.</p>
+            </div>
+
+            <div class="section" id="terms">
+                <h2>3. Nutzungsbedingungen</h2>
+                <h3>3.1 Geltungsbereich</h3>
+                <p>Diese Nutzungsbedingungen regeln die Nutzung der mobilen Anwendung "Kinder Zahnputz Timer" (nachfolgend "App" genannt). Durch das Herunterladen, Installieren oder Nutzen der App erklären Sie sich mit diesen Nutzungsbedingungen in ihrer jeweils gültigen Fassung einverstanden. Wenn Sie mit diesen Bedingungen nicht einverstanden sind, dürfen Sie die App nicht nutzen und müssen sie von Ihrem Gerät entfernen.</p>
+                <h3>3.2 Zweck der App</h3>
+                <p>Die App dient ausschließlich als Hilfsmittel zur Unterstützung von Kindern beim Zähneputzen durch Bereitstellung eines visuellen Timers, Animationen und Hintergrundmusik. Die App ist nicht als medizinisches oder zahnmedizinisches Gerät oder als Ersatz für professionelle zahnmedizinische Beratung, Diagnose oder Behandlung gedacht.</p>
+            </div>
+
+            <div class="section" id="disclaimer">
+                <h2>4. Haftungsausschluss</h2>
+                <h3>4.1 Haftung für Inhalte</h3>
+                <p>Die Inhalte unserer App wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit, Aktualität, Qualität oder Eignung der Inhalte für bestimmte Zwecke können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.</p>
+                <h3>4.2 Haftungsausschluss für Schäden</h3>
+                <p>Die Nutzung der App erfolgt auf eigene Gefahr des Nutzers. Wir haften nicht für Schäden, die durch die Nutzung oder Nichtnutzbarkeit der App entstehen, es sei denn, wir haben vorsätzlich oder grob fahrlässig gehandelt. Dies gilt insbesondere für Schäden durch Datenverlust, Systemausfälle, Fehlfunktionen der App oder sonstige Vermögensschäden.</p>
+            </div>
+
+            <div class="section" id="copyright">
+                <h2>5. Urheberrecht</h2>
+                <p>Die durch die App-Betreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+            </div>
+
+            <div class="footer">
+                <p><strong>Kinder Zahnputz Timer</strong></p>
+                <p>Stand: 25. November 2025</p>
+            </div>
+        </div>
+
+        <!-- ENGLISH CONTENT -->
+        <div id="content-en" class="lang-content">
+            <h1>🦷 Legal</h1>
+            <p class="subtitle">Kids Dental Timer</p>
+            <p class="last-updated">Last updated: 25 November 2025</p>
+
+            <div class="section" id="impressum">
+                <h2>1. Legal Notice</h2>
+                <h3>Information according to § 5 TMG</h3>
+                <div class="info-item">
+                    <span class="info-label">Name/Company:</span>
+                    <span>Bytebandits OÜ</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Address:</span>
+                    <span>Tartu mnt 67/1-13b, Kesklinna linnaosa</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">ZIP, City:</span>
+                    <span>10115 Tallinn</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Country:</span>
+                    <span>Estonia</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Represented by:</span>
+                    <span>Management Board – M. Scherb</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Registry code:</span>
+                    <span>17265228 (Harju County Court)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">VAT ID:</span>
+                    <span>Not liable for VAT</span>
+                </div>
+                <h3>Contact</h3>
+                <div class="info-item">
+                    <span class="info-label">Email:</span>
+                    <span><a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></span>
+                </div>
+                <h3>Responsible for content according to § 55 Abs. 2 RStV</h3>
+                <p>M. Scherb, Bytebandits OÜ</p>
+                <p>Tartu mnt 67/1-13b, 10115 Tallinn, Estonia</p>
+            </div>
+
+            <div class="section" id="privacy">
+                <h2>2. Privacy Policy</h2>
+                <h3>2.1 General Information</h3>
+                <p>The protection of your personal data is of particular concern to us. In this privacy policy, we inform you in detail about the processing of personal data when using our mobile application "Kids Dental Timer" (hereinafter "App"). This privacy policy applies to all users of the App, regardless of whether it is used free of charge or for a fee. The processing of personal data is always in accordance with the General Data Protection Regulation (GDPR), the Federal Data Protection Act (BDSG) and other applicable data protection regulations.</p>
+                <h3>2.2 Data Controller</h3>
+                <p>The data controller for data processing within the meaning of the GDPR is the provider named above in the legal notice. For questions about data protection, you can contact us at any time at the email address given in the legal notice. We are committed to answering your inquiries within reasonable timeframes and providing you with information about the personal data stored by us, insofar as this is legally required.</p>
+                <h3>2.3 Collection and Storage of Personal Data</h3>
+                <p>Our App does not collect or store any personal data. The App works completely offline and does not require registration, login, or provision of personal information. All functions of the App, including timer settings, volume preferences, and other usage settings, are stored exclusively locally on your device and are not transmitted to us or third parties.</p>
+            </div>
+
+            <div class="section" id="terms">
+                <h2>3. Terms of Service</h2>
+                <h3>3.1 Scope</h3>
+                <p>These terms of service govern the use of the mobile application "Kids Dental Timer" (hereinafter "App"). By downloading, installing, or using the App, you agree to these terms of service in their current version. If you do not agree to these terms, you may not use the App and must remove it from your device.</p>
+                <h3>3.2 Purpose of the App</h3>
+                <p>The App serves solely as a tool to support children in brushing their teeth by providing a visual timer, animations, and background music. The App is not intended as a medical or dental device or as a substitute for professional dental advice, diagnosis, or treatment.</p>
+            </div>
+
+            <div class="section" id="disclaimer">
+                <h2>4. Disclaimer</h2>
+                <h3>4.1 Liability for Content</h3>
+                <p>The contents of our App have been created with the greatest care. However, we cannot guarantee the accuracy, completeness, timeliness, quality, or suitability of the contents for specific purposes. As a service provider, we are responsible for our own content on these pages in accordance with general laws.</p>
+                <h3>4.2 Disclaimer of Damages</h3>
+                <p>The use of the App is at the user's own risk. We are not liable for damages arising from the use or unusability of the App, unless we have acted intentionally or with gross negligence.</p>
+            </div>
+
+            <div class="section" id="copyright">
+                <h2>5. Copyright</h2>
+                <p>The contents and works created by the App operators on these pages are subject to German copyright law. The duplication, processing, distribution, and any kind of exploitation outside the limits of copyright require the written consent of the respective author or creator.</p>
+            </div>
+
+            <div class="footer">
+                <p><strong>Kids Dental Timer</strong></p>
+                <p>Last updated: 25 November 2025</p>
+            </div>
+        </div>
+
+        <!-- FRENCH CONTENT -->
+        <div id="content-fr" class="lang-content">
+            <h1>🦷 Légal</h1>
+            <p class="subtitle">Minuteur Dentaire pour Enfants</p>
+            <p class="last-updated">Dernière mise à jour : 25 novembre 2025</p>
+
+            <div class="section" id="impressum">
+                <h2>1. Mentions Légales</h2>
+                <h3>Informations selon § 5 TMG</h3>
+                <p><strong>Nom/Entreprise :</strong> Bytebandits OÜ</p>
+                <p><strong>Adresse :</strong> Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estonie</p>
+                <p><strong>Représentant légal :</strong> Management Board – M. Scherb</p>
+                <p><strong>Numéro d'enregistrement :</strong> 17265228 (Harju County Court)</p>
+                <p><strong>TVA :</strong> Non assujetti à la TVA</p>
+                <p><strong>Email :</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+            </div>
+
+            <div class="section" id="privacy">
+                <h2>2. Politique de Confidentialité</h2>
+                <h3>2.1 Informations Générales</h3>
+                <p>La protection de vos données personnelles est une préoccupation particulière pour nous. Dans cette politique de confidentialité, nous vous informons en détail sur le traitement des données personnelles lors de l'utilisation de notre application mobile "Minuteur Dentaire pour Enfants". Cette politique de confidentialité s'applique à tous les utilisateurs de l'application, qu'elle soit utilisée gratuitement ou moyennant paiement.</p>
+                <h3>2.2 Collecte et Stockage des Données</h3>
+                <p>Notre application ne collecte ni ne stocke aucune donnée personnelle. L'application fonctionne entièrement hors ligne et ne nécessite aucune inscription, connexion ou fourniture d'informations personnelles.</p>
+            </div>
+
+            <div class="section" id="terms">
+                <h2>3. Conditions d'Utilisation</h2>
+                <p>Ces conditions d'utilisation régissent l'utilisation de l'application mobile "Minuteur Dentaire pour Enfants". En téléchargeant, installant ou utilisant l'application, vous acceptez ces conditions d'utilisation dans leur version en vigueur.</p>
+            </div>
+
+            <div class="section" id="disclaimer">
+                <h2>4. Avertissement</h2>
+                <p>L'utilisation de l'application se fait à vos propres risques. Nous ne sommes pas responsables des dommages résultant de l'utilisation ou de l'inutilisabilité de l'application, sauf en cas de faute intentionnelle ou de négligence grave de notre part.</p>
+            </div>
+
+            <div class="footer">
+                <p><strong>Minuteur Dentaire pour Enfants</strong></p>
+                <p>Dernière mise à jour : 25 novembre 2025</p>
+            </div>
+        </div>
+
+        <!-- SPANISH CONTENT -->
+        <div id="content-es" class="lang-content">
+            <h1>🦷 Legal</h1>
+            <p class="subtitle">Temporizador Dental para Niños</p>
+            <p class="last-updated">Última actualización: 25 de noviembre de 2025</p>
+
+            <div class="section" id="impressum">
+                <h2>1. Aviso Legal</h2>
+                <h3>Información según § 5 TMG</h3>
+                <p><strong>Nombre/Empresa:</strong> Bytebandits OÜ</p>
+                <p><strong>Dirección:</strong> Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estonia</p>
+                <p><strong>Representante:</strong> Management Board – M. Scherb</p>
+                <p><strong>Número de registro:</strong> 17265228 (Harju County Court)</p>
+                <p><strong>IVA:</strong> No sujeto al IVA</p>
+                <p><strong>Email:</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+            </div>
+
+            <div class="section" id="privacy">
+                <h2>2. Política de Privacidad</h2>
+                <h3>2.1 Información General</h3>
+                <p>La protección de sus datos personales es de particular importancia para nosotros. En esta política de privacidad, le informamos en detalle sobre el procesamiento de datos personales al usar nuestra aplicación móvil "Temporizador Dental para Niños". Esta política de privacidad se aplica a todos los usuarios de la aplicación.</p>
+                <h3>2.2 Recopilación de Datos</h3>
+                <p>Nuestra aplicación no recopila ni almacena datos personales. La aplicación funciona completamente sin conexión y no requiere registro ni información personal.</p>
+            </div>
+
+            <div class="section" id="terms">
+                <h2>3. Términos de Servicio</h2>
+                <p>Estos términos de servicio rigen el uso de la aplicación móvil "Temporizador Dental para Niños". Al descargar, instalar o usar la aplicación, acepta estos términos de servicio.</p>
+            </div>
+
+            <div class="section" id="disclaimer">
+                <h2>4. Descargo de Responsabilidad</h2>
+                <p>El uso de la aplicación es bajo su propio riesgo. No somos responsables de los daños resultantes del uso o la inutilidad de la aplicación, excepto en caso de dolo o negligencia grave de nuestra parte.</p>
+            </div>
+
+            <div class="footer">
+                <p><strong>Temporizador Dental para Niños</strong></p>
+                <p>Última actualización: 25 de noviembre de 2025</p>
+            </div>
+        </div>
+
+        <!-- PORTUGUESE CONTENT -->
+        <div id="content-pt" class="lang-content">
+            <h1>🦷 Legal</h1>
+            <p class="subtitle">Timer Dental para Crianças</p>
+            <p class="last-updated">Última atualização: 25 de novembro de 2025</p>
+
+            <div class="section" id="impressum">
+                <h2>1. Aviso Legal</h2>
+                <h3>Informações de acordo com § 5 TMG</h3>
+                <p><strong>Nome/Empresa:</strong> Bytebandits OÜ</p>
+                <p><strong>Endereço:</strong> Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estônia</p>
+                <p><strong>Representante:</strong> Management Board – M. Scherb</p>
+                <p><strong>Código de registro:</strong> 17265228 (Harju County Court)</p>
+                <p><strong>IVA:</strong> Não sujeito a IVA</p>
+                <p><strong>Email:</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+            </div>
+
+            <div class="section" id="privacy">
+                <h2>2. Política de Privacidade</h2>
+                <h3>2.1 Informações Gerais</h3>
+                <p>A proteção dos seus dados pessoais é de particular importância para nós. Nesta política de privacidade, informamos detalhadamente sobre o processamento de dados pessoais ao usar nosso aplicativo móvel "Timer Dental para Crianças".</p>
+                <h3>2.2 Coleta de Dados</h3>
+                <p>Nosso aplicativo não coleta nem armazena dados pessoais. O aplicativo funciona completamente offline e não requer registro ou informações pessoais.</p>
+            </div>
+
+            <div class="section" id="terms">
+                <h2>3. Termos de Serviço</h2>
+                <p>Estes termos de serviço regem o uso do aplicativo móvel "Timer Dental para Crianças". Ao baixar, instalar ou usar o aplicativo, você concorda com estes termos de serviço.</p>
+            </div>
+
+            <div class="section" id="disclaimer">
+                <h2>4. Isenção de Responsabilidade</h2>
+                <p>O uso do aplicativo é por sua conta e risco. Não somos responsáveis por danos resultantes do uso ou inutilidade do aplicativo, exceto em caso de dolo ou negligência grave de nossa parte.</p>
+            </div>
+
+            <div class="footer">
+                <p><strong>Timer Dental para Crianças</strong></p>
+                <p>Última atualização: 25 de novembro de 2025</p>
+            </div>
+        </div>
+
+        <!-- HINDI CONTENT -->
+        <div id="content-hi" class="lang-content">
+            <h1>🦷 कानूनी</h1>
+            <p class="subtitle">बच्चों का दंत टाइमर</p>
+            <p class="last-updated">अंतिम अपडेट: 25 नवम्बर 2025</p>
+
+            <div class="section" id="impressum">
+                <h2>1. कानूनी सूचना</h2>
+                <h3>§ 5 TMG के अनुसार जानकारी</h3>
+                <p><strong>नाम/कंपनी:</strong> Bytebandits OÜ</p>
+                <p><strong>पता:</strong> Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, एस्टोनिया</p>
+                <p><strong>कानूनी प्रतिनिधि:</strong> Management Board – M. Scherb</p>
+                <p><strong>पंजीकरण संख्या:</strong> 17265228 (Harju County Court)</p>
+                <p><strong>VAT:</strong> वैट के लिए उत्तरदायी नहीं</p>
+                <p><strong>ईमेल:</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+            </div>
+
+            <div class="section" id="privacy">
+                <h2>2. गोपनीयता नीति</h2>
+                <h3>2.1 सामान्य जानकारी</h3>
+                <p>आपके व्यक्तिगत डेटा की सुरक्षा हमारे लिए विशेष महत्व रखती है। इस गोपनीयता नीति में, हम आपको हमारे मोबाइल एप्लिकेशन "बच्चों का दंत टाइमर" के उपयोग के दौरान व्यक्तिगत डेटा के प्रसंस्करण के बारे में विस्तार से सूचित करते हैं।</p>
+                <h3>2.2 डेटा संग्रह</h3>
+                <p>हमारा एप्लिकेशन कोई व्यक्तिगत डेटा एकत्र या संग्रहीत नहीं करता है। एप्लिकेशन पूरी तरह से ऑफलाइन काम करता है और पंजीकरण या व्यक्तिगत जानकारी की आवश्यकता नहीं है।</p>
+            </div>
+
+            <div class="section" id="terms">
+                <h2>3. सेवा की शर्तें</h2>
+                <p>ये सेवा की शर्तें मोबाइल एप्लिकेशन "बच्चों का दंत टाइमर" के उपयोग को नियंत्रित करती हैं। एप्लिकेशन डाउनलोड, इंस्टॉल या उपयोग करके, आप इन सेवा की शर्तों से सहमत होते हैं।</p>
+            </div>
+
+            <div class="section" id="disclaimer">
+                <h2>4. दायित्व अस्वीकरण</h2>
+                <p>एप्लिकेशन का उपयोग आपके अपने जोखिम पर है। हम एप्लिकेशन के उपयोग या अप्रयोज्यता से उत्पन्न होने वाले नुकसान के लिए जिम्मेदार नहीं हैं, जब तक कि हमने जानबूझकर या गंभीर लापरवाही से काम नहीं किया है।</p>
+            </div>
+
+            <div class="footer">
+                <p><strong>बच्चों का दंत टाइमर</strong></p>
+                <p>अंतिम अपडेट: 25 नवम्बर 2025</p>
+            </div>
+        </div>
+
+        <!-- CHINESE CONTENT -->
+        <div id="content-zh" class="lang-content">
+            <h1>🦷 法律</h1>
+            <p class="subtitle">儿童刷牙计时器</p>
+            <p class="last-updated">最后更新：2025年11月25日</p>
+
+            <div class="section" id="impressum">
+                <h2>1. 法律声明</h2>
+                <h3>根据 § 5 TMG 的信息</h3>
+                <p><strong>姓名/公司：</strong> Bytebandits OÜ</p>
+                <p><strong>地址：</strong> Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 塔林，爱沙尼亚</p>
+                <p><strong>法定代表：</strong> 管理委员会 – M. Scherb</p>
+                <p><strong>注册号：</strong> 17265228（Harju County Court）</p>
+                <p><strong>税号：</strong> 无增值税义务</p>
+                <p><strong>电子邮件：</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+            </div>
+
+            <div class="section" id="privacy">
+                <h2>2. 隐私政策</h2>
+                <h3>2.1 一般信息</h3>
+                <p>保护您的个人数据对我们来说特别重要。在本隐私政策中，我们详细告知您在使用我们的移动应用程序"儿童刷牙计时器"时处理个人数据的情况。本隐私政策适用于所有应用程序用户。</p>
+                <h3>2.2 数据收集</h3>
+                <p>我们的应用程序不收集或存储任何个人数据。应用程序完全离线工作，不需要注册或个人信息。</p>
+            </div>
+
+            <div class="section" id="terms">
+                <h2>3. 服务条款</h2>
+                <p>本服务条款规范移动应用程序"儿童刷牙计时器"的使用。通过下载、安装或使用应用程序，您同意本服务条款。</p>
+            </div>
+
+            <div class="section" id="disclaimer">
+                <h2>4. 免责声明</h2>
+                <p>使用应用程序的风险由您自行承担。除非我们故意或严重疏忽，否则我们不对因使用或无法使用应用程序而产生的损害负责。</p>
+            </div>
+
+            <div class="footer">
+                <p><strong>儿童刷牙计时器</strong></p>
+                <p>最后更新：2025年11月25日</p>
+            </div>
+        </div>
+
+        <!-- JAPANESE CONTENT -->
+        <div id="content-ja" class="lang-content">
+            <h1>🦷 法的情報</h1>
+            <p class="subtitle">子供用歯磨きタイマー</p>
+            <p class="last-updated">最終更新：2025年11月25日</p>
+
+            <div class="section" id="impressum">
+                <h2>1. 法的通知</h2>
+                <h3>§ 5 TMGに基づく情報</h3>
+                <p><strong>名前/会社：</strong> Bytebandits OÜ</p>
+                <p><strong>住所：</strong> Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 タリン（エストニア）</p>
+                <p><strong>代表者：</strong> 経営委員会 – M. Scherb</p>
+                <p><strong>登録番号：</strong> 17265228（Harju County Court）</p>
+                <p><strong>VAT：</strong> VAT非課税</p>
+                <p><strong>メール：</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+            </div>
+
+            <div class="section" id="privacy">
+                <h2>2. プライバシーポリシー</h2>
+                <h3>2.1 一般情報</h3>
+                <p>お客様の個人データの保護は、私たちにとって特に重要です。このプライバシーポリシーでは、モバイルアプリケーション「子供用歯磨きタイマー」の使用における個人データの処理について詳しく説明します。</p>
+                <h3>2.2 データ収集</h3>
+                <p>当社のアプリケーションは個人データを収集または保存しません。アプリケーションは完全にオフラインで動作し、登録や個人情報は必要ありません。</p>
+            </div>
+
+            <div class="section" id="terms">
+                <h2>3. 利用規約</h2>
+                <p>本利用規約は、モバイルアプリケーション「子供用歯磨きタイマー」の使用を規定します。アプリケーションをダウンロード、インストール、または使用することで、本利用規約に同意したものとみなされます。</p>
+            </div>
+
+            <div class="section" id="disclaimer">
+                <h2>4. 免責事項</h2>
+                <p>アプリケーションの使用は、お客様自身の責任で行われます。故意または重大な過失がない限り、アプリケーションの使用または使用不能による損害について、当社は責任を負いません。</p>
+            </div>
+
+            <div class="footer">
+                <p><strong>子供用歯磨きタイマー</strong></p>
+                <p>最終更新：2025年11月25日</p>
+            </div>
+        </div>
+
+        <!-- KOREAN CONTENT -->
+        <div id="content-ko" class="lang-content">
+            <h1>🦷 법적 고지</h1>
+            <p class="subtitle">어린이 양치 타이머</p>
+            <p class="last-updated">최종 업데이트: 2025년 11월 25일</p>
+
+            <div class="section" id="impressum">
+                <h2>1. 법적 고지</h2>
+                <h3>§ 5 TMG에 따른 정보</h3>
+                <p><strong>이름/회사:</strong> Bytebandits OÜ</p>
+                <p><strong>주소:</strong> Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 탈린, 에스토니아</p>
+                <p><strong>대표:</strong> 경영 이사회 – M. Scherb</p>
+                <p><strong>등록 번호:</strong> 17265228 (Harju County Court)</p>
+                <p><strong>부가세:</strong> 부가세 납부 의무 없음</p>
+                <p><strong>이메일:</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+            </div>
+
+            <div class="section" id="privacy">
+                <h2>2. 개인정보 보호정책</h2>
+                <h3>2.1 일반 정보</h3>
+                <p>귀하의 개인 데이터 보호는 우리에게 특히 중요합니다. 이 개인정보 보호정책에서 우리는 모바일 애플리케이션 "어린이 양치 타이머" 사용 시 개인 데이터 처리에 대해 자세히 알려드립니다.</p>
+                <h3>2.2 데이터 수집</h3>
+                <p>우리 애플리케이션은 개인 데이터를 수집하거나 저장하지 않습니다. 애플리케이션은 완전히 오프라인으로 작동하며 등록이나 개인 정보가 필요하지 않습니다.</p>
+            </div>
+
+            <div class="section" id="terms">
+                <h2>3. 서비스 약관</h2>
+                <p>본 서비스 약관은 모바일 애플리케이션 "어린이 양치 타이머"의 사용을 규제합니다. 애플리케이션을 다운로드, 설치 또는 사용함으로써 본 서비스 약관에 동의하는 것으로 간주됩니다.</p>
+            </div>
+
+            <div class="section" id="disclaimer">
+                <h2>4. 면책 조항</h2>
+                <p>애플리케이션 사용은 귀하의 자체 위험으로 이루어집니다. 고의 또는 중대한 과실이 없는 한, 애플리케이션 사용 또는 사용 불가능으로 인한 손해에 대해 우리는 책임을 지지 않습니다.</p>
+            </div>
+
+            <div class="footer">
+                <p><strong>어린이 양치 타이머</strong></p>
+                <p>최종 업데이트: 2025년 11월 25일</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Language switching functionality
+        function switchLanguage(lang) {
+            // Hide all language contents
+            const allContents = document.querySelectorAll('.lang-content');
+            allContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show selected language content
+            const selectedContent = document.getElementById('content-' + lang);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
+
+            // Save language preference
+            localStorage.setItem('preferredLanguage', lang);
+
+            // Update document language attribute
+            document.documentElement.lang = lang;
+        }
+
+        // Load saved language preference on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'de';
+            const langSelect = document.getElementById('langSelect');
+            if (langSelect) {
+                langSelect.value = savedLang;
+                switchLanguage(savedLang);
+            }
+        });
+
+        // Detect browser language and set initial language
+        window.addEventListener('DOMContentLoaded', function() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langMap = {
+                'de': 'de', 'de-DE': 'de', 'de-AT': 'de', 'de-CH': 'de',
+                'en': 'en', 'en-US': 'en', 'en-GB': 'en',
+                'fr': 'fr', 'fr-FR': 'fr', 'fr-CA': 'fr',
+                'es': 'es', 'es-ES': 'es', 'es-MX': 'es',
+                'pt': 'pt', 'pt-BR': 'pt', 'pt-PT': 'pt',
+                'hi': 'hi', 'hi-IN': 'hi',
+                'zh': 'zh', 'zh-CN': 'zh', 'zh-TW': 'zh',
+                'ja': 'ja', 'ja-JP': 'ja',
+                'ko': 'ko', 'ko-KR': 'ko'
+            };
+
+            const langCode = browserLang.split('-')[0];
+            const detectedLang = langMap[browserLang] || langMap[langCode] || 'de';
+
+            // Only use browser language if no saved preference exists
+            if (!localStorage.getItem('preferredLanguage')) {
+                const langSelect = document.getElementById('langSelect');
+                if (langSelect) {
+                    langSelect.value = detectedLang;
+                    switchLanguage(detectedLang);
+                }
+            }
+
+            // Handle anchor links - scroll to section after language is set
+            setTimeout(function() {
+                const hash = window.location.hash;
+                if (hash) {
+                    const targetId = hash.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }, 100);
+        });
+
+        // Also handle hash changes
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash;
+            if (hash) {
+                const targetId = hash.substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
