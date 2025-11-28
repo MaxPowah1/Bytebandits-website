@@ -133,6 +133,7 @@ const TerminalBody = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 3.5rem;
+  overflow: hidden;
 
   &::before,
   &::after {
@@ -182,33 +183,11 @@ const Content = styled.div`
   }
 `
 
-const ImagePanel = styled.div`
-  flex: 0 0 clamp(220px, 24vw, 320px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-
-  img {
-    width: 100%;
-    max-width: 320px;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 0 28px rgba(0,255,148,0.35));
-    animation: ${float} 10s ease-in-out infinite;
-  }
-
-  @media (max-width: ${MOBILE_BREAK}px) {
-    order: -1;
-    img {
-      width: 55vw;
-    }
-  }
-`
-
 const LinesContainer = styled.div`
   flex: 1;
-  padding: 1rem;
+  padding: 1.25rem;
+  padding-bottom: clamp(3rem, 10vw, 6rem);
+  padding-right: clamp(1.25rem, 6vw, 4rem);
   color: #00ff00;
   font-family: 'Courier New', monospace;
   white-space: pre-wrap;
@@ -333,6 +312,36 @@ const MenuLink = styled.span`
   }
 `
 
+const ImagePanel = styled.div`
+  position: absolute;
+  bottom: clamp(0.75rem, 2vw, 2rem);
+  right: clamp(0.75rem, 2vw, 2.5rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1;
+
+  img {
+    width: clamp(140px, 18vw, 220px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 32px rgba(0,255,148,0.45));
+    transform: scaleX(-1);
+    animation: ${float} 10s ease-in-out infinite;
+  }
+
+  @media (max-width: ${MOBILE_BREAK}px) {
+    position: static;
+    margin: 1rem auto 0;
+
+    img {
+      width: 55vw;
+      transform: scaleX(-1);
+    }
+  }
+`
+
 const TerminalHud = styled.div`
   position: absolute;
   top: 0.9rem;
@@ -417,11 +426,6 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
 
   return (
     <Section id={`${id}-section`}>
-      {img && (
-        <ImagePanel>
-          <img src={img} alt={`${id} illustration`} />
-        </ImagePanel>
-      )}
       <TerminalGroup>
         <Terminal>
           <TerminalHud>
@@ -436,6 +440,11 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
             <Content ref={contentRef}>
               <LinesContainer>
                 {lines.slice(0, count).join('\n')}
+                {img && (
+                  <ImagePanel>
+                    <img src={img} alt={`${id} illustration`} />
+                  </ImagePanel>
+                )}
               </LinesContainer>
             </Content>
           </TerminalBody>
