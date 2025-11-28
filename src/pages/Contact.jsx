@@ -1,14 +1,20 @@
 // src/pages/Contact.jsx
 export const lines = [
-  '$ ssh contact@byte-bandits.com',
+  '$ nc bytebandits.io 31337',
   '',
-  '>> Establishing secure connection...',
+  '[link] Negotiating TLS tunnel ...... OK',
   '',
-  'Looking for a fast prototype? One-time job? Let’s talk.',
-  'No contracts. No BS. Just code that works.',
+  'Need a prototype, pitch build, or rogue automation?',
+  'Drop the payload, we drop the code. No lock-ins. No ghosting.',
   '',
-  '📬 Email us at:',
-  '   max [at] byte [minus] bandits [dot] com',
+  'contact vector:',
+  '  max [at] byte [minus] bandits [dot] com',
+  '  subject: MISSION // <your codename>',
   '',
-  '💡 Tip: We speak human. Not just code.',
-]
+  'Telemetry we love:',
+  '  ▸ problem in one sentence',
+  '  ▸ deadline window',
+  '  ▸ stack constraints (if any)',
+  '',
+  'We respond in <24h unless we are mid-run.',
+];
