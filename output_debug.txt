@@ -1,0 +1,2049 @@
+Ich würde gerne, dass du noch ein Bild einbaust. Ich schicke dir mal meinen kompletten Code, und zwar möchte ich die HTML, die du gerade angelegt hast, im Public-Ordner reinlegen. Und unter Source Assets, der Source-Ordner ist genau parallel zu Public, und dann Assets Factory.png würde ich gerne irgendwie als Hintergrund haben von der Webseite. Geht das?
+
+----- Content from: C:\Users\jimbo\AndroidStudioProjects\Bytebandits-website\public\Amitooloud_legal.html -----
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rechtliches • Am I Too Loud?</title>
+    <style>
+        :root{
+          --mint:#7EE0D3;
+          --leaf:#8FE388;
+          --sun:#FFE08A;
+          --pink:#FFB3BA;
+
+          /* Light */
+          --ink:#12323A;        /* primäre Textfarbe */
+          --softInk:#355A63;    /* sekundär/muted */
+          --surface:#F7FBFC;    /* Seitenhintergrund */
+          --panel:#FFFFFF;      /* Kartenhelligkeit */
+          --panelBorder: rgba(18,50,58,0.12);
+          --link:#0b7285;
+
+          --ok:#5ED59A; --warn:#FFD569; --alert:#FF6B6B;
+        }
+
+        @media (prefers-color-scheme: dark){
+          :root{
+            /* Dark (deutlich kontrastreicher) */
+            --surface:#0B1518;
+            --ink:#F1F6F7;
+            --softInk:#C9D7DB;
+            --panel: rgba(255,255,255,0.12);      /* mehr Opazität */
+            --panelBorder: rgba(255,255,255,0.22);/* klarere Kante */
+            --link:#7EE0D3;
+          }
+          body{ background: var(--surface); color: var(--ink); }
+          .tabs button{ color: var(--ink); }
+        }
+
+        *{ box-sizing:border-box; }
+        html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+        body{
+          margin:0;
+          font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
+          background: var(--surface);
+          color: var(--ink);
+          line-height:1.55;
+          font-size:16px;
+        }
+
+        header{
+          position:sticky; top:0; z-index:5;
+          backdrop-filter:saturate(140%) blur(8px);
+          background: linear-gradient(180deg, rgba(126,224,211,0.18), rgba(126,224,211,0.06));
+          border-bottom:1px solid var(--panelBorder);
+        }
+
+        .wrap{ max-width:980px; margin:0 auto; padding: 14px 18px; }
+        h1{ margin:0; font-weight:800; font-size:22px; letter-spacing:0.2px; color:var(--ink); }
+
+        .tabs{
+          display:flex; flex-wrap:wrap; gap:8px; padding:10px 0 4px 0;
+        }
+        .tabs button{
+          appearance:none; border:1px solid var(--panelBorder);
+          background: var(--panel);
+          color: var(--ink);
+          padding:8px 12px; border-radius:999px; font-weight:700; cursor:pointer;
+        }
+        .tabs button.active{
+          background: var(--mint);
+          border-color: transparent;
+          color:#062a2b; /* gute Lesbarkeit auf Mint */
+        }
+
+        main{ padding: 20px 18px 40px; }
+
+        .card{
+          background: var(--panel);
+          border:1px solid var(--panelBorder);
+          border-radius:16px; padding:20px 18px; margin:0 auto 16px; max-width:980px;
+          box-shadow:0 6px 22px rgba(0,0,0,0.10);
+        }
+
+        h2{ font-size:20px; margin:6px 0 12px; font-weight:800; color:var(--ink); }
+        h3{ font-size:16px; margin:16px 0 8px; font-weight:800; color:var(--ink); }
+
+        /* WICHTIG: Bodytext jetzt volle Primärfarbe, nicht „muted“ */
+        p, li{ color: var(--ink); }
+        small, .muted{ color: var(--softInk); }
+
+        code{
+          background: rgba(18,50,58,0.08);
+          padding:2px 6px; border-radius:6px;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+        @media (prefers-color-scheme: dark){
+          code{ background: rgba(255,255,255,0.12); }
+        }
+
+        .langswitch{ display:flex; gap:6px; align-items:center; }
+        .langswitch .tag{
+          display:inline-block; padding:3px 8px; border-radius:999px;
+          background: rgba(18,50,58,0.12); color: var(--softInk); font-size:12px; font-weight:800;
+        }
+        .langswitch button{
+          border:none; background:transparent; font-weight:800; cursor:pointer; color:var(--ink);
+          opacity:.85;
+        }
+        .langswitch button.active{ opacity:1; text-decoration:underline; }
+
+        .notice{
+          border-left:4px solid var(--ok);
+          padding:10px 12px; border-radius:10px; background: rgba(94,213,154,0.15);
+          color: var(--ink);
+        }
+        @media (prefers-color-scheme: dark){
+          .notice{ background: rgba(94,213,154,0.20); }
+        }
+
+        a{ color: var(--link); font-weight:700; text-decoration:none; }
+        a:hover{ text-decoration:underline; }
+
+        .foot{ text-align:center; font-size:12px; opacity:0.9; margin-top:24px; }
+        .hid{ display:none; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="wrap">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+            <h1>Am I Too Loud? • Rechtliches</h1>
+            <div class="langswitch" aria-label="Sprachauswahl">
+                <span class="tag">Language</span>
+                <button id="lang-de" class="active" onclick="setLang('de')">Deutsch</button>
+                <button id="lang-en" onclick="setLang('en')">English</button>
+            </div>
+        </div>
+        <nav class="tabs" role="tablist" aria-label="Dokument-Navigation">
+            <button class="active" data-tab="imprint" onclick="showTab('imprint')">Impressum</button>
+            <button data-tab="privacy" onclick="showTab('privacy')">Datenschutz / Privacy</button>
+            <button data-tab="agb" onclick="showTab('agb')">AGB (DE)</button>
+            <button data-tab="tos" onclick="showTab('tos')">Terms of Service (EN)</button>
+        </nav>
+    </div>
+</header>
+
+<main class="wrap">
+    <!-- IMPRESSUM -->
+    <section id="tab-imprint" class="card">
+        <h2>Impressum</h2>
+        <p><strong>Verantwortlich i.S.d. § 5 TMG / Art. 4 Nr. 7 DSGVO</strong><br>
+            <span id="org-de">Bytebandits OÜ</span><br>
+            Tartu mnt 67/1-13b<br>
+            Tallinn 10115, Eesti<br>
+            E-Mail: <a href="mailto:[max@byte-bandits.com]">eMail</a><br>
+        </p>
+        <p><strong>Kontakt für Anfragen zum Datenschutz</strong><br>
+            <a href="mailto:[max@byte-bandits.com]">eMail</a>
+        </p>
+        <div class="notice"><strong>Hinweis:</strong> Diese App dient ausschließlich als Orientierungshilfe zur eigenen Sprechlautstärke. Sie ist kein geeichtes Messgerät und nicht für sicherheitsrelevante Zwecke gedacht.</div>
+    </section>
+
+    <!-- DATENSCHUTZ -->
+    <section id="tab-privacy" class="card">
+        <h2>Datenschutzerklärung (DE)</h2>
+        <p>Diese App verarbeitet Audio-Pegel lokal auf deinem Gerät, um dir Live-Feedback zu geben. Es werden <strong>keine Sprachinhalte gespeichert</strong> und <strong>keine personenbezogenen Daten</strong> an Server übertragen.</p>
+
+        <h3>1. Verantwortlicher</h3>
+        <p><span class="muted">Siehe Impressum.</span></p>
+
+        <h3>2. Verarbeitete Datenkategorien</h3>
+        <ul>
+            <li><strong>Mikrofon-Pegel (dBFS)</strong> – fortlaufende Amplitudenwerte zur Anzeige von grün/gelb/rot. <em>Die Verarbeitung erfolgt ausschließlich lokal on-device.</em></li>
+            <li><strong>Temporäre Audiodatei</strong> – zur Pegelerfassung legt die App eine <em>temporäre</em> Datei im App-Cache an und löscht sie beim Stoppen der Messung (Best-Effort).</li>
+            <li><strong>Einstellungsdaten</strong> – Onboarding-Status (<code>SharedPreferences</code>) sowie Grenzwerte (zur Laufzeit im Speicher). Keine Cloud-Synchronisation.</li>
+        </ul>
+
+        <h3>3. Zwecke & Rechtsgrundlagen</h3>
+        <ul>
+            <li><strong>Zweck:</strong> Anzeige der eigenen Lautstärke in Echtzeit.</li>
+            <li><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertrag/ Nutzung der App) und Art. 6 Abs. 1 lit. a DSGVO (Einwilligung in Mikrofonzugriff über das Betriebssystem-Prompt).</li>
+        </ul>
+
+        <h3>4. Empfänger & Drittlandtransfer</h3>
+        <p>Keine Übermittlung an Dritte, keine Serverkommunikation, kein Drittlandtransfer.</p>
+
+        <h3>5. Speicherdauer</h3>
+        <ul>
+            <li>Temporäre Audiodatei: wird beim Stoppen entfernt (Best-Effort). </li>
+            <li>Onboarding-Flag: bis Zurücksetzen/Deinstallation.</li>
+        </ul>
+
+        <h3>6. Bereitstellungspflicht</h3>
+        <p>Ohne Mikrofonberechtigung ist die Kernfunktion nicht nutzbar.</p>
+
+        <h3>7. Rechte der betroffenen Personen</h3>
+        <p>Du hast Rechte nach Art. 15–21 DSGVO (Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch). Wende dich an den im Impressum genannten Kontakt.</p>
+
+        <h3>8. Sicherheit</h3>
+        <p>Verarbeitung erfolgt lokal. Es findet keine Profilbildung statt.</p>
+
+        <h3>9. Drittanbieter-Bibliotheken (on-device)</h3>
+        <ul>
+            <li>Flutter (UI-Framework)</li>
+            <li>record (Mikrofonzugriff, Pegel), permission_handler, path_provider</li>
+            <li>shared_preferences (Onboarding-Flag), url_launcher (Links öffnen)</li>
+        </ul>
+
+        <hr style="margin:18px 0; opacity:.3;">
+
+        <h2>Privacy Policy (EN)</h2>
+        <p>This app processes <strong>microphone levels locally on your device</strong> to provide real-time feedback. <strong>No speech content is stored</strong> and <strong>no personal data</strong> is sent to any server.</p>
+
+        <h3>1. Controller</h3>
+        <p><span class="muted">See imprint.</span></p>
+
+        <h3>2. Data Categories</h3>
+        <ul>
+            <li><strong>Microphone level (dBFS)</strong> – amplitude values for green/yellow/red. Processing is strictly on-device.</li>
+            <li><strong>Temporary audio file</strong> – created in cache for level capture and removed on stop (best-effort).</li>
+            <li><strong>Settings</strong> – onboarding flag (<code>SharedPreferences</code>) and threshold values (in-memory). No cloud sync.</li>
+        </ul>
+
+        <h3>3. Purposes & Legal Bases</h3>
+        <ul>
+            <li><strong>Purpose:</strong> real-time loudness feedback.</li>
+            <li><strong>Legal bases:</strong> GDPR Art. 6(1)(b) (app use/contract) and Art. 6(1)(a) (OS-level microphone permission).</li>
+        </ul>
+
+        <h3>4. Recipients & Transfers</h3>
+        <p>No disclosure to third parties, no server communication, no third-country transfers.</p>
+
+        <h3>5. Retention</h3>
+        <ul>
+            <li>Temp audio file: removed on stop (best-effort).</li>
+            <li>Onboarding flag: until reset/uninstall.</li>
+        </ul>
+
+        <h3>6. Data Subject Rights</h3>
+        <p>GDPR rights (access, rectification, erasure, restriction, objection). Contact as per imprint.</p>
+
+        <h3>7. Security</h3>
+        <p>Processing is local; no profiling.</p>
+
+        <h3>8. Third-party libraries (on-device)</h3>
+        <p>See “Licenses & Permissions”.</p>
+    </section>
+
+    <!-- AGB (DE) -->
+    <section id="tab-agb" class="card hid">
+        <h2>Allgemeine Geschäftsbedingungen (AGB)</h2>
+        <p class="muted">Diese AGB regeln die Nutzung der App „Am I Too Loud?“. Trage ggf. abweichende Zahlungs-/Lizenzinfos ein.</p>
+
+        <h3>1. Geltungsbereich</h3>
+        <p>Diese AGB gelten zwischen dem/der Anbieter:in (siehe Impressum) und den Nutzenden der App.</p>
+
+        <h3>2. Leistungsbeschreibung</h3>
+        <p>Die App bietet Orientierung zur eigenen Sprechlautstärke über farbliches Live-Feedback. Es handelt sich nicht um ein geeichtes Messgerät und nicht um eine medizinische oder sicherheitsrelevante Anwendung.</p>
+
+        <h3>3. Nutzungsvoraussetzungen</h3>
+        <p>Erforderlich ist die Mikrofonberechtigung des Geräts. Die Verfügbarkeit kann je nach Gerät/OS variieren.</p>
+
+        <h3>4. Preise & Zahlung</h3>
+        <p>[Trage hier ein: kostenlos / Kaufpreis / ggf. zukünftige In-App-Käufe.]</p>
+
+        <h3>5. Rechte an der App</h3>
+        <p>Alle Rechte verbleiben beim/bei der Anbieter:in. Nutzenden wird eine einfache, nicht übertragbare Lizenz zur Installation und Nutzung auf ihren Geräten eingeräumt.</p>
+
+        <h3>6. Verbotene Nutzungen</h3>
+        <ul>
+            <li>Reverse Engineering, Dekompilieren (soweit rechtlich unzulässig),</li>
+            <li>Weitergabe an Dritte ohne Zustimmung,</li>
+            <li>Nutzung in sicherheitskritischen Umgebungen.</li>
+        </ul>
+
+        <h3>7. Gewährleistung / Haftung</h3>
+        <p>Die App wird „wie besehen“ bereitgestellt. Bei Vorsatz und grober Fahrlässigkeit haftet der/die Anbieter:in unbeschränkt. Im Übrigen ist die Haftung auf vorhersehbare, vertragstypische Schäden begrenzt; die Haftung für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit bleibt unberührt.</p>
+
+        <h3>8. Updates</h3>
+        <p>Es besteht kein Anspruch auf bestimmte Updates oder Funktionsumfänge.</p>
+
+        <h3>9. Laufzeit & Kündigung</h3>
+        <p>Die Nutzung ist zeitlich unbefristet; sie endet durch Deinstallation oder Widerruf der Nutzungsrechte bei Verstößen.</p>
+
+        <h3>10. Schlussbestimmungen</h3>
+        <p>Es gilt [deutsches Recht / Recht des Sitzlandes]. Verbraucherrechtlich zwingende Vorschriften bleiben unberührt. Gerichtsstand ist — soweit zulässig — der Sitz des/der Anbieter:in.</p>
+    </section>
+
+    <!-- TERMS (EN) -->
+    <section id="tab-tos" class="card hid">
+        <h2>Terms of Service</h2>
+
+        <h3>1. Scope</h3>
+        <p>These Terms govern your use of the “Am I Too Loud?” app.</p>
+
+        <h3>2. Service</h3>
+        <p>The app provides indicative feedback on your speaking loudness. It is not a calibrated sound level meter and must not be used for medical or safety-critical purposes.</p>
+
+        <h3>3. Requirements</h3>
+        <p>The app requires microphone permission. Availability may vary by device/OS.</p>
+
+        <h3>4. Fees</h3>
+        <p>[Insert: free / one-time purchase / future in-app purchases].</p>
+
+        <h3>5. License</h3>
+        <p>Non-exclusive, non-transferable license for installation and use on your devices. All rights reserved by the provider.</p>
+
+        <h3>6. Acceptable Use</h3>
+        <ul>
+            <li>No reverse engineering or decompilation where prohibited by law,</li>
+            <li>No redistribution without permission,</li>
+            <li>No use in safety-critical environments.</li>
+        </ul>
+
+        <h3>7. Warranty & Liability</h3>
+        <p>Provided “as is”. Liability is unlimited for intent and gross negligence; otherwise limited to foreseeable, typical damages. Liability for death, personal injury or health impairment remains unaffected.</p>
+
+        <h3>8. Updates</h3>
+        <p>No entitlement to specific features or updates.</p>
+
+        <h3>9. Term & Termination</h3>
+        <p>Indefinite term; ends upon uninstall or revocation for breach.</p>
+
+        <h3>10. Governing Law</h3>
+        <p>[Insert applicable law and venue, subject to consumer protection rules].</p>
+    </section>1111111
+</main>
+
+<script>
+    // Tab-Steuerung
+    function showTab(id){
+      for (const b of document.querySelectorAll('.tabs button')) {
+        b.classList.toggle('active', b.dataset.tab === id);
+      }
+      for (const s of document.querySelectorAll('main .card')) {
+        s.classList.toggle('hid', s.id !== 'tab-'+id);
+      }
+      // Scroll an den Anfang des Inhalts
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+    // Sprache: blendet jeweils DE/EN-Abschnitte in der Datenschutzkarte ein/aus
+    function setLang(l){
+      document.getElementById('lang-de').classList.toggle('active', l==='de');
+      document.getElementById('lang-en').classList.toggle('active', l==='en');
+      const privacy = document.getElementById('tab-privacy');
+      // einfache Steuerung: EN-Abschnitte sind die Elemente nach dem HR
+      const nodes = privacy.querySelectorAll('h2,h3,p,ul,ol,hr');
+      let en = false;
+      nodes.forEach(n=>{
+        if(n.tagName==='HR') { en = true; n.style.display = (l==='en')?'block':'none'; return; }
+        if(!en){ n.style.display = (l==='de')?'':'none'; }
+        else   { n.style.display = (l==='en')?'':'none'; }
+      });
+      // Imprint fields could be the same — we keep them DE by default
+    }
+    // Init
+    document.addEventListener('DOMContentLoaded', ()=>{
+      showTab('imprint'); setLang('de');
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+</script>
+</body>
+</html>
+
+
+----- Content from: C:\Users\jimbo\AndroidStudioProjects\Bytebandits-website\public\BytePlay_Imposter_Party_privacypolicy.html -----
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imposter – Rechtstexte (DE/EN)</title>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    /* ===== App Theme (aus deinem Flutter-Theme) ===== */
+    :root{
+      --bgLight: #F7F6F9;      /* AppColors.bgLight */
+      --ink:     #0F1115;      /* AppColors.ink */
+      --accent:  #FF5A7A;      /* AppColors.accent */
+
+      /* Pastell-Verlauf wie im Screenshot: Lavendel → Rosa → Pfirsich */
+      --grad-a: #CFCDF7;   /* soft lavender */
+      --grad-b: #F6B3CF;   /* rosy pink */
+      --grad-c: #FFD3A3;   /* peach */
+      --card: rgba(255,255,255,.65);
+      --card-border: rgba(255,255,255,.55);
+      --shadow: 0 10px 30px rgba(15,17,21,.08), 0 2px 10px rgba(15,17,21,.05);
+      --muted: rgba(15,17,21,.65);
+      --link: var(--ink);
+      --border-soft: rgba(15,17,21,.06);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --ink: #EAEAF0;
+        --card: rgba(17,18,22,.55);
+        --card-border: rgba(255,255,255,.12);
+        --shadow: 0 10px 28px rgba(0,0,0,.35), 0 2px 10px rgba(0,0,0,.25);
+        --muted: rgba(234,234,240,.75);
+        --link: #ffffff;
+        --border-soft: rgba(234,234,240,.08);
+
+        /* dunkler Verlauf – gleiche Töne, satter */
+        --grad-a: #9E99F2;
+        --grad-b: #E285B1;
+        --grad-c: #FFBC7A;
+      }
+    }
+
+    /* ===== Base ===== */
+    html,body{height:100%}
+    html,body{margin:0; padding:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; line-height:1.6; color:var(--ink);}
+    body{
+      /* Hintergrund: kombinierter Verlauf + sanfte Körnung */
+      background:
+        radial-gradient(1200px 800px at 20% 15%, rgba(255,255,255,.35), transparent 60%),
+        linear-gradient(135deg, var(--grad-a) 0%, var(--grad-b) 45%, var(--grad-c) 100%);
+      min-height:100%;
+    }
+
+    .wrap{max-width: 980px; margin: 0 auto; padding: clamp(16px,2.5vw,32px);}
+    header{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; padding: 8px 0 18px;}
+    .brand{
+      font-weight:800; letter-spacing:.2px; font-size:clamp(18px,2.2vw,22px);
+      color: var(--ink);
+      background: rgba(255,255,255,.5);
+      border: 1px solid var(--card-border);
+      padding: 8px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+    nav{display:flex; flex-wrap:wrap; gap:8px;}
+    nav a{
+      color:var(--link); text-decoration:none; font-weight:600; font-size:.95rem;
+      padding:8px 12px; border-radius:12px;
+      background: rgba(255,255,255,.55);
+      border:1px solid var(--card-border);
+      backdrop-filter: blur(6px);
+    }
+    nav a:hover{outline:2px solid rgba(255,255,255,.7)}
+
+    .lang-switch{display:flex; gap:8px; align-items:center;}
+    .btn{
+      appearance:none; border:1px solid var(--card-border);
+      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
+      color:var(--ink);
+      padding:8px 14px; border-radius:999px; cursor:pointer; font-weight:700;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    .btn.active{
+      background: linear-gradient(180deg, var(--accent), color-mix(in oklab, var(--accent), white 25%));
+      color:#fff; border-color: color-mix(in oklab, var(--accent), #000 10%);
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--card-border);
+      border-radius: 24px;
+      padding: clamp(18px, 2.4vw, 26px);
+      margin: 16px 0;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px) saturate(140%);
+    }
+    .card h2{margin: 0 0 8px 0}
+    .muted{color:var(--muted); font-size:.95rem}
+
+    footer{margin:28px 0 12px; padding:16px 0; color:var(--muted); font-size:.95rem}
+    footer a{color:inherit}
+
+    /* language visibility */
+    .lang[hidden]{display:none !important;}
+
+    /* fine borders for sections inside articles */
+    article > h3{margin-top:1.2em}
+    article hr{
+      border:0; height:1px; background:var(--border-soft);
+      margin: 16px 0;
+    }
+
+    @media print{
+      header, .lang-switch, nav, footer { display:none !important; }
+      .card{break-inside: avoid;}
+      body{background:#fff}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">Imposter – Rechtliches</div>
+      <div class="lang-switch" role="group" aria-label="Sprachauswahl">
+        <button type="button" data-lang="de" class="btn active" aria-pressed="true">Deutsch</button>
+        <button type="button" data-lang="en" class="btn" aria-pressed="false">English</button>
+      </div>
+    </header>
+
+    <nav class="toc" aria-label="Inhaltsverzeichnis">
+      <a href="#privacy">Datenschutz / Privacy</a>
+      <a href="#terms">Nutzungsbedingungen / Terms</a>
+      <a href="#cookies">Cookie-Hinweis / Cookie Notice</a>
+    </nav>
+
+    <!-- Datenschutzerklärung -->
+    <section id="privacy" class="card" aria-labelledby="privacy-title">
+      <h2 id="privacy-title">Datenschutzerklärung / Privacy Policy</h2>
+
+      <!-- Deutsch -->
+      <article class="lang lang-de" lang="de" aria-label="Datenschutzerklärung Deutsch">
+        <p class="muted">
+          <strong>Version (DE)</strong> · <span>Stand: September 2025</span>
+        </p>
+        Verantwortliche Stelle und Kontakt
+
+Anbieter der App Imposter und datenschutzrechtlich Verantwortlicher ist Bytebandits OÜ, Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn 10115, Estland (nachfolgend "Bytebandits" oder "wir"). Bei Fragen zum Datenschutz können Sie uns unter der E-Mail-Adresse max@byte-bandits.com kontaktieren.
+
+Verarbeitung personenbezogener Daten
+
+Diese App verarbeitet keine personenbezogenen Daten der Nutzer. Es werden keine Nutzerkonten benötigt, und die App kann genutzt werden, ohne persönliche Informationen anzugeben. Während der Nutzung werden keinerlei persönliche Daten an uns oder Dritte übermittelt. Insbesondere verwenden wir keine Analysetools (wie z.B. Google Analytics), keine Tracking-Dienste oder Werbenetzwerke, und es werden keine In-App-Käufe oder sonstige Funktionen angeboten, die personenbezogene Daten erfordern würden. Alle Funktionen der App stehen ohne Registrierung und ohne Eingabe von personenbezogenen Daten zur Verfügung.
+
+Offline-Nutzung und lokale Daten
+
+Imposter ist als datensparsame Anwendung konzipiert. Die App kann vollständig offline genutzt werden. Sämtliche Spieldaten (z.B. gespeicherte Fortschritte oder Einstellungen) verbleiben auf Ihrem Gerät und werden nicht an Bytebandits oder andere Parteien übertragen. Wenn Sie die Web-Version der App nutzen, werden nur technisch notwendige Informationen (z.B. die IP-Adresse) kurzfristig verarbeitet, um die Auslieferung der App zu ermöglichen; diese Daten werden jedoch nicht dauerhaft gespeichert oder zur Identifizierung genutzt.
+
+Weitergabe von Daten an Dritte
+
+Da wir keine personenbezogenen Daten verarbeiten, findet auch keine Weitergabe von personenbezogenen Daten an Dritte statt. Es werden keine externen Dienstleister mit der Verarbeitung von Nutzerdaten beauftragt. Wir binden keine Dienste von Drittanbietern in die App ein, die Daten über Sie erheben könnten.
+
+Rechte der betroffenen Personen
+
+Auch wenn wir keine personenbezogenen Daten verarbeiten, weisen wir Sie auf Ihre Rechte hin. Sie haben nach der EU-Datenschutz-Grundverordnung (DSGVO) grundsätzlich folgende Rechte:
+
+Auskunft (Art. 15 DSGVO): Recht auf Auskunft über die ggf. zu Ihrer Person gespeicherten Daten.
+
+Berichtigung (Art. 16 DSGVO): Recht, unrichtige Daten berichtigen zu lassen.
+
+Löschung (Art. 17 DSGVO): Recht auf Löschung Ihrer personenbezogenen Daten, sofern wir welche gespeichert hätten.
+
+Einschränkung der Verarbeitung (Art. 18 DSGVO): Recht, die Verarbeitung Ihrer Daten unter bestimmten Voraussetzungen einschränken zu lassen.
+
+Widerspruch (Art. 21 DSGVO): Recht, der Datenverarbeitung zu widersprechen.
+
+Datenübertragbarkeit (Art. 20 DSGVO): Recht, Daten, die Sie uns gegeben haben, in einem gängigen Format zu erhalten.
+
+Da in Imposter keine personenbezogenen Daten erhoben werden, können diese Rechte im Kontext dieser App mangels vorhandener Daten faktisch nicht ausgeübt werden. Sollten Sie dennoch Fragen zum Datenschutz haben oder der Ansicht sein, dass die App Ihre Privatsphäre verletzt, können Sie sich jederzeit an uns wenden (Kontakt siehe oben). Außerdem haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren.
+
+Änderungen dieser Datenschutzerklärung
+
+Da wir keinerlei personenbezogene Daten verarbeiten, werden sich diese Datenschutzhinweise voraussichtlich nur selten ändern. Falls die App in Zukunft Funktionen einführt, die eine Verarbeitung personenbezogener Daten erforderlich machen, werden wir diese Datenschutzerklärung entsprechend anpassen. Das Aktualisierungsdatum finden Sie unten.
+      </article>
+
+      <!-- English -->
+      <article class="lang lang-en" lang="en" aria-label="Privacy Policy English" hidden>
+        <p class="muted">
+          <strong>Version (EN)</strong> · <span>Last updated: September 2025</span>
+        </p>
+        The provider of the Imposter app and the entity responsible for data protection (the "controller") is Bytebandits OÜ, Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn 10115, Estonia (hereinafter "Bytebandits" or "we"). If you have any questions about privacy, you can contact us at max@byte-bandits.com.
+
+Personal Data Processing
+
+This app does not process any personal data of its users. We do not require you to create an account or provide any personal information to use Imposter. No personal data is transmitted to us or to any third party during the use of the app. In particular, we do not use any analytics tools (such as Google Analytics), no tracking services or advertising networks, and the app contains no in-app purchases that would involve personal data. All features of the app are available without registration and without submitting any personal details.
+
+Offline Use and Local Data
+
+Imposter is designed with data minimization in mind. The app can be used entirely offline. All game data (for example, saved progress or settings) remain on your device and are not transmitted to Bytebandits or any other party. If you use the web version of the app, only technically necessary information (e.g. your IP address) is processed briefly to deliver the app to your device; this data is not stored permanently nor used to identify you.
+
+Disclosure to Third Parties
+
+Since we do not process any personal data, no personal data is shared with third parties. We do not employ any external service providers to process user data, and we do not integrate any third-party services into the app that could collect data about you.
+
+User Rights
+
+Even though we do not process personal data in Imposter, we would like to inform you of your rights under the EU General Data Protection Regulation (GDPR). In principle, you have the following rights regarding your personal data:
+
+Right of access (Art. 15 GDPR) – to request information about any personal data we might hold about you.
+
+Right to rectification (Art. 16 GDPR) – to have inaccurate data corrected.
+
+Right to erasure (Art. 17 GDPR) – to request deletion of your personal data, if we had any.
+
+Right to restriction of processing (Art. 18 GDPR) – to restrict processing of your data under certain conditions.
+
+Right to object (Art. 21 GDPR) – to object to data processing.
+
+Right to data portability (Art. 20 GDPR) – to receive any data you provided to us in a commonly used format.
+
+However, since Imposter does not collect or store any personal data, these rights will generally not need to be exercised in the context of this app (as there is no data on file). If you nonetheless have privacy-related questions or believe the app infringes on your privacy, you can contact us at any time (see contact information above). You also have the right to lodge a complaint with a data protection supervisory authority.
+
+Changes to this Privacy Policy
+
+Because we do not process any personal data, we anticipate changes to this privacy policy will be rare. If in the future the app introduces features that involve processing personal data, we will update this privacy policy accordingly. The effective date of this policy is listed below.
+      </article>
+    </section>
+
+    <!-- Nutzungsbedingungen -->
+    <section id="terms" class="card" aria-labelledby="terms-title">
+      <h2 id="terms-title">Nutzungsbedingungen / Terms of Use</h2>
+
+      <!-- Deutsch -->
+      <article class="lang lang-de" lang="de" aria-label="Nutzungsbedingungen Deutsch">
+        Geltungsbereich und Anbieter
+Diese Nutzungsbedingungen gelten für die Nutzung der App Imposter (nachfolgend "App"). Anbieter der App ist Bytebandits OÜ mit Sitz in Tallinn, Estland (Anschrift: Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estland). Durch das Herunterladen bzw. die Nutzung der App erklären Sie sich mit diesen Nutzungsbedingungen einverstanden.
+
+Nutzung der App
+Die Nutzung der App ist kostenlos und erfordert keine Registrierung. Sie dürfen die App ausschließlich für persönliche, nicht-kommerzielle Zwecke verwenden. Sie sind verpflichtet, alle anwendbaren Gesetze einzuhalten und jede missbräuchliche Nutzung der App zu unterlassen. Insbesondere dürfen Sie die App nicht in einer Weise verwenden, die die Rechte Dritter verletzt oder die App, ihre Funktionen oder die zugrunde liegenden Systeme beeinträchtigt.
+
+Rechte an der App
+Die App sowie alle darin enthaltenen Inhalte, Texte, Grafiken, Logos und Bilder sind geistiges Eigentum von Bytebandits oder lizenziert an Bytebandits. Wir räumen Ihnen als Nutzer ein einfaches, nicht übertragbares Recht ein, die App in unveränderter Form zu nutzen. Sie dürfen die App oder Inhalte der App nicht vervielfältigen, veröffentlichen, bearbeiten oder anderweitig verwerten, soweit nicht nach zwingendem Recht erlaubt oder in diesen Nutzungsbedingungen ausdrücklich gestattet.
+
+Gewährleistung und Haftung
+Wir stellen die App "wie besehen" und nach Verfügbarkeit bereit. Wir übernehmen keine Gewähr dafür, dass die App jederzeit fehlerfrei oder ohne Unterbrechung funktioniert. Eine Haftung von Bytebandits für Schäden ist ausgeschlossen, soweit nicht gesetzlich zwingend gehaftet wird. Wir haften unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit. Bei leichter Fahrlässigkeit haften wir nur bei Verletzung einer wesentlichen Vertragspflicht (Kardinalpflicht), jedoch der Höhe nach beschränkt auf den bei Vertragsschluss vorhersehbaren, vertragstypischen Schaden. Eine wesentliche Vertragspflicht ist eine Pflicht, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung der Nutzer regelmäßig vertrauen darf. Die vorstehende Haftungsbeschränkung gilt ebenso zugunsten unserer gesetzlichen Vertreter und Erfüllungsgehilfen.
+
+Änderungen und Beendigung
+Bytebandits behält sich das Recht vor, diese Nutzungsbedingungen bei Bedarf zu ändern, beispielsweise um rechtliche Änderungen oder Funktionsänderungen der App abzubilden. Über wesentliche Änderungen der Bedingungen werden wir Sie in geeigneter Weise informieren. Wenn Sie mit den geänderten Bedingungen nicht einverstanden sind, müssen Sie die Nutzung der App einstellen. Wir können zudem die Bereitstellung der App jederzeit ohne Angabe von Gründen einstellen; in einem solchen Fall enden Ihre Rechte zur Nutzung der App automatisch.
+
+Anwendbares Recht
+Es gilt das Recht der Republik Estland. Wenn Sie Verbraucher mit Wohnsitz in der Europäischen Union sind, gelten zusätzlich die zwingenden Verbraucherschutzbestimmungen Ihres Aufenthaltslandes, soweit diese für Sie günstiger sind. Die Anwendung des UN-Kaufrechts wird ausgeschlossen.
+
+Salvatorische Klausel
+Sollte eine Bestimmung dieser Nutzungsbedingungen unwirksam oder undurchsetzbar sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. Anstelle der unwirksamen Bestimmung gilt diejenige wirksame Bestimmung als vereinbart, die dem wirtschaftlichen Zweck der unwirksamen Bestimmung am nächsten kommt. Gleiches gilt für etwaige Regelungslücken.
+      </article>
+
+      <!-- English -->
+      <article class="lang lang-en" lang="en" aria-label="Terms of Use English" hidden>
+        Scope and Provider
+These Terms of Use govern the use of the Imposter application (the "App"). The provider of the App is Bytebandits OÜ, located in Tallinn, Estonia (address: Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estonia). By downloading or using the App, you agree to these Terms of Use.
+
+Use of the App
+The App is provided to you free of charge and no registration is required. You may use the App solely for personal, non-commercial purposes. You must comply with all applicable laws and refrain from any abusive or improper use of the App. In particular, you shall not use the App in any way that violates the rights of others or that could impair the App, its functionalities, or the underlying systems.
+
+Rights to the App
+The App and all content included therein, such as text, graphics, logos, and images, are the intellectual property of Bytebandits or are licensed to Bytebandits. We grant you as a user a non-exclusive, non-transferable license to use the App in its unmodified form. You may not reproduce, publish, edit, or otherwise exploit the App or its content except as permitted by mandatory law or expressly allowed by these Terms of Use.
+
+Warranty and Liability
+We provide the App on an "as is" and "as available" basis. We do not warrant that the App will be error-free or available at all times without interruption. To the extent permitted by law, Bytebandits disclaims all liability for damages arising out of or in connection with the use of the App. We are liable without limit in cases of intent or gross negligence and for damages resulting in injury to life, body, or health. In cases of slight (ordinary) negligence, we are only liable for breach of an essential contractual obligation (a duty whose fulfillment is essential to the proper execution of the contract and on which the user routinely relies); in such cases, our liability is limited to the foreseeable, typical damages at the time of agreeing to these terms. The above limitations of liability shall likewise apply in favor of our legal representatives and vicarious agents.
+
+Changes and Termination
+Bytebandits reserves the right to modify these Terms of Use as necessary to reflect legal or functional changes to the App. We will inform you in an appropriate manner about any material changes to the Terms. If you do not agree with the updated Terms, you must stop using the App. We also reserve the right to discontinue the App at any time without notice or explanation; in such an event, your right to use the App will terminate automatically.
+
+Governing Law
+These Terms of Use are governed by the laws of the Republic of Estonia. If you are a consumer residing in the European Union, you also enjoy the protection of any mandatory provisions of the law of your country of residence that are more favorable to you. The application of the United Nations Convention on Contracts for the International Sale of Goods (CISG) is excluded.
+
+Severability
+If any provision of these Terms of Use is held to be invalid or unenforceable, the remaining provisions shall remain in full force and effect. In place of the invalid provision, a valid provision shall be deemed to be agreed which comes closest to the economic intent of the invalid provision. The same applies in the event of any omissions in these Terms.
+      </article>
+    </section>
+
+    <!-- Cookie-Hinweis -->
+    <section id="cookies" class="card" aria-labelledby="cookies-title">
+      <h2 id="cookies-title">Cookie-Hinweis / Cookie Notice</h2>
+
+      <!-- Deutsch -->
+      <article class="lang lang-de" lang="de" aria-label="Cookie-Hinweis Deutsch">
+        Diese App setzt keine Cookies ein, die einer Einwilligung der Nutzer bedürfen. Sofern überhaupt Cookies verwendet werden, handelt es sich ausschließlich um technisch notwendige Cookies, für die gemäß § 25 Abs. 2 TTDSG kein Cookie-Banner oder ausdrücklicher Hinweis erforderlich ist. Insbesondere kommen keine Analyse-Cookies oder Werbe-Cookies zum Einsatz.
+      </article>
+
+      <!-- English -->
+      <article class="lang lang-en" lang="en" aria-label="Cookie Notice English" hidden>
+        This app does not use any cookies that require user consent. If any cookies are used at all, they are strictly technical and necessary for the operation of the app/website, which under applicable law (e.g. EU ePrivacy rules) do not require a cookie banner or explicit consent. In particular, no analytics or advertising cookies are employed.
+      </article>
+    </section>
+
+    <footer>
+      <div class="muted">
+        Betreiber: Bytebandits OÜ, Tallinn, Estonia •
+		Tartu mnt 67/1-13b, Kesklinna linnaosa\nTallinn 10115, Eesti
+		
+        Kontakt: max [at] byte-bandits.com •
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      const KEY = 'preferredLang';
+      const $buttons = document.querySelectorAll('[data-lang]');
+      const $langs = document.querySelectorAll('.lang');
+
+      function setLang(lang){
+        const isEN = lang === 'en';
+        document.documentElement.lang = isEN ? 'en' : 'de';
+        $langs.forEach(el => el.hidden = !el.classList.contains('lang-' + lang));
+        $buttons.forEach(btn => {
+          const active = btn.dataset.lang === lang;
+          btn.classList.toggle('active', active);
+          btn.setAttribute('aria-pressed', String(active));
+        });
+        try{ localStorage.setItem(KEY, lang); }catch(e){}
+      }
+
+      const saved = (() => { try { return localStorage.getItem(KEY); } catch(e){ return null; } })();
+      const initial = saved || (navigator.language && navigator.language.startsWith('en') ? 'en' : 'de');
+      setLang(initial);
+
+      $buttons.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    })();
+  </script>
+</body>
+</html>
+
+
+----- Content from: C:\Users\jimbo\AndroidStudioProjects\Bytebandits-website\public\GPXreader.html -----
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MotoLeanX GPX Viewer (Lean/Speed-Overlay)</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        /* Vollhöhe + Flex-Layout */
+        html, body { height: 100%; margin: 0; }
+        body {
+          min-height: 100dvh;          /* korrekt mit Mobile-Adressleiste */
+          display: flex;
+          flex-direction: column;
+        }
+
+        /* Topbar bleibt oben, Karte füllt den Rest */
+        .topbar {
+          display:flex; gap:12px; align-items:center; padding:10px 12px;
+          background:#fff; border-bottom:1px solid #ddd; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+          flex-wrap: wrap;
+          flex: 0 0 auto;
+        }
+
+        /* Karte bekommt flex:1 statt fixer Höhe */
+        #map {
+          flex: 1 1 auto;
+          min-height: 0;               /* wichtig, damit flex-Child schrumpfen darf */
+        }
+
+        .hud {
+          margin-left:auto; padding:8px 12px; border-radius:12px; border:1px solid #ddd; background:#fafafa;
+          font-weight:600; min-width:190px; text-align:center;
+        }
+        .controls { display:flex; align-items:center; gap:8px; }
+        .legend { font-size:12px; opacity:.95; display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; }
+        .legend .block { display:flex; flex-direction:column; gap:6px; }
+        .legend .title { font-weight:600; }
+        .chip { display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border:1px solid #ddd; border-radius:12px; background:#fff; }
+        .swatch { width:14px; height:14px; border-radius:3px; display:inline-block; }
+        #slider { width:320px; }
+        input[type="file"] { display:none; }
+        label.button, button, .seg button {
+          padding:8px 12px; border:1px solid #ddd; border-radius:10px; background:#fff; cursor:pointer; font-weight:600;
+        }
+        button:disabled { opacity:.5; cursor:not-allowed; }
+        .seg { display:inline-flex; border:1px solid #ddd; border-radius:12px; overflow:hidden; }
+        .seg button { border:0; padding:8px 14px; }
+        .seg button.active { background:#111; color:#fff; }
+
+        /* Skalen */
+        .scale { width:320px; height:14px; border-radius:6px; border:1px solid #ddd; position:relative; }
+        .ticks { display:flex; justify-content:space-between; width:320px; font-variant-numeric: tabular-nums; }
+    </style>
+</head>
+<body>
+<div class="topbar">
+    <label class="button">
+        GPX laden
+        <input id="fileInput" type="file" accept=".gpx,application/gpx+xml" />
+    </label>
+
+    <div class="seg" role="tablist" aria-label="Layer">
+        <button id="modeLean" class="active" role="tab" aria-selected="true">Lean</button>
+        <button id="modeSpeed" role="tab" aria-selected="false">Speed</button>
+    </div>
+
+    <div class="controls">
+        <button id="playBtn" disabled>▶︎</button>
+        <input id="slider" type="range" min="0" max="0" value="0" step="1" disabled />
+        <span id="timeLbl" class="chip">Zeit: –</span>
+    </div>
+
+    <div id="legend" class="legend"></div>
+
+    <div id="hud" class="hud">Lean: – °</div>
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    const map = L.map('map', { zoomControl: true }).setView([51, 10], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19, attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    const fileInput = document.getElementById('fileInput');
+    const slider = document.getElementById('slider');
+    const playBtn = document.getElementById('playBtn');
+    const timeLbl = document.getElementById('timeLbl');
+    const hud = document.getElementById('hud');
+    const legend = document.getElementById('legend');
+    const modeLeanBtn = document.getElementById('modeLean');
+    const modeSpeedBtn = document.getElementById('modeSpeed');
+
+    let points = [];
+    let segLayers = [];
+    let marker = null;
+    let animTimer = null;
+    let currentMode = 'lean';
+
+    const LEAN_MAX = 75;
+    const SPEED_MAX = 300;
+
+    function colorForLean(lean) {
+      const a = Math.min(Math.abs(lean), LEAN_MAX) / LEAN_MAX;
+      const intensity = Math.round(70 + a * 185);
+      if (lean >= 0) return `rgb(${intensity},60,60)`;
+      return `rgb(43,108,176)`;
+    }
+    function colorForSpeed(speedKmh) {
+      const v = Math.max(0, Math.min(speedKmh, SPEED_MAX)) / SPEED_MAX;
+      const hue = 220 * (1 - v);
+      return `hsl(${hue} 85% 45%)`;
+    }
+
+    function setLegend(mode) {
+      if (mode === 'lean') {
+        let ticks = '';
+        for (let deg = 0; deg <= LEAN_MAX; deg += 15) { ticks += `<span>${deg}°</span>`; }
+        legend.innerHTML = `
+          <div class="block">
+            <div class="title">Lean links (°)</div>
+            <div class="scale" style="background: linear-gradient(90deg, rgba(43,108,176,0.2), rgba(43,108,176,1));"></div>
+            <div class="ticks">${ticks}</div>
+          </div>
+          <div class="block">
+            <div class="title">Lean rechts (°)</div>
+            <div class="scale" style="background: linear-gradient(90deg, rgba(255,70,70,0.25), rgb(255,60,60));"></div>
+            <div class="ticks">${ticks}</div>
+          </div>
+        `;
+      } else {
+        let ticks = '';
+        for (let v = 0; v <= SPEED_MAX; v += 50) { ticks += `<span>${v}</span>`; }
+        legend.innerHTML = `
+          <div class="block">
+            <div class="title">Speed (km/h)</div>
+            <div class="scale" style="background: linear-gradient(90deg, hsl(220 85% 45%), hsl(0 85% 45%));"></div>
+            <div class="ticks">${ticks}</div>
+          </div>
+        `;
+      }
+      map.invalidateSize();          // <— neu: nach Layout-Änderungen
+    }
+
+    function clearMap() {
+      segLayers.forEach(l => map.removeLayer(l));
+      segLayers = [];
+      if (marker) { map.removeLayer(marker); marker = null; }
+      points = [];
+      slider.disabled = true;
+      playBtn.disabled = true;
+      timeLbl.textContent = 'Zeit: –';
+      hud.textContent = currentMode === 'lean' ? 'Lean: – °' : 'Speed: – km/h';
+    }
+
+    function drawTrack() {
+      if (points.length < 2) return;
+      const bounds = L.latLngBounds(points.map(p => [p.lat, p.lon]));
+      map.fitBounds(bounds.pad(0.2));
+      redrawSegments();
+      marker = L.circleMarker([points[0].lat, points[0].lon], {
+        radius: 7, weight: 2, color: '#222', fillColor: '#fff', fillOpacity: 1
+      }).addTo(map);
+      slider.min = 0;
+      slider.max = String(points.length - 1);
+      slider.value = 0;
+      slider.disabled = false;
+      playBtn.disabled = false;
+      updateHUD(0);
+      map.invalidateSize();          // <— neu: sicherstellen, dass die Karte die Flex-Höhe kennt
+    }
+
+    function redrawSegments() {
+      segLayers.forEach(l => map.removeLayer(l));
+      segLayers = [];
+      for (let i = 1; i < points.length; i++) {
+        const p0 = points[i-1], p1 = points[i];
+        const value = currentMode === 'lean' ? p0.lean : p0.speed;
+        const clr = currentMode === 'lean' ? colorForLean(value) : colorForSpeed(value);
+        const seg = L.polyline([[p0.lat, p0.lon], [p1.lat, p1.lon]], {
+          color: clr, weight: 5, opacity: 0.9
+        }).addTo(map);
+        segLayers.push(seg);
+      }
+      setLegend(currentMode);
+    }
+
+    function updateHUD(i) {
+      const p = points[i];
+      if (!p) return;
+      marker.setLatLng([p.lat, p.lon]);
+      if (currentMode === 'lean') {
+        hud.textContent = `Lean: ${isFinite(p.lean) ? p.lean.toFixed(2) : '–'} °`;
+      } else {
+        hud.textContent = `Speed: ${isFinite(p.speed) ? p.speed.toFixed(1) : '–'} km/h`;
+      }
+      timeLbl.textContent = 'Zeit: ' + (p.time ? p.time.toISOString() : '–');
+    }
+
+    slider.addEventListener('input', () => {
+      stopAnim();
+      updateHUD(parseInt(slider.value, 10));
+    });
+    playBtn.addEventListener('click', () => {
+      if (animTimer) { stopAnim(); return; }
+      playBtn.textContent = '⏸';
+      let i = parseInt(slider.value, 10);
+      animTimer = setInterval(() => {
+        if (i >= points.length) { stopAnim(); return; }
+        slider.value = i;
+        updateHUD(i);
+        i++;
+      }, 100);
+    });
+    function stopAnim() {
+      if (animTimer) { clearInterval(animTimer); animTimer = null; }
+      playBtn.textContent = '▶︎';
+    }
+
+    function setMode(mode) {
+      if (mode === currentMode) return;
+      currentMode = mode;
+      modeLeanBtn.classList.toggle('active', mode === 'lean');
+      modeSpeedBtn.classList.toggle('active', mode === 'speed');
+      hud.textContent = mode === 'lean' ? 'Lean: – °' : 'Speed: – km/h';
+      redrawSegments();
+      updateHUD(parseInt(slider.value, 10) || 0);
+    }
+    modeLeanBtn.addEventListener('click', () => setMode('lean'));
+    modeSpeedBtn.addEventListener('click', () => setMode('speed'));
+    window.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'l') setMode('lean');
+      if (e.key.toLowerCase() === 's') setMode('speed');
+    });
+
+    function haversineKm(lat1, lon1, lat2, lon2) {
+      const R = 6371; const toRad = d => d * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+      return 2 * R * Math.asin(Math.sqrt(a));
+    }
+
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      clearMap();
+      const text = await file.text();
+      const xml = new DOMParser().parseFromString(text, "application/xml");
+
+      const trkpts = xml.getElementsByTagNameNS('http://www.topografix.com/GPX/1/1', 'trkpt');
+      const tmp = [];
+      for (const node of trkpts) {
+        const lat = parseFloat(node.getAttribute('lat'));
+        const lon = parseFloat(node.getAttribute('lon'));
+        const timeNode = node.getElementsByTagName('time')[0];
+        const extNode = node.getElementsByTagName('extensions')[0];
+        let lean = NaN, speed = NaN;
+        if (extNode) {
+          const leanNode = extNode.getElementsByTagName('lean')[0];
+          if (leanNode && leanNode.textContent) lean = parseFloat(leanNode.textContent);
+          const speedNode = extNode.getElementsByTagName('speed')[0];
+          if (speedNode && speedNode.textContent) speed = parseFloat(speedNode.textContent);
+        }
+        const time = timeNode ? new Date(timeNode.textContent) : null;
+        if (!Number.isNaN(lat) && !Number.isNaN(lon) && !Number.isNaN(lean)) {
+          tmp.push({ lat, lon, time, lean, speed });
+        }
+      }
+      if (tmp.length < 2) { alert('Zu wenige Punkte gefunden.'); return; }
+      // Speed fallback
+      for (let i = 0; i < tmp.length; i++) {
+        if (!isFinite(tmp[i].speed)) {
+          const i0 = Math.max(0, i - 1), i1 = Math.min(tmp.length - 1, i + 1);
+          const p0 = tmp[i0], p1 = tmp[i1];
+          if (p0.time && p1.time && p1.time > p0.time) {
+            const distKm = haversineKm(p0.lat, p0.lon, p1.lat, p1.lon);
+            const dtH = (p1.time - p0.time) / 3600000;
+            tmp[i].speed = dtH > 0 ? (distKm / dtH) : 0;
+          } else tmp[i].speed = 0;
+        }
+      }
+      points = tmp;
+      drawTrack();
+      setLegend(currentMode);
+    });
+
+
+    window.addEventListener('resize', () => map.invalidateSize());
+    window.addEventListener('load', () => map.invalidateSize());
+
+    setLegend(currentMode);
+</script>
+</body>
+</html>
+
+
+----- Content from: C:\Users\jimbo\AndroidStudioProjects\Bytebandits-website\public\mygiftvault_legal.html -----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Gift Vault – Legal Information</title>
+    <meta name="color-scheme" content="light dark">
+    <style>
+        :root {
+          --primary:#5B8DEF; --secondary:#7F53AC;
+          --ink:#222; --muted:#555; --bg:#f7f8fc;
+          --card:#fff; --border:#e7e8ee;
+        }
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --ink:#f1f1f1; --muted:#bbb;
+            --bg:#0f1216; --card:#12161d; --border:#243042;
+          }
+        }
+        body {
+          margin:0; font:16px/1.65 system-ui,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;
+          background:var(--bg); color:var(--ink);
+        }
+        header {
+          background:linear-gradient(135deg,var(--primary),var(--secondary));
+          color:#fff; padding:2.4rem 1rem; text-align:center;
+        }
+        header h1 {margin:0;font-size:1.9rem;}
+        .container {max-width:1100px; margin:auto; padding:1rem;}
+        nav {
+          position:sticky; top:0; z-index:10;
+          background:var(--card); border-bottom:1px solid var(--border);
+          overflow-x:auto; white-space:nowrap;
+        }
+        nav a {
+          display:inline-block; padding:.8rem .9rem;
+          color:var(--primary); font-weight:600;
+          text-decoration:none;
+        }
+        nav a:hover {text-decoration:underline;}
+        main {
+          background:var(--card); border:1px solid var(--border);
+          border-radius:12px; padding:1.2rem;
+          margin-top:1rem;
+        }
+        h2 {
+          margin-top:2rem;
+          border-bottom:2px solid var(--border);
+          padding-bottom:.25rem;
+        }
+        h3 {margin-top:1.4rem;}
+        .muted {color:var(--muted);}
+        .note {
+          background:rgba(91,141,239,.08);
+          border:1px solid rgba(91,141,239,.25);
+          padding:.8rem; border-radius:8px;
+        }
+        .twocol {
+          display:grid; grid-template-columns:1fr; gap:1.5rem;
+        }
+        @media(min-width:900px){
+          .twocol{grid-template-columns:1fr 1fr;}
+        }
+        footer {
+          margin:2rem auto; text-align:center; color:var(--muted);
+        }
+        .lang {
+          font-size:.9rem; font-weight:600; margin-top:1.2rem;
+          padding:.2rem .5rem; border-radius:6px;
+          background:var(--border); display:inline-block;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>My Gift Vault – Legal Information</h1>
+    <p>Imprint • Terms of Service • Privacy • EULA • Liability • Refund Policy</p>
+</header>
+
+<div class="container">
+    <nav>
+        <a href="#imprint">Imprint</a>
+        <a href="#terms">Terms</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#eula">EULA</a>
+        <a href="#liability">Liability</a>
+        <a href="#refund">Refund</a>
+        <a href="#use">Acceptable Use</a>
+        <a href="#ip">Intellectual Property</a>
+        <a href="#law">Law & Disputes</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <main>
+        <!-- Imprint -->
+        <section id="imprint">
+            <h2>Imprint</h2>
+            <div class="twocol">
+                <div>
+                    <div class="lang">English</div>
+                    <p><strong>Bytebandits OÜ</strong><br>
+                        Tartu mnt 67/1-13b, Kesklinna linnaosa<br>
+                        10115 Tallinn, Estonia</p>
+                    <p>Represented by: Management Board – M. Scherb<br>
+                        Registry Code: 17265228 (Harju County Court)<br>
+                        VAT ID: Not liable for VAT registration</p>
+                    <p>Email: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+                </div>
+                <div>
+                    <div class="lang">Deutsch</div>
+                    <p><strong>Bytebandits OÜ</strong><br>
+                        Tartu mnt 67/1-13b, Kesklinna linnaosa<br>
+                        10115 Tallinn, Estland</p>
+                    <p>Vertretungsberechtigt: Management Board – M. Scherb<br>
+                        Registrierungsnummer: 17265228 (Harju County Court)<br>
+                        USt-ID: Keine Umsatzsteuerpflicht</p>
+                    <p>E-Mail: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Terms -->
+        <section id="terms">
+            <h2>Terms of Service / Allgemeine Geschäftsbedingungen</h2>
+            <div class="twocol">
+                <div>
+                    <div class="lang">English</div>
+                    <p>These Terms govern the use of the mobile application “My Gift Vault” provided by Bytebandits OÜ. By installing or using the app you agree to these Terms. The app is provided primarily for private, non-commercial use. We may modify, update, or discontinue features at any time.</p>
+                    <ul>
+                        <li>Use lawfully and respect third-party rights.</li>
+                        <li>You are responsible for your content and backups.</li>
+                        <li>No guarantee of uninterrupted availability.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="lang">Deutsch</div>
+                    <p>Diese Bedingungen regeln die Nutzung der mobilen Applikation „My Gift Vault“, bereitgestellt von der Bytebandits OÜ. Mit der Installation oder Nutzung der App erklären Sie sich mit diesen Bedingungen einverstanden. Die App ist für private, nicht-kommerzielle Zwecke gedacht. Wir können Funktionen jederzeit ändern, erweitern oder einstellen.</p>
+                    <ul>
+                        <li>Die App darf nur rechtmäßig genutzt werden, unter Wahrung der Rechte Dritter.</li>
+                        <li>Sie sind für Ihre Inhalte und Sicherungskopien verantwortlich.</li>
+                        <li>Es besteht keine Garantie für ständige Verfügbarkeit.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy -->
+        <section id="privacy">
+            <h2>Privacy Policy / Datenschutzerklärung</h2>
+            <div class="twocol">
+                <div>
+                    <div class="lang">English</div>
+                    <p>“My Gift Vault” is designed to operate locally on your device. We do not collect, store, or transfer personal data to our servers. Permissions (camera, photos, contacts, notifications) are optional and used only for their direct purpose on your device. No analytics, no tracking, no third-party advertising SDKs are integrated.</p>
+                    <p>Your rights under GDPR: access, rectification, erasure, restriction, portability, and complaint to a supervisory authority. For questions, contact <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>.</p>
+                </div>
+                <div>
+                    <div class="lang">Deutsch</div>
+                    <p>„My Gift Vault“ ist als lokale App konzipiert. Wir erheben, speichern oder übertragen keine personenbezogenen Daten an unsere Server. Berechtigungen (Kamera, Fotos, Kontakte, Benachrichtigungen) sind optional und werden ausschließlich lokal für den angegebenen Zweck verwendet. Es gibt kein Tracking, keine Analyse und keine Werbe-SDKs.</p>
+                    <p>Ihre Rechte nach DSGVO: Auskunft, Berichtigung, Löschung, Einschränkung, Übertragbarkeit sowie Beschwerde bei einer Aufsichtsbehörde. Bei Fragen: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EULA -->
+        <section id="eula">
+            <h2>End User License Agreement (EULA) / Lizenzvereinbarung</h2>
+            <div class="twocol">
+                <div>
+                    <div class="lang">English</div>
+                    <p>The app is licensed, not sold. You receive a non-exclusive, non-transferable, revocable license for personal use. Reverse engineering, commercial distribution, or modification are prohibited except where legally mandatory.</p>
+                </div>
+                <div>
+                    <div class="lang">Deutsch</div>
+                    <p>Die App wird lizenziert, nicht verkauft. Sie erhalten eine nicht-exklusive, nicht übertragbare und widerrufbare Lizenz zur privaten Nutzung. Reverse Engineering, kommerzielle Weitergabe oder Modifikation sind untersagt, soweit gesetzlich nicht zwingend erlaubt.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Liability -->
+        <section id="liability">
+            <h2>Liability / Haftung</h2>
+            <div class="twocol">
+                <div>
+                    <div class="lang">English</div>
+                    <p>The app is provided “as is”. Liability is limited to mandatory statutory provisions, especially in cases of intent, gross negligence, or injury to life, body, or health. We are not liable for data loss, indirect damages, or incompatibility beyond legal requirements.</p>
+                </div>
+                <div>
+                    <div class="lang">Deutsch</div>
+                    <p>Die App wird „wie besehen“ bereitgestellt. Unsere Haftung beschränkt sich auf die zwingenden gesetzlichen Vorschriften, insbesondere bei Vorsatz, grober Fahrlässigkeit oder Verletzung von Leben, Körper oder Gesundheit. Für Datenverlust, mittelbare Schäden oder Inkompatibilitäten haften wir nur im gesetzlich erforderlichen Umfang.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Refund -->
+        <section id="refund">
+            <h2>Refund & Withdrawal / Widerruf & Erstattung</h2>
+            <div class="twocol">
+                <div>
+                    <div class="lang">English</div>
+                    <p>If the app is provided free of charge, no refund applies. For future purchases or subscriptions via app stores, the store’s respective refund policies and consumer rights apply.</p>
+                </div>
+                <div>
+                    <div class="lang">Deutsch</div>
+                    <p>Sofern die App unentgeltlich bereitgestellt wird, besteht kein Erstattungsanspruch. Für zukünftige Käufe oder Abonnements über App-Stores gelten die jeweiligen Rückgaberegeln des Stores und die gesetzlichen Verbraucherrechte.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Acceptable Use -->
+        <section id="use">
+            <h2>Acceptable Use / Zulässige Nutzung</h2>
+            <div class="twocol">
+                <div>
+                    <div class="lang">English</div>
+                    <ul>
+                        <li>No unlawful, defamatory, or discriminatory content.</li>
+                        <li>No misuse, disruption, or infringement of third-party rights.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="lang">Deutsch</div>
+                    <ul>
+                        <li>Keine rechtswidrigen, diffamierenden oder diskriminierenden Inhalte.</li>
+                        <li>Kein Missbrauch, keine Störung oder Verletzung von Rechten Dritter.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- IP -->
+        <section id="ip">
+            <h2>Intellectual Property / Urheberrecht</h2>
+            <div class="twocol">
+                <div>
+                    <div class="lang">English</div>
+                    <p>All rights remain with Bytebandits OÜ or respective licensors. Open-source components (e.g. Flutter, Riverpod, go_router, shared_preferences, permission_handler, image_picker, share_plus, etc.) are used under their respective licenses (MIT, BSD, Apache-style).</p>
+                </div>
+                <div>
+                    <div class="lang">Deutsch</div>
+                    <p>Alle Rechte verbleiben bei der Bytebandits OÜ oder den jeweiligen Lizenzgebern. Open-Source-Bestandteile (z. B. Flutter, Riverpod, go_router, shared_preferences, permission_handler, image_picker, share_plus usw.) werden unter den jeweiligen Lizenzen (MIT, BSD, Apache-ähnlich) genutzt.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Law -->
+        <section id="law">
+            <h2>Governing Law & Dispute Resolution / Rechtswahl & Streitbeilegung</h2>
+            <div class="twocol">
+                <div>
+                    <div class="lang">English</div>
+                    <p>Estonian law applies. Mandatory consumer protections of your country of residence remain unaffected. Place of jurisdiction, where permitted, is Tallinn, Estonia. Online dispute resolution: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>.</p>
+                </div>
+                <div>
+                    <div class="lang">Deutsch</div>
+                    <p>Es gilt estnisches Recht. Zwingende Verbraucherschutzvorschriften Ihres Wohnsitzlandes bleiben unberührt. Gerichtsstand, soweit zulässig, ist Tallinn, Estland. Online-Streitbeilegung: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <h2>Contact</h2>
+            <p><strong>Bytebandits OÜ</strong><br>
+                Tartu mnt 67/1-13b, 10115 Tallinn, Estonia<br>
+                Email: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+        </section>
+
+    </main>
+
+    <footer>© 2025 Bytebandits OÜ – All rights reserved.</footer>
+</div>
+</body>
+</html>
+
+
+----- Content from: C:\Users\jimbo\AndroidStudioProjects\Bytebandits-website\public\PinMyCar_privacypolicy.html -----
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Datenschutzerklärung · Privacy Policy – PinMyCar</title>
+<style>
+  :root {
+    --bg: #0f1220;
+    --card: #171a2b;
+    --text: #e7e9ff;
+    --muted: #a7acd9;
+    --accent: #8b5cf6;
+    --accent-2: #22d3ee;
+    --ok: #10b981;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background: radial-gradient(1200px 600px at 10% 0%, rgba(139,92,246,.20), transparent 60%), radial-gradient(1200px 600px at 90% 0%, rgba(34,211,238,.18), transparent 60%), var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 32px 18px 60px; }
+  header { display:flex; align-items:center; gap:14px; margin-bottom: 22px; }
+  .logo { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display:grid; place-items:center; box-shadow: 0 10px 30px rgba(34,211,238,.25); }
+  .logo span { font-weight: 800; color: white; }
+  h1 { font-size: clamp(1.6rem, 2.2vw + 1rem, 2.4rem); margin: 0; }
+  .subtitle { color: var(--muted); margin-top: 2px; }
+  .meta { margin-top: 8px; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
+  section { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 18px; }
+  h2 { font-size: 1.3rem; margin: 0 0 10px; }
+  h3 { font-size: 1.05rem; margin: 14px 0 6px; }
+  ul { margin: 8px 0 0 1.1rem; }
+  li { margin: 6px 0; }
+  .ok { color: var(--ok); font-weight: 600; }
+  .badge { display:inline-block; padding: 4px 10px; border-radius: 999px; background: rgba(139,92,246,.15); border: 1px solid rgba(139,92,246,.35); font-size: .85rem; margin-right: 8px; }
+  .two-col { columns: 2; column-gap: 28px; }
+  .card { background: var(--card); border-radius: 14px; padding: 12px 14px; border: 1px solid rgba(255,255,255,.06); }
+  code { background: rgba(255,255,255,.06); padding: 2px 6px; border-radius: 6px; }
+  footer { margin-top: 26px; color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo"><span>🅿️</span></div>
+      <div>
+        <h1>Datenschutzerklärung · Privacy Policy – PinMyCar</h1>
+        <div class="subtitle">Offline‑first. Alle Daten bleiben lokal – keine Cloud durch den Entwickler.</div>
+        <div class="meta">Letzte Aktualisierung / Last updated: <strong>30.08.2025</strong></div>
+      </div>
+    </header>
+
+    <!-- DE Section -->
+    <section lang="de" id="de">
+      <span class="badge">Deutsch (DE)</span>
+      <h2>1. Verantwortlicher</h2>
+      <p>Verantwortlich im Sinne der DSGVO:</p>
+      <div class="card">
+        <p><strong>Bytebandits OÜ</strong><br>
+          Tartu mnt 67/1-13b<br>
+          Tallinn 10115, Eesti<br>
+        E‑Mail: <a href="mailto:[max@byte-bandits.com]">[max@byte-bandits.com]</a></p>
+      </div>
+
+      <h2>2. Grundprinzipien</h2>
+      <ul>
+        <li><span class="ok">Keine Serverübertragung an uns:</span> Die App speichert Parkplatzdaten (GPS, Notiz, Fotos, Audio) ausschließlich <strong>lokal auf Ihrem Gerät</strong>.</li>
+        <li>Sie steuern das Hinzufügen und Löschen von Inhalten. Eine Cloud‑Synchronisation durch den App‑Entwickler findet nicht statt.</li>
+      </ul>
+
+      <h2>3. Verarbeitete Daten in der App (lokal)</h2>
+      <ul>
+        <li><strong>Standort (GPS):</strong> Nur zur Speicherung des Parkplatzes.</li>
+        <li><strong>Notizen & Parkhausangaben:</strong> Freitext, Ebene/Platz.</li>
+        <li><strong>Fotos:</strong> Nur wenn Sie diese hinzufügen. Gespeichert im App‑Bereich.</li>
+        <li><strong>Audio‑Memos:</strong> Nur wenn Sie eine Aufnahme erstellen.</li>
+        <li><strong>App‑Einstellungen & In‑App‑Käufe:</strong> Lokal via <code>SharedPreferences</code> (z. B. Pro‑Status, Freikontingent).</li>
+      </ul>
+      <p>Löschung: Entfernen Sie Einträge in der App oder deinstallieren Sie die App, um alle lokal gespeicherten Daten im App‑Bereich zu entfernen.</p>
+
+      <h2>4. Berechtigungen</h2>
+      <div class="two-col">
+        <ul>
+          <li><strong>Standort</strong> (präzise/ungefähr) – GPS speichern & anzeigen</li>
+          <li><strong>Kamera</strong> – Parkplatzfotos aufnehmen</li>
+          <li><strong>Mikrofon</strong> – Audio‑Memo aufnehmen</li>
+          <li><strong>Fotos/Medien</strong> – Bilder aus der Galerie hinzufügen</li>
+          <li><strong>Internet</strong> – Kartenkacheln laden, App‑Store‑Käufe, externe Navigation öffnen</li>
+        </ul>
+      </div>
+
+      <h2>5. Internetverbindungen & Dritte</h2>
+      <ul>
+        <li><strong>Kartenanzeige (OpenStreetMap via <code>flutter_map</code>):</strong> Beim Laden von Kartenkacheln wird Ihre IP‑Adresse an die Server von <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a> übertragen.</li>
+        <li><strong>Navigation (externe Apps):</strong> Beim Öffnen von Google Maps, Waze o. ä. gelten die jeweiligen Datenschutzrichtlinien dieser Anbieter.</li>
+        <li><strong>In‑App‑Käufe (<code>in_app_purchase</code>):</strong> Abwicklung ausschließlich über Google Play bzw. Apple App Store. Wir erhalten keine Zahlungsdaten oder Kontoinformationen.</li>
+        <li><strong>System‑Teilen (<code>share_plus</code>):</strong> Nutzung des Betriebssystem‑Share‑Dialogs; die App versendet selbst keine Daten an Server.</li>
+      </ul>
+
+      <h3>Eingesetzte Bibliotheken (Auszug)</h3>
+      <ul>
+        <li><code>geolocator</code> – GPS‑Ermittlung lokal auf dem Gerät</li>
+        <li><code>image_picker</code> – Kamera/Galerie; Dateien werden lokal kopiert</li>
+        <li><code>record</code> – Audioaufnahme lokal als Datei</li>
+        <li><code>path_provider</code> – App‑Speicherpfade</li>
+        <li><code>shared_preferences</code> – lokale App‑Einstellungen</li>
+        <li><code>flutter_map</code> &amp; <code>latlong2</code> – Kartenanzeige (lädt OSM‑Kacheln)</li>
+        <li><code>in_app_purchase</code> – Schnittstelle zum App‑Store‑Kaufsystem</li>
+        <li><code>url_launcher</code> – Öffnen externer Navigations‑Apps</li>
+        <li><code>share_plus</code> – Systemweitergabe von Text/Links</li>
+      </ul>
+
+      <h2>6. Rechtsgrundlagen</h2>
+      <p>Die Verarbeitung erfolgt – soweit personenbezogene Daten im Rahmen externer Dienste betroffen sind – auf Basis Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) bzw. zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO), wenn Sie z. B. einen In‑App‑Kauf tätigen oder Karten/Navigation aktiv benutzen.</p>
+
+      <h2>7. Ihre Rechte</h2>
+      <ul>
+        <li>Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit, Widerruf von Einwilligungen.</li>
+      </ul>
+      <p>Da wir selbst <strong>keine personenbezogenen Daten auf Servern verarbeiten</strong>, sind Betroffenenrechte bzgl. externer Dienste (OSM, Google, Apple) direkt bei diesen Anbietern geltend zu machen.</p>
+
+      <h2>8. Kontakt</h2>
+      <p>Für datenschutzbezogene Anfragen kontaktieren Sie uns unter der oben angegebenen E‑Mail‑Adresse.</p>
+    </section>
+
+    <!-- EN Section -->
+    <section lang="en" id="en">
+      <span class="badge">English (EN)</span>
+      <h2>1. Controller</h2>
+      <p>Controller under GDPR:</p>
+      <div class="card">
+        <p><strong>Bytebandits OÜ</strong><br>
+          Tartu mnt 67/1-13b<br>
+          Tallinn 10115, Eesti<br>
+          E‑Mail: <a href="mailto:[max@byte-bandits.com]">[max@byte-bandits.com]</a></p>
+      </div>
+
+      <h2>2. Core Principles</h2>
+      <ul>
+        <li><span class="ok">No transmissions to our servers:</span> Parking data (GPS, notes, photos, audio) is stored <strong>locally on your device</strong>.</li>
+        <li>You control adding and deleting content. There is no cloud sync by the developer.</li>
+      </ul>
+
+      <h2>3. Data processed in‑app (local)</h2>
+      <ul>
+        <li><strong>Location (GPS):</strong> Only to save your parking spot.</li>
+        <li><strong>Notes & garage info:</strong> Free text, level/slot.</li>
+        <li><strong>Photos:</strong> Only if you add them. Stored in the app area.</li>
+        <li><strong>Audio memos:</strong> Only if you record them.</li>
+        <li><strong>App settings & IAP state:</strong> Locally via <code>SharedPreferences</code> (e.g., Pro status, free quota).</li>
+      </ul>
+      <p>Deletion: Remove entries in the app or uninstall the app to remove locally stored data in the app area.</p>
+
+      <h2>4. Permissions</h2>
+      <div class="two-col">
+        <ul>
+          <li><strong>Location</strong> (precise/approx.) – save & display GPS</li>
+          <li><strong>Camera</strong> – take parking photos</li>
+          <li><strong>Microphone</strong> – record audio memos</li>
+          <li><strong>Photos/Media</strong> – pick images from gallery</li>
+          <li><strong>Internet</strong> – load map tiles, store purchases, open external navigation</li>
+        </ul>
+      </div>
+
+      <h2>5. Internet connections & third parties</h2>
+      <ul>
+        <li><strong>Maps (OpenStreetMap via <code>flutter_map</code>):</strong> Loading map tiles transmits your IP address to <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a> servers.</li>
+        <li><strong>Navigation (external apps):</strong> When opening Google Maps, Waze etc., their privacy policies apply.</li>
+        <li><strong>In‑app purchases (<code>in_app_purchase</code>):</strong> Processed solely by Google Play / Apple App Store. We do not receive payment or account data.</li>
+        <li><strong>System sharing (<code>share_plus</code>):</strong> Uses the OS share dialog; the app does not send data to servers by itself.</li>
+      </ul>
+
+      <h2>6. Legal bases</h2>
+      <p>Where personal data may be processed by external services, processing relies on your consent (Art. 6(1)(a) GDPR) and/or performance of a contract (Art. 6(1)(b) GDPR), e.g., when you make a purchase or actively use maps/navigation.</p>
+
+      <h2>7. Your rights</h2>
+      <ul>
+        <li>Access, rectification, erasure, restriction of processing, data portability, withdrawal of consent.</li>
+      </ul>
+      <p>Since we <strong>do not process personal data on our own servers</strong>, rights concerning external services (OSM, Google, Apple) must be exercised with those providers.</p>
+
+      <h2>8. Contact</h2>
+      <p>For privacy inquiries, please contact us at the email address provided above.</p>
+    </section>
+
+  </div>
+</body>
+</html>
+
+
+----- Content from: C:\Users\jimbo\AndroidStudioProjects\Bytebandits-website\public\testerlinks.html -----
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Bytebandits Test-Links</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #f4f6f9;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 0;
+          padding: 20px;
+        }
+        h1 {
+          color: #333;
+          margin-bottom: 10px;
+        }
+        h2 {
+          margin-top: 30px;
+          color: #555;
+        }
+        .button-container {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-top: 15px;
+          justify-content: center;
+        }
+        a.button {
+          display: inline-block;
+          padding: 12px 20px;
+          text-decoration: none;
+          background: #4CAF50;
+          color: white;
+          border-radius: 8px;
+          font-size: 15px;
+          transition: background 0.3s;
+          min-width: 200px;
+          text-align: center;
+        }
+        a.button:hover {
+          background: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Bytebandits Test-Links</h1>
+
+<h2>Android</h2>
+<div class="button-container">
+    <a class="button" href="https://play.google.com/store/apps/details?id=com.bytebandits.amitooloud" target="_blank">Am I Too Loud</a>
+    <a class="button" href="https://play.google.com/store/apps/details?id=com.bytebandits.imposterparty" target="_blank">Imposter Party</a>
+    <a class="button" href="https://play.google.com/store/apps/details?id=com.bytebandits.fahrzeugscheindigital" target="_blank">Fahrzeugschein Digital</a>
+    <a class="button" href="https://play.google.com/store/apps/details?id=com.bytebandits.motoleanx" target="_blank">Moto LeanX</a>
+    <a class="button" href="https://play.google.com/store/apps/details?id=com.bytebandits.mygiftvault" target="_blank">My Gift Vault</a>
+    <a class="button" href="https://play.google.com/store/apps/details?id=com.bytebandits.pinmycar" target="_blank">Pin My Car</a>
+    <a class="button" href="https://play.google.com/store/apps/details?id=com.bytebandits.waffensachkundeapp2" target="_blank">Waffensachkunde App</a>
+</div>
+
+<h2>Web</h2>
+<div class="button-container">
+    <a class="button" href="https://play.google.com/apps/testing/com.bytebandits.fahrzeugscheindigital" target="_blank">Fahrzeugschein Digital</a>
+    <a class="button" href="https://play.google.com/apps/testing/com.bytebandits.mygiftvault" target="_blank">My Gift Vault</a>
+    <a class="button" href="https://play.google.com/apps/testing/com.bytebandits.motoleanx" target="_blank">Moto LeanX</a>
+    <a class="button" href="https://play.google.com/apps/testing/com.bytebandits.amitooloud" target="_blank">Am I Too Loud</a>
+    <a class="button" href="https://play.google.com/apps/testing/com.bytebandits.imposterparty" target="_blank">Imposter Party</a>
+    <a class="button" href="https://play.google.com/apps/testing/com.bytebandits.pinmycar" target="_blank">Pin My Car</a>
+    <a class="button" href="https://play.google.com/apps/testing/com.bytebandits.waffensachkundeapp2" target="_blank">Waffensachkunde App</a>
+</div>
+</body>
+</html>
+
+
+----- Content from: C:\Users\jimbo\AndroidStudioProjects\Bytebandits-website\src\App.css -----
+.app-container {
+  margin: 2rem;
+  font-family: Arial, sans-serif;
+}
+.app-title {
+  color: #333;
+}
+
+
+----- Content from: C:\Users\jimbo\AndroidStudioProjects\Bytebandits-website\src\App.jsx -----
+// src/App.jsx
+import React, { useState, useEffect, useRef } from 'react'
+import styled, { keyframes, css } from 'styled-components'
+import SplashScreen from './components/SplashScreen'
+
+import { lines as homeLines }       from './pages/Home'
+import { lines as servicesLines }   from './pages/Services'
+import { lines as aboutLines }      from './pages/About'
+import { lines as contactLines }    from './pages/Contact'
+import { lines as homeLinesMobile } from './pages/HomeMobile'
+
+import homeImg     from './assets/section-home.png'
+import servicesImg from './assets/section-services2.png'
+import aboutImg    from './assets/section-about2.png'
+import contactImg  from './assets/section-contact3.png'
+
+import Impressum   from './pages/Impressum'
+
+// breakpoint
+const MOBILE_BREAK = 768
+
+// — custom hook to detect mobile width —
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined'
+      ? window.innerWidth <= MOBILE_BREAK
+      : false
+  )
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= MOBILE_BREAK)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  return isMobile
+}
+
+// — styled components —
+
+// scroll‐snap container (always on)
+const ScrollContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  background-color: #121212;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+`
+
+const Section = styled.section`
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const distort = keyframes`
+  /* unchanged glitch animation */
+`
+
+const Terminal = styled.div`
+  position: relative;
+  display: flex;
+  width: 80vw;
+  max-width: 800px;
+  height: 60vh;
+  max-height: 600px;
+  background: #0d0d0d;
+  border: 2px solid #00ff00;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,255,0,0.6);
+
+  &::before {
+    /* CRT scanlines */
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0,255,0,0.1) 0px,
+      rgba(0,255,0,0.1) 2px,
+      transparent 2px,
+      transparent 4px
+    );
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  @media (max-width: ${MOBILE_BREAK}px) {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    flex-direction: column;
+    /* push content down so menu doesn’t cover it */
+    padding-top: 4rem;
+  }
+`
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &.distort {
+    animation: ${distort} 0.8s ease-in-out 1;
+  }
+`
+
+const ImagePanel = styled.div`
+  flex: 0 0 200px;
+  margin-left: -280px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img { width: 400px; height: auto; object-fit: contain; }
+
+  @media (max-width: ${MOBILE_BREAK}px) {
+    display: flex;
+    position: absolute;
+
+    /* push it right down into the corner */
+    bottom: -2rem;
+    left: -1rem;
+
+    margin: 0;
+    flex: 0 0 auto;
+
+    img {
+      width: 50vw;
+      height: auto;
+    }
+  }
+`
+
+const LinesContainer = styled.div`
+  flex: 1;
+  padding: 1rem;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-shadow: 0 0 8px #00ff00;
+  font-size: clamp(1rem, 2.5vw, 1rem);
+
+  @media (max-width: ${MOBILE_BREAK}px) {
+    padding: 0.5rem;
+    font-size: clamp(0.6rem, 2.5vw, 1rem);
+  }
+`
+
+const InputLine = styled.div`
+  padding: 0 1rem 1rem;
+  display: flex;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+`
+const Prompt = styled.span` margin-right: 0.5rem; `
+const CommandInput = styled.input`
+  flex: 1;
+  background: none;
+  border: none;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  outline: none;
+`
+
+const ImpressumLink = styled.span`
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  cursor: pointer;
+  text-decoration: underline;
+`
+
+const glow = keyframes`
+  0%   { text-shadow: none; }
+  50%  { text-shadow: 0 0 12px #00ff00; }
+  100% { text-shadow: 0 0 8px #00ff00; }
+`
+
+const MenuLinks = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: -6rem;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  @media (max-width: ${MOBILE_BREAK}px) {
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0.75rem 0;
+    background: rgba(0, 0, 0, 0.8);
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+`
+
+const MenuLink = styled.span`
+  position: relative;
+  display: block;
+  padding-left: 0.6rem;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: ${p => (p.active ? '#00ff00' : '#00ff00aa')};
+  transition: color 0.2s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 1em;
+    background-color: ${p => (p.active ? '#00ff00' : 'transparent')};
+  }
+
+  &:hover {
+    color: #00ff00;
+  }
+  &:hover::before {
+    background-color: #00ff00aa;
+  }
+
+  ${p =>
+    p.active &&
+    css`
+      animation: ${glow} 1.8s ease-out forwards;
+    `}
+
+  @media (max-width: ${MOBILE_BREAK}px) {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+  }
+`
+
+function SectionComponent({ id, lines, img, onCommand, currentSection }) {
+  const [count, setCount] = useState(0)
+  const [started, setStarted] = useState(false)
+  const [input, setInput] = useState('')
+  const contentRef = useRef()
+
+  useEffect(() => {
+    if (currentSection === id) {
+      setCount(0)
+      setStarted(true)
+      contentRef.current.classList.add('distort')
+      setTimeout(() => contentRef.current.classList.remove('distort'), 800)
+    } else {
+      setStarted(false)
+    }
+  }, [currentSection, id])
+
+  useEffect(() => {
+    if (!started || count >= lines.length) return
+    const t = setTimeout(() => setCount(c => c + 1), 50)
+    return () => clearTimeout(t)
+  }, [started, count, lines.length])
+
+  function handleKeyDown(e) {
+    if (e.key === 'Enter' && input.trim()) {
+      onCommand(input.trim().toLowerCase())
+      setInput('')
+    }
+  }
+
+  const labels = ['home', 'services', 'about', 'contact']
+
+  return (
+    <Section id={`${id}-section`}>
+      <Terminal>
+        <MenuLinks>
+          {labels.map(label => (
+            <MenuLink
+              key={label}
+              active={currentSection === label}
+              onClick={() => onCommand(label)}
+            >
+              {label.charAt(0).toUpperCase() + label.slice(1)}
+            </MenuLink>
+          ))}
+        </MenuLinks>
+
+        {img && (
+          <ImagePanel>
+            <img src={img} alt={`${id} illustration`} />
+          </ImagePanel>
+        )}
+
+        <Content ref={contentRef}>
+          <LinesContainer>
+            {lines.slice(0, count).join('\n')}
+          </LinesContainer>
+          <InputLine>
+            <Prompt>$</Prompt>
+            <CommandInput
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              autoFocus={id === 'home'}
+            />
+          </InputLine>
+        </Content>
+      </Terminal>
+    </Section>
+  )
+}
+
+export default function App() {
+  // 1) ALL hooks up-front in stable order
+  const isMobile           = useIsMobile()
+  const [showImpressum, setShowImpressum]   = useState(false)
+  const [currentSection, setCurrentSection] = useState('home')
+  const [showSplash, setShowSplash]         = useState(true)
+  const scrollRef         = useRef(null)
+
+  // 2) Define your sections and helpers once
+  const sectionMap = [
+    { id: 'home',     lines: isMobile ? homeLinesMobile : homeLines, img: homeImg },
+    { id: 'services', lines: servicesLines,                         img: servicesImg },
+    { id: 'about',    lines: aboutLines,                            img: aboutImg },
+    { id: 'contact',  lines: contactLines,                          img: contactImg },
+  ]
+  const sectionIds = sectionMap.map(s => s.id)
+
+  const scrollTo = id => {
+    document
+      .getElementById(`${id}-section`)
+      .scrollIntoView({ behavior: 'smooth' })
+  }
+  const onCommand = cmd => {
+    if (sectionIds.includes(cmd)) scrollTo(cmd)
+  }
+
+  // 3) Scroll‐spy effect
+  useEffect(() => {
+    const container = scrollRef.current
+    const onScroll = () => {
+      for (let id of sectionIds) {
+        const rect = document
+          .getElementById(`${id}-section`)
+          .getBoundingClientRect()
+        if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+          setCurrentSection(id)
+          break
+        }
+      }
+    }
+    container.addEventListener('scroll', onScroll, { passive: true })
+    return () => container.removeEventListener('scroll', onScroll)
+  }, [sectionIds])
+
+  // 4) Reset to top on mount
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, 0)
+  }, [])
+
+  // 5) Splash finish handler
+  const handleSplashFinish = () => {
+    setShowSplash(false)
+    // Ensure we start at top of main app
+    setTimeout(() => scrollRef.current?.scrollTo(0, 0), 0)
+  }
+
+  return (
+    <>
+      {/* Main site always mounted under the splash */}
+      <ScrollContainer ref={scrollRef}>
+        {sectionMap.map(s => (
+          <SectionComponent
+            key={s.id}
+            {...s}
+            onCommand={onCommand}
+            currentSection={currentSection}
+          />
+        ))}
+      </ScrollContainer>
+
+      <ImpressumLink onClick={() => setShowImpressum(true)}>
+        Impressum
+      </ImpressumLink>
+      {showImpressum && <Impressum onClose={() => setShowImpressum(false)} />}
+
+      {/* Splash overlay */}
+      {showSplash && <SplashScreen onFinish={handleSplashFinish} />}
+    </>
+  )
+}
+
+
+----- Content from: C:\Users\jimbo\AndroidStudioProjects\Bytebandits-website\src\index.css -----
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+
+----- Content from: C:\Users\jimbo\AndroidStudioProjects\Bytebandits-website\src\main.jsx -----
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+
+
