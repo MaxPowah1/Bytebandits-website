@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PocketDice – Rechtstexte (DE/EN)</title>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    /* ===== App Theme – an PocketDice (violett, seed #6B5AA6) angelehnt ===== */
+    :root{
+      /* Heller Hintergrund mit leicht violettem Touch */
+      --bgLight: #F4F2FB;
+      --ink:     #14121F;     /* dunkles Violett/Anthrazit als Primärtext */
+      --accent:  #6B5AA6;     /* PocketDice Seed-Farbe */
+
+      /* Verlauf: helle Violett-/Blau-Töne */
+      --grad-a: #E1D9FF;
+      --grad-b: #C1B4FF;
+      --grad-c: #8E7AEF;
+
+      --card: rgba(255,255,255,.78);
+      --card-border: rgba(255,255,255,.62);
+      --shadow: 0 10px 30px rgba(13,7,36,.11), 0 2px 10px rgba(13,7,36,.07);
+      --muted: rgba(20,18,31,.68);
+      --link: var(--ink);
+      --border-soft: rgba(20,18,31,.08);
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --ink: #E9E6FF;
+        --card: rgba(18,16,31,.72);
+        --card-border: rgba(255,255,255,.16);
+        --shadow: 0 10px 30px rgba(0,0,0,.45), 0 2px 10px rgba(0,0,0,.3);
+        --muted: rgba(233,230,255,.8);
+        --link: #ffffff;
+        --border-soft: rgba(233,230,255,.1);
+
+        /* dunkler Verlauf, satte Violett-/Indigo-Töne */
+        --grad-a: #5B4AB4;
+        --grad-b: #7E5AD6;
+        --grad-c: #A572FF;
+      }
+    }
+
+    /* ===== Base ===== */
+    html,body{height:100%}
+    html,body{
+      margin:0; padding:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      line-height:1.6;
+      color:var(--ink);
+    }
+    body{
+      background:
+        radial-gradient(1100px 800px at 20% 15%, rgba(255,255,255,.45), transparent 60%),
+        linear-gradient(135deg, var(--grad-a) 0%, var(--grad-b) 45%, var(--grad-c) 100%);
+      min-height:100%;
+    }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: clamp(16px,2.5vw,32px);
+    }
+
+    header{
+      display:flex; flex-wrap:wrap; gap:12px;
+      align-items:center; justify-content:space-between;
+      padding: 8px 0 18px;
+    }
+
+    .brand{
+      font-weight:800; letter-spacing:.2px;
+      font-size:clamp(18px,2.2vw,22px);
+      color: var(--ink);
+      background: rgba(255,255,255,.6);
+      border: 1px solid var(--card-border);
+      padding: 8px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+
+    nav{
+      display:flex; flex-wrap:wrap;
+      gap:8px;
+    }
+
+    nav a{
+      color:var(--link); text-decoration:none; font-weight:600; font-size:.95rem;
+      padding:8px 12px; border-radius:12px;
+      background: rgba(255,255,255,.65);
+      border:1px solid var(--card-border);
+      backdrop-filter: blur(6px);
+    }
+    nav a:hover{outline:2px solid rgba(255,255,255,.8)}
+
+    .lang-switch{
+      display:flex; gap:8px; align-items:center;
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid var(--card-border);
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.7));
+      color:var(--ink);
+      padding:8px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    .btn.active{
+      background: linear-gradient(
+        180deg,
+        var(--accent),
+        color-mix(in oklab, var(--accent), white 25%)
+      );
+      color:#fff;
+      border-color: color-mix(in oklab, var(--accent), #000 12%);
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--card-border);
+      border-radius: 24px;
+      padding: clamp(18px, 2.4vw, 26px);
+      margin: 16px 0;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px) saturate(140%);
+    }
+
+    .card h2{margin: 0 0 8px 0}
+
+    .muted{color:var(--muted); font-size:.95rem}
+
+    footer{
+      margin:28px 0 12px;
+      padding:16px 0;
+      color:var(--muted);
+      font-size:.95rem
+    }
+    footer a{color:inherit}
+
+    /* language visibility */
+    .lang[hidden]{display:none !important;}
+
+    /* fine borders for sections inside articles */
+    article > h3{margin-top:1.2em}
+    article hr{
+      border:0; height:1px; background:var(--border-soft);
+      margin: 16px 0;
+    }
+
+    @media print{
+      header, .lang-switch, nav, footer { display:none !important; }
+      .card{break-inside: avoid;}
+      body{background:#fff}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">PocketDice – Rechtliches</div>
+      <div class="lang-switch" role="group" aria-label="Sprachauswahl">
+        <button type="button" data-lang="de" class="btn active" aria-pressed="true">Deutsch</button>
+        <button type="button" data-lang="en" class="btn" aria-pressed="false">English</button>
+      </div>
+    </header>
+
+    <nav class="toc" aria-label="Inhaltsverzeichnis">
+      <a href="#privacy">Datenschutz / Privacy</a>
+      <a href="#terms">Nutzungsbedingungen / Terms</a>
+      <a href="#cookies">Cookie-Hinweis / Cookie Notice</a>
+      <a href="#impressum">Impressum / Legal Notice</a>
+    </nav>
+
+    <!-- Datenschutzerklärung -->
+    <section id="privacy" class="card" aria-labelledby="privacy-title">
+      <h2 id="privacy-title">Datenschutzerklärung / Privacy Policy</h2>
+
+      <!-- Deutsch -->
+      <article class="lang lang-de" lang="de" aria-label="Datenschutzerklärung Deutsch">
+        <p class="muted">
+          <strong>Version (DE)</strong> · <span>Stand: September 2025</span>
+        </p>
+
+        <h3>Verantwortliche Stelle und Kontakt</h3>
+        <p>
+          Anbieter der App <strong>PocketDice</strong> und datenschutzrechtlich Verantwortlicher ist
+          <strong>Bytebandits OÜ</strong>, Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn 10115, Estland
+          (nachfolgend „Bytebandits“ oder „wir“). Bei Fragen zum Datenschutz können Sie uns unter
+          der E-Mail-Adresse <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a> kontaktieren.
+        </p>
+
+        <h3>Verarbeitung personenbezogener Daten</h3>
+        <p>
+          Die mobile App <strong>PocketDice</strong> ist ein Würfelrechner für Pen-&amp;-Paper-Rollenspiele.
+          Für die Nutzung werden <strong>keine Nutzerkonten</strong> benötigt, und Sie können die App verwenden,
+          ohne persönliche Informationen einzugeben. Es werden im Rahmen der normalen Nutzung
+          <strong>keine personenbezogenen Daten an Bytebandits oder Dritte übermittelt</strong>.
+        </p>
+        <p>
+          Insbesondere verwenden wir in der App:
+        </p>
+        <ul>
+          <li>keine Analysetools (z.&nbsp;B. Google Analytics),</li>
+          <li>keine Tracking-Dienste oder Werbenetzwerke,</li>
+          <li>keine In-App-Käufe, die personenbezogene Daten erfordern würden.</li>
+        </ul>
+        <p>
+          Alle Würfelfunktionen, Setups und Einstellungen sind ohne Registrierung und ohne Eingabe
+          personenbezogener Daten nutzbar.
+        </p>
+
+        <h3>Offline-Nutzung und lokale Daten</h3>
+        <p>
+          PocketDice ist als datensparsame Anwendung konzipiert und kann weitgehend
+          <strong>offline</strong> genutzt werden. Bestimmte Daten werden ausschließlich lokal auf Ihrem
+          Gerät gespeichert, z.&nbsp;B.:
+        </p>
+        <ul>
+          <li>gespeicherte Würfel-Formeln und Favoriten,</li>
+          <li>Verlauf der letzten Würfe,</li>
+          <li>Setups (Regelprofile, UI-Einstellungen, Quickbar),</li>
+          <li>Anzeigeeinstellungen (z.&nbsp;B. Sprache, Dark-/Light-Mode, Konfetti).</li>
+        </ul>
+        <p>
+          Diese Daten werden mit systemeigenen Mechanismen (z.&nbsp;B. SharedPreferences) lokal
+          abgelegt und <strong>nicht an Bytebandits oder andere Parteien übertragen</strong>.
+        </p>
+        <p>
+          Wenn Sie rechtliche Hinweise oder Webseiten über innerhalb der App angezeigte Links
+          öffnen, werden Sie in der Regel in den Browser Ihres Geräts weitergeleitet.
+          In diesem Fall gelten ggf. die Datenschutzbestimmungen der jeweiligen Website.
+        </p>
+
+        <h3>Weitergabe von Daten an Dritte</h3>
+        <p>
+          Da wir innerhalb der App keine personenbezogenen Daten verarbeiten, findet auch
+          <strong>keine Weitergabe</strong> personenbezogener Daten an Dritte statt. Wir beauftragen
+          keine externen Dienstleister mit der Verarbeitung von Nutzerdaten, und wir binden
+          keine Dienste von Drittanbietern ein, die Daten über Ihre Nutzung von PocketDice erheben.
+        </p>
+
+        <h3>Rechte der betroffenen Personen</h3>
+        <p>
+          Unabhängig davon, ob wir personenbezogene Daten verarbeiten, weisen wir auf Ihre Rechte
+          nach der EU-Datenschutz-Grundverordnung (DSGVO) hin. Sie haben grundsätzlich:
+        </p>
+        <ul>
+          <li><strong>Auskunft</strong> (Art. 15 DSGVO)</li>
+          <li><strong>Berichtigung</strong> (Art. 16 DSGVO)</li>
+          <li><strong>Löschung</strong> (Art. 17 DSGVO)</li>
+          <li><strong>Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
+          <li><strong>Widerspruch</strong> (Art. 21 DSGVO)</li>
+          <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+        </ul>
+        <p>
+          Da PocketDice keine personenbezogenen Daten an uns übermittelt oder bei uns speichert,
+          können diese Rechte im Zusammenhang mit dieser App mangels vorhandener Daten
+          faktisch nicht ausgeübt werden. Sollten Sie dennoch Fragen zum Datenschutz haben oder
+          der Ansicht sein, dass die App Ihre Privatsphäre verletzt, können Sie sich jederzeit
+          an uns wenden (Kontakt siehe oben). Außerdem haben Sie das Recht, sich bei einer
+          Datenschutz-Aufsichtsbehörde zu beschweren.
+        </p>
+
+        <h3>Änderungen dieser Datenschutzerklärung</h3>
+        <p>
+          Da wir derzeit keine personenbezogenen Daten verarbeiten, werden sich diese
+          Datenschutzhinweise voraussichtlich nur selten ändern. Falls PocketDice in Zukunft
+          Funktionen einführt, die eine Verarbeitung personenbezogener Daten erforderlich machen,
+          werden wir diese Datenschutzerklärung entsprechend anpassen. Das Aktualisierungsdatum
+          finden Sie oben.
+        </p>
+      </article>
+
+      <!-- English -->
+      <article class="lang lang-en" lang="en" aria-label="Privacy Policy English" hidden>
+        <p class="muted">
+          <strong>Version (EN)</strong> · <span>Last updated: September 2025</span>
+        </p>
+
+        <h3>Controller and Contact</h3>
+        <p>
+          The provider of the <strong>PocketDice</strong> app and the entity responsible for
+          data protection (the “controller”) is <strong>Bytebandits OÜ</strong>,
+          Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn 10115, Estonia
+          (hereinafter “Bytebandits” or “we”). If you have any questions about privacy,
+          you can contact us at
+          <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>.
+        </p>
+
+        <h3>Personal Data Processing</h3>
+        <p>
+          The mobile app <strong>PocketDice</strong> is a dice roller for tabletop role-playing games.
+          You can use the app without creating an account and without providing personal information.
+          In the normal course of use, <strong>no personal data is transmitted to Bytebandits
+          or to third parties</strong>.
+        </p>
+        <p>
+          In particular, within the app we do <strong>not</strong> use:
+        </p>
+        <ul>
+          <li>analytics tools (such as Google Analytics),</li>
+          <li>tracking services or advertising networks,</li>
+          <li>in-app purchases that would require personal data.</li>
+        </ul>
+        <p>
+          All features of the app (rolling dice, presets, setups, and UI options) are available
+          without registration and without submitting personal details.
+        </p>
+
+        <h3>Offline Use and Local Data</h3>
+        <p>
+          PocketDice is designed with data minimization in mind and can be used largely
+          <strong>offline</strong>. Certain data is stored <strong>locally on your device only</strong>,
+          for example:
+        </p>
+        <ul>
+          <li>saved dice formulas and favorites,</li>
+          <li>the history of recent rolls,</li>
+          <li>setups (rule profiles, UI preferences, quick bar layout),</li>
+          <li>display preferences (e.g. language, dark/light mode, confetti).</li>
+        </ul>
+        <p>
+          These values are stored using platform mechanisms (e.g. SharedPreferences) and are
+          <strong>not transmitted</strong> to Bytebandits or to any other party.
+        </p>
+        <p>
+          If you follow links from within the app to external legal pages or websites, your
+          system browser will be opened. In such cases, the privacy policies of the respective
+          websites apply.
+        </p>
+
+        <h3>Disclosure to Third Parties</h3>
+        <p>
+          Since we do not process personal data within PocketDice, there is
+          <strong>no disclosure of personal data</strong> to third parties. We do not employ
+          external service providers to process user data, and we do not integrate third-party
+          services into the app that could collect data about your use of PocketDice.
+        </p>
+
+        <h3>User Rights</h3>
+        <p>
+          Regardless of whether we process personal data, we inform you of your rights under
+          the EU General Data Protection Regulation (GDPR). In principle, you have the right to:
+        </p>
+        <ul>
+          <li><strong>Access</strong> (Art. 15 GDPR)</li>
+          <li><strong>Rectification</strong> (Art. 16 GDPR)</li>
+          <li><strong>Erasure</strong> (Art. 17 GDPR)</li>
+          <li><strong>Restriction of processing</strong> (Art. 18 GDPR)</li>
+          <li><strong>Object</strong> (Art. 21 GDPR)</li>
+          <li><strong>Data portability</strong> (Art. 20 GDPR)</li>
+        </ul>
+        <p>
+          However, as PocketDice does not transmit or store personal data at Bytebandits,
+          these rights will typically not need to be exercised in the context of this app
+          (because there is no data on file). If you nonetheless have privacy-related questions
+          or believe the app infringes on your privacy, you can contact us at any time
+          (see contact details above). You also have the right to lodge a complaint with
+          a data protection supervisory authority.
+        </p>
+
+        <h3>Changes to this Privacy Policy</h3>
+        <p>
+          Because we currently do not process personal data, we expect that changes to this
+          privacy policy will be rare. If the app introduces functionality in the future that
+          involves processing personal data, we will update this privacy policy accordingly.
+          The effective date is shown above.
+        </p>
+      </article>
+    </section>
+
+    <!-- Nutzungsbedingungen -->
+    <section id="terms" class="card" aria-labelledby="terms-title">
+      <h2 id="terms-title">Nutzungsbedingungen / Terms of Use</h2>
+
+      <!-- Deutsch -->
+      <article class="lang lang-de" lang="de" aria-label="Nutzungsbedingungen Deutsch">
+        <h3>Geltungsbereich und Anbieter</h3>
+        <p>
+          Diese Nutzungsbedingungen gelten für die Nutzung der App <strong>PocketDice</strong>
+          (nachfolgend „App“). Anbieter der App ist <strong>Bytebandits OÜ</strong> mit Sitz in
+          Tallinn, Estland (Anschrift: Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estland).
+          Durch das Herunterladen bzw. die Nutzung der App erklären Sie sich mit diesen
+          Nutzungsbedingungen einverstanden.
+        </p>
+
+        <h3>Nutzung der App</h3>
+        <p>
+          Die Nutzung der App ist derzeit kostenlos und erfordert keine Registrierung.
+          PocketDice ist als Hilfswerkzeug für Pen-&amp;-Paper-Rollenspiele gedacht und dient
+          ausschließlich der Unterhaltung sowie der Vereinfachung von Würfelwürfen.
+          Sie dürfen die App ausschließlich für persönliche, nicht-kommerzielle Zwecke verwenden,
+          sofern nichts anderes mit Bytebandits vereinbart ist.
+        </p>
+        <p>
+          Sie sind verpflichtet, alle anwendbaren Gesetze einzuhalten und jede missbräuchliche
+          Nutzung der App zu unterlassen. Insbesondere dürfen Sie die App nicht in einer Weise
+          verwenden, die die Rechte Dritter verletzt, gegen gesetzliche Bestimmungen verstößt
+          oder die App, ihre Funktionen oder die zugrunde liegenden Systeme beeinträchtigt.
+        </p>
+
+        <h3>Rechte an der App</h3>
+        <p>
+          Die App sowie alle darin enthaltenen Inhalte, Texte, Grafiken, Logos und Bilder sind
+          geistiges Eigentum von Bytebandits oder lizenziert an Bytebandits. Wir räumen Ihnen
+          als Nutzer ein einfaches, nicht übertragbares Recht ein, die App in unveränderter Form
+          zu nutzen.
+        </p>
+        <p>
+          Sie dürfen die App oder Inhalte der App nicht vervielfältigen, veröffentlichen,
+          bearbeiten oder anderweitig verwerten, soweit dies nicht nach zwingendem Recht
+          erlaubt oder in diesen Nutzungsbedingungen ausdrücklich gestattet ist.
+        </p>
+
+        <h3>Gewährleistung und Haftung</h3>
+        <p>
+          Wir stellen die App „wie besehen“ und nach Verfügbarkeit bereit. Wir übernehmen keine
+          Gewähr dafür, dass die App jederzeit fehlerfrei oder ohne Unterbrechung funktioniert.
+        </p>
+        <p>
+          Eine Haftung von Bytebandits für Schäden ist ausgeschlossen, soweit nicht gesetzlich
+          zwingend gehaftet wird. Wir haften unbeschränkt für Vorsatz und grobe Fahrlässigkeit
+          sowie für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit.
+          Bei leichter Fahrlässigkeit haften wir nur bei Verletzung einer wesentlichen
+          Vertragspflicht (Kardinalpflicht), jedoch der Höhe nach beschränkt auf den bei
+          Vertragsschluss vorhersehbaren, vertragstypischen Schaden. Eine wesentliche
+          Vertragspflicht ist eine Pflicht, deren Erfüllung die ordnungsgemäße Durchführung
+          des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung der Nutzer regelmäßig
+          vertrauen darf. Die vorstehende Haftungsbeschränkung gilt ebenso zugunsten unserer
+          gesetzlichen Vertreter und Erfüllungsgehilfen.
+        </p>
+
+        <h3>Änderungen und Beendigung</h3>
+        <p>
+          Bytebandits behält sich das Recht vor, diese Nutzungsbedingungen bei Bedarf zu ändern,
+          beispielsweise um rechtliche Änderungen oder Funktionsänderungen der App abzubilden.
+          Über wesentliche Änderungen der Bedingungen werden wir Sie in geeigneter Weise
+          informieren. Wenn Sie mit den geänderten Bedingungen nicht einverstanden sind,
+          müssen Sie die Nutzung der App einstellen.
+        </p>
+        <p>
+          Wir können zudem die Bereitstellung der App jederzeit ohne Angabe von Gründen
+          einstellen; in einem solchen Fall enden Ihre Rechte zur Nutzung der App automatisch.
+        </p>
+
+        <h3>Anwendbares Recht</h3>
+        <p>
+          Es gilt das Recht der Republik Estland. Wenn Sie Verbraucher mit Wohnsitz in der
+          Europäischen Union sind, gelten zusätzlich die zwingenden Verbraucherschutzbestimmungen
+          Ihres Aufenthaltslandes, soweit diese für Sie günstiger sind. Die Anwendung des
+          UN-Kaufrechts wird ausgeschlossen.
+        </p>
+
+        <h3>Salvatorische Klausel</h3>
+        <p>
+          Sollte eine Bestimmung dieser Nutzungsbedingungen unwirksam oder undurchsetzbar sein,
+          bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. Anstelle der unwirksamen
+          Bestimmung gilt diejenige wirksame Bestimmung als vereinbart, die dem wirtschaftlichen
+          Zweck der unwirksamen Bestimmung am nächsten kommt. Gleiches gilt für etwaige
+          Regelungslücken.
+        </p>
+      </article>
+
+      <!-- English -->
+      <article class="lang lang-en" lang="en" aria-label="Terms of Use English" hidden>
+        <h3>Scope and Provider</h3>
+        <p>
+          These Terms of Use govern the use of the <strong>PocketDice</strong> application
+          (the “App”). The provider of the App is <strong>Bytebandits OÜ</strong>, located in
+          Tallinn, Estonia (address: Tartu mnt 67/1-13b, Kesklinna linnaosa, 10115 Tallinn, Estonia).
+          By downloading or using the App, you agree to these Terms of Use.
+        </p>
+
+        <h3>Use of the App</h3>
+        <p>
+          The App is currently provided free of charge and no registration is required.
+          PocketDice is intended as a utility for tabletop role-playing games and serves
+          purely as an entertainment tool to simplify dice rolls. You may use the App solely
+          for personal, non-commercial purposes, unless otherwise agreed with Bytebandits.
+        </p>
+        <p>
+          You must comply with all applicable laws and refrain from any abusive or improper
+          use of the App. In particular, you shall not use the App in any way that violates
+          the rights of others, breaches statutory provisions, or could impair the App,
+          its features, or the underlying systems.
+        </p>
+
+        <h3>Rights to the App</h3>
+        <p>
+          The App and all content included therein, such as text, graphics, logos, and images,
+          are the intellectual property of Bytebandits or are licensed to Bytebandits. We grant
+          you as a user a non-exclusive, non-transferable right to use the App in its unmodified
+          form.
+        </p>
+        <p>
+          You may not reproduce, publish, edit, or otherwise exploit the App or its content,
+          except as permitted by mandatory law or expressly allowed by these Terms of Use.
+        </p>
+
+        <h3>Warranty and Liability</h3>
+        <p>
+          We provide the App on an “as is” and “as available” basis. We do not warrant that
+          the App will be error-free or available at all times without interruption.
+        </p>
+        <p>
+          To the extent permitted by law, Bytebandits excludes liability for damages arising
+          out of or in connection with the use of the App. We are liable without limitation
+          in cases of intent or gross negligence and for damages resulting in injury to life,
+          body, or health. In cases of ordinary negligence, we are only liable for the breach
+          of an essential contractual obligation (a duty whose fulfillment is essential to the
+          proper execution of the contract and on which the user routinely relies); in such
+          cases, our liability is limited to the foreseeable, typical damages at the time of
+          agreeing to these Terms. The above limitations of liability likewise apply in favor
+          of our legal representatives and vicarious agents.
+        </p>
+
+        <h3>Changes and Termination</h3>
+        <p>
+          Bytebandits reserves the right to modify these Terms of Use as necessary to reflect
+          legal or functional changes to the App. We will inform you in an appropriate manner
+          about any material changes to the Terms. If you do not agree with the updated Terms,
+          you must stop using the App.
+        </p>
+        <p>
+          We also reserve the right to discontinue the App at any time without notice or
+          explanation; in such an event, your right to use the App will terminate automatically.
+        </p>
+
+        <h3>Governing Law</h3>
+        <p>
+          These Terms of Use are governed by the laws of the Republic of Estonia. If you are
+          a consumer residing in the European Union, you also enjoy the protection of any
+          mandatory provisions of the law of your country of residence that are more favorable
+          to you. The application of the United Nations Convention on Contracts for the
+          International Sale of Goods (CISG) is excluded.
+        </p>
+
+        <h3>Severability</h3>
+        <p>
+          If any provision of these Terms of Use is held to be invalid or unenforceable, the
+          remaining provisions shall remain in full force and effect. In place of the invalid
+          provision, a valid provision shall be deemed to be agreed which comes closest to
+          the economic intent of the invalid provision. The same applies in the event of any
+          omissions in these Terms.
+        </p>
+      </article>
+    </section>
+
+    <!-- Cookie-Hinweis -->
+    <section id="cookies" class="card" aria-labelledby="cookies-title">
+      <h2 id="cookies-title">Cookie-Hinweis / Cookie Notice</h2>
+
+      <!-- Deutsch -->
+      <article class="lang lang-de" lang="de" aria-label="Cookie-Hinweis Deutsch">
+        <p>
+          Die mobile App <strong>PocketDice</strong> selbst setzt keine Cookies ein.
+          Sofern Sie diese Rechtstexte als Webseite aufrufen, verwenden wir – falls überhaupt –
+          ausschließlich technisch notwendige Cookies oder vergleichbare Technologien, die für
+          die Auslieferung und Darstellung dieser Seite erforderlich sind. Für solche technisch
+          notwendigen Cookies ist gemäß §&nbsp;25 Abs.&nbsp;2 TTDSG kein Cookie-Banner und keine
+          ausdrückliche Einwilligung erforderlich.
+        </p>
+        <p>
+          Insbesondere kommen über diese Seite keine Analyse-Cookies oder Werbe-Cookies zum Einsatz.
+        </p>
+      </article>
+
+      <!-- English -->
+      <article class="lang lang-en" lang="en" aria-label="Cookie Notice English" hidden>
+        <p>
+          The <strong>PocketDice</strong> mobile app itself does not use cookies.
+          If you are viewing these legal texts on a website, we use – if at all – only strictly
+          necessary cookies or similar technologies required to deliver and display this page.
+          Under applicable law (e.g. EU ePrivacy rules), such strictly necessary cookies do
+          not require a cookie banner or explicit consent.
+        </p>
+        <p>
+          In particular, no analytics or advertising cookies are employed via this page.
+        </p>
+      </article>
+    </section>
+
+    <!-- Impressum -->
+    <section id="impressum" class="card" aria-labelledby="impressum-title">
+      <h2 id="impressum-title">Impressum / Legal Notice</h2>
+
+      <!-- Deutsch -->
+      <article class="lang lang-de" lang="de" aria-label="Impressum Deutsch">
+        <p class="muted">
+          <strong>Version (DE)</strong> · <span>Stand: September 2025</span>
+        </p>
+
+        <h3>Verantwortliche Stelle</h3>
+        <p><strong>Verantwortlich i.S.d. § 5 TMG / Art. 4 Nr. 7 DSGVO:</strong></p>
+        <p>
+          Bytebandits OÜ<br>
+          Tartu mnt 67/1-13b<br>
+          Kesklinna linnaosa<br>
+          Tallinn 10115, Eesti<br>
+          E-Mail: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>
+        </p>
+
+        <h3>Firmendaten</h3>
+        <p><strong>Firmenname:</strong> Bytebandits OÜ</p>
+        <p><strong>Rechtsform:</strong> OÜ (Estnische Privatgesellschaft mit beschränkter Haftung)</p>
+        <p><strong>Registernummer:</strong> 17265228</p>
+        <p><strong>Registergericht:</strong> Harju County Court</p>
+        <p><strong>USt-ID (KMKR):</strong> Die juristische Person ist nicht umsatzsteuerpflichtig.</p>
+
+        <h3>Geschäftsführung</h3>
+        <p><strong>Geschäftsführer / Management Board:</strong> M. Scherb</p>
+
+        <h3>Kontaktinformationen</h3>
+        <p><strong>E-Mail:</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+
+        <h3>Datenschutzkontakt</h3>
+        <p><strong>Kontakt für Anfragen zum Datenschutz:</strong></p>
+        <p><a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+
+        <hr>
+
+        <h3>Haftungsausschluss</h3>
+        <p>
+          Die in dieser mobilen Anwendung und auf den dazugehörigen Informationsseiten
+          enthaltenen Inhalte dienen nur zu allgemeinen Informationszwecken. Obwohl wir uns
+          bemühen, die Informationen auf dem neuesten Stand und korrekt zu halten, geben wir
+          keine Zusicherungen oder Garantien jeglicher Art, ausdrücklich oder stillschweigend,
+          über die Vollständigkeit, Genauigkeit, Zuverlässigkeit, Eignung oder Verfügbarkeit
+          in Bezug auf die App oder die Informationen, Produkte, Dienstleistungen oder
+          zugehörigen Grafiken in der App für jeden Zweck.
+        </p>
+        <p>
+          Jedes Vertrauen, das Sie auf solche Informationen setzen, erfolgt daher auf eigenes Risiko.
+        </p>
+
+        <h3>Haftung für Inhalte</h3>
+        <p>
+          Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten
+          nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
+          Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde
+          Informationen zu überwachen oder nach Umständen zu forschen, die auf eine
+          rechtswidrige Tätigkeit hinweisen.
+        </p>
+
+        <h3>Haftung für Links</h3>
+        <p>
+          Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen
+          Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr
+          übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter
+          oder Betreiber der Seiten verantwortlich.
+        </p>
+
+        <h3>Urheberrecht</h3>
+        <p>
+          Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
+          unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung,
+          Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes
+          bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+        </p>
+      </article>
+
+      <!-- English -->
+      <article class="lang lang-en" lang="en" aria-label="Legal Notice English" hidden>
+        <p class="muted">
+          <strong>Version (EN)</strong> · <span>Last updated: September 2025</span>
+        </p>
+
+        <h3>Responsible Entity</h3>
+        <p><strong>Responsible according to § 5 TMG / Art. 4 No. 7 GDPR:</strong></p>
+        <p>
+          Bytebandits OÜ<br>
+          Tartu mnt 67/1-13b<br>
+          Kesklinna linnaosa<br>
+          Tallinn 10115, Eesti<br>
+          Email: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>
+        </p>
+
+        <h3>Company Details</h3>
+        <p><strong>Company Name:</strong> Bytebandits OÜ</p>
+        <p><strong>Legal Form:</strong> OÜ (Estonian Private Limited Company)</p>
+        <p><strong>Registration Code:</strong> 17265228</p>
+        <p><strong>Registered with:</strong> Harju County Court</p>
+        <p><strong>VAT ID (KMKR):</strong> The legal entity is not liable for VAT registration.</p>
+
+        <h3>Management</h3>
+        <p><strong>Management Board:</strong> M. Scherb</p>
+
+        <h3>Contact Information</h3>
+        <p><strong>Email:</strong> <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+
+        <h3>Data Protection Contact</h3>
+        <p><strong>Contact for data protection inquiries:</strong></p>
+        <p><a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a></p>
+
+        <hr>
+
+        <h3>Disclaimer</h3>
+        <p>
+          The information contained in this mobile application and on the corresponding
+          information pages is for general information purposes only. While we endeavor to keep
+          the information up to date and correct, we make no representations or warranties of
+          any kind, express or implied, about the completeness, accuracy, reliability,
+          suitability, or availability with respect to the app or the information, products,
+          services, or related graphics contained in the app for any purpose.
+        </p>
+        <p>
+          Any reliance you place on such information is therefore strictly at your own risk.
+        </p>
+
+        <h3>Liability for Content</h3>
+        <p>
+          As service providers, we are liable for own contents of these websites according to
+          Sec. 7, paragraph 1 German Telemedia Act (TMG). However, according to Sec. 8 to 10
+          German Telemedia Act (TMG), service providers are not under obligation to permanently
+          monitor submitted or stored information or to search for evidences that indicate
+          illegal activities.
+        </p>
+
+        <h3>Liability for Links</h3>
+        <p>
+          Our offer includes links to external websites of third parties on whose contents
+          we have no influence. Therefore, we cannot assume any liability for these external
+          contents. The respective provider or operator of the websites is always responsible
+          for the contents of the linked websites.
+        </p>
+
+        <h3>Copyright</h3>
+        <p>
+          The content and works created by the site operators on these pages are subject to
+          German copyright law. Duplication, processing, distribution and any kind of
+          exploitation outside the limits of copyright require the written consent of the
+          respective author or creator.
+        </p>
+      </article>
+    </section>
+
+    <footer>
+      <div class="muted">
+        Betreiber: Bytebandits OÜ, Tallinn, Estonia •
+        Tartu mnt 67/1-13b, Kesklinna linnaosa, Tallinn 10115, Eesti •
+        Kontakt: max [at] byte-bandits.com
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      const KEY = 'preferredLang';
+      const $buttons = document.querySelectorAll('[data-lang]');
+      const $langs = document.querySelectorAll('.lang');
+      function setLang(lang){
+        const isEN = lang === 'en';
+        document.documentElement.lang = isEN ? 'en' : 'de';
+        $langs.forEach(el => el.hidden = !el.classList.contains('lang-' + lang));
+        $buttons.forEach(btn => {
+          const active = btn.dataset.lang === lang;
+          btn.classList.toggle('active', active);
+          btn.setAttribute('aria-pressed', String(active));
+        });
+        try{ localStorage.setItem(KEY, lang); }catch(e){}
+      }
+      const saved = (() => {
+        try { return localStorage.getItem(KEY); } catch(e){ return null; }
+      })();
+      const initial = saved || (navigator.language && navigator.language.startsWith('en') ? 'en' : 'de');
+      setLang(initial);
+      $buttons.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    })();
+  </script>
+</body>
+</html>
