@@ -221,6 +221,7 @@ const CellValue = styled.span`
 
 export default function SplashScreen({ onFinish }) {
   const videoRef = useRef()
+  const fallbackTimerRef = useRef()
   const [fade, setFade] = useState(false)
   const [currentLine, setCurrentLine] = useState(0)
   const [progress, setProgress] = useState(0)
@@ -253,16 +254,26 @@ export default function SplashScreen({ onFinish }) {
     const video = videoRef.current
     let rafId
 
-    video.play().catch(() => {})
+    video.play().catch(() => {
+      // mobile browsers sometimes block autoplay, ensure progress still advances
+      setProgress(p => (p > 95 ? p : p + 5))
+    })
 
     function update() {
-      const pct = (video.currentTime / video.duration) * 100
-      setProgress(pct)
+      setProgress(prev => {
+        const hasDuration =
+          video.duration && Number.isFinite(video.duration) && video.duration > 0
+        const nextPct = hasDuration
+          ? (video.currentTime / video.duration) * 100
+          : Math.min(prev + 0.4, 99)
 
-      setCurrentLine(c => {
-        const step = 100 / statusLines.length
-        const next = Math.floor(pct / step)
-        return next > c && next < statusLines.length ? next : c
+        setCurrentLine(c => {
+          const step = 100 / statusLines.length
+          const next = Math.floor(nextPct / step)
+          return next > c && next < statusLines.length ? next : c
+        })
+
+        return nextPct
       })
 
       if (!video.ended) rafId = requestAnimationFrame(update)
@@ -274,23 +285,37 @@ export default function SplashScreen({ onFinish }) {
 
     function onEnded() {
       setFade(true)
+      if (fallbackTimerRef.current) {
+        clearTimeout(fallbackTimerRef.current)
+        fallbackTimerRef.current = undefined
+      }
     }
 
     video.addEventListener('play', onPlay)
     video.addEventListener('ended', onEnded)
+    fallbackTimerRef.current = setTimeout(() => {
+      setFade(true)
+    }, 17000)
 
     return () => {
       video.removeEventListener('play', onPlay)
       video.removeEventListener('ended', onEnded)
       cancelAnimationFrame(rafId)
+      if (fallbackTimerRef.current) {
+        clearTimeout(fallbackTimerRef.current)
+        fallbackTimerRef.current = undefined
+      }
     }
-  }, [])
+  }, [statusLines.length])
 
-  function handleTransitionEnd(e) {
-    if (e.propertyName === 'opacity' && fade) {
+  useEffect(() => {
+    if (!fade) return
+    // Fallback for mobile: ensure we finish even if the transitionend event is missed
+    const t = setTimeout(() => {
       onFinish()
-    }
-  }
+    }, 900)
+    return () => clearTimeout(t)
+  }, [fade, onFinish])
 
   function handleSkip() {
     if (fade) return
@@ -298,13 +323,17 @@ export default function SplashScreen({ onFinish }) {
     if (video) {
       video.pause()
     }
+    if (fallbackTimerRef.current) {
+      clearTimeout(fallbackTimerRef.current)
+      fallbackTimerRef.current = undefined
+    }
     setCurrentLine(statusLines.length - 1)
     setProgress(100)
     setFade(true)
   }
 
   return (
-    <Container $fade={fade} onTransitionEnd={handleTransitionEnd}>
+    <Container $fade={fade}>
       <VideoWrapper>
         <Video ref={videoRef} src={SplashVideo} muted playsInline />
       </VideoWrapper>

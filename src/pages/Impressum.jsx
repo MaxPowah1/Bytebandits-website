@@ -6,14 +6,15 @@ import ImpressumImg from '../assets/section-Impressum.png'
 const Overlay = styled.div`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.75);
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 const Modal = styled.div`
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
+  position: relative;
   display: flex;
   align-items: flex-start;
   background: #0d0d0d;
@@ -21,7 +22,7 @@ const Modal = styled.div`
   border-radius: 0.5rem;
   box-shadow: 0 0 1.25rem rgba(0,255,0,0.6);
 
-  width: clamp(280px, 25vw, 600px);
+  width: clamp(280px, 90vw, 640px);
   padding: clamp(1rem, 2vw, 2rem);
 
   color: #00ff00;
@@ -30,6 +31,14 @@ const Modal = styled.div`
   line-height: 1.4;
   white-space: pre-wrap;
   overflow: visible;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    width: 92vw;
+    max-height: 88vh;
+    padding: 1rem;
+  }
 `
 
 const Logo = styled.img`
@@ -41,6 +50,13 @@ const Logo = styled.img`
   width: clamp(6rem, 20vw, 16rem);
   height: auto;
   object-fit: contain;
+
+  @media (max-width: 768px) {
+    position: static;
+    transform: none;
+    margin: 0 auto 0.75rem;
+    width: 7rem;
+  }
 `
 
 const Content = styled.div`
@@ -50,6 +66,11 @@ const Content = styled.div`
   max-height: 80vh;
   position: relative;
   z-index: 0;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    max-height: 60vh;
+  }
 `
 
 const CloseButton = styled.span`

@@ -119,10 +119,11 @@ const Terminal = styled.div`
   overflow: hidden;
 
   @media (max-width: ${MOBILE_BREAK}px) {
-    width: 100vw;
-    height: min(85vh, 600px);
-    border-radius: 0;
-    box-shadow: none;
+    width: 100%;
+    height: auto;
+    min-height: 60vh;
+    border-radius: 12px;
+    box-shadow: 0 0 24px rgba(0, 255, 148, 0.3);
   }
 `
 
@@ -201,8 +202,8 @@ const LinesContainer = styled.div`
   position: relative;
 
   @media (max-width: ${MOBILE_BREAK}px) {
-    padding: 0.5rem;
-    font-size: clamp(0.6rem, 2.5vw, 1rem);
+    padding: 0.75rem 0.75rem 2.5rem;
+    font-size: clamp(0.8rem, 3.4vw, 1rem);
   }
 `
 
@@ -215,6 +216,15 @@ const ImpressumLink = styled.span`
   cursor: pointer;
   text-decoration: underline;
   text-shadow: 0 0 8px rgba(0,255,148,0.8);
+
+  @media (max-width: ${MOBILE_BREAK}px) {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 999px;
+    bottom: 0.75rem;
+    right: 0.75rem;
+  }
 `
 
 const glow = keyframes`
@@ -232,6 +242,7 @@ const TerminalGroup = styled.div`
     flex-direction: column;
     width: 100%;
     align-items: stretch;
+    gap: 0.75rem;
   }
 `
 
@@ -248,11 +259,12 @@ const MenuLinks = styled.div`
   min-width: 130px;
 
   @media (max-width: ${MOBILE_BREAK}px) {
+    order: -1;
     flex-direction: row;
     justify-content: center;
     border-radius: 0;
     width: 100%;
-    padding: 0.75rem 0;
+    padding: 0.5rem 0.75rem;
   }
 `
 
@@ -307,8 +319,8 @@ const MenuLink = styled.span`
     `}
 
   @media (max-width: ${MOBILE_BREAK}px) {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.85rem;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
   }
 `
 
@@ -352,9 +364,9 @@ const TerminalHud = styled.div`
   gap: 0.75rem;
 
   @media (max-width: ${MOBILE_BREAK}px) {
-    top: 3.25rem;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0.75rem;
+    left: 0.75rem;
+    transform: none;
   }
 `
 
@@ -535,9 +547,11 @@ export default function App() {
         ))}
       </ScrollContainer>
 
-      <ImpressumLink onClick={() => setShowImpressum(true)}>
-        Impressum
-      </ImpressumLink>
+      {!showImpressum && (
+        <ImpressumLink onClick={() => setShowImpressum(true)}>
+          Impressum
+        </ImpressumLink>
+      )}
       {showImpressum && <Impressum onClose={() => setShowImpressum(false)} />}
 
       {/* Splash overlay */}
