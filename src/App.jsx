@@ -109,8 +109,8 @@ const ledPulse = keyframes`
 
 const Terminal = styled.div`
   position: relative;
-  width: clamp(560px, 62vw, 960px);
-  height: clamp(420px, 62vh, 580px);
+  width: clamp(560px, 65vw, 1000px);
+  height: clamp(520px, 70vh, 680px);
   background: linear-gradient(135deg, rgba(4, 12, 24, 0.95), rgba(3, 4, 12, 0.9));
   border: 1px solid rgba(0,255,148,0.3);
   border-radius: 18px;
@@ -120,7 +120,7 @@ const Terminal = styled.div`
 
   @media (max-width: ${MOBILE_BREAK}px) {
     width: 100vw;
-    height: min(80vh, 560px);
+    height: min(85vh, 600px);
     border-radius: 0;
     box-shadow: none;
   }
@@ -212,7 +212,7 @@ const LinesContainer = styled.div`
   color: #00ff00;
   font-family: 'Courier New', monospace;
   white-space: pre-wrap;
-  overflow: hidden;
+  overflow-y: auto;
   text-shadow: 0 0 8px #00ff00;
   font-size: clamp(1rem, 2.5vw, 1rem);
   background: rgba(3, 9, 18, 0.75);
@@ -225,26 +225,6 @@ const LinesContainer = styled.div`
     padding: 0.5rem;
     font-size: clamp(0.6rem, 2.5vw, 1rem);
   }
-`
-
-const InputLine = styled.div`
-  padding: 0 1rem 1rem;
-  display: flex;
-  color: #00ff00;
-  font-family: 'Courier New', monospace;
-  border-top: 1px solid rgba(0,255,148,0.15);
-  background: rgba(0, 0, 0, 0.35);
-`
-const Prompt = styled.span` margin-right: 0.5rem; `
-const CommandInput = styled.input`
-  flex: 1;
-  background: none;
-  border: none;
-  color: #00ff00;
-  font-family: 'Courier New', monospace;
-  font-size: 1rem;
-  outline: none;
-  caret-color: var(--neon-accent);
 `
 
 const ImpressumLink = styled.span`
@@ -402,7 +382,6 @@ const LedDot = styled.span.withConfig({
 function SectionComponent({ id, lines, img, onCommand, currentSection }) {
   const [count, setCount] = useState(0)
   const [started, setStarted] = useState(false)
-  const [input, setInput] = useState('')
   const contentRef = useRef()
   const [leds, setLeds] = useState(() =>
     Array.from({ length: 4 }, () => Math.random() > 0.5)
@@ -433,13 +412,6 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
     return () => clearTimeout(t)
   }, [started, count, lines.length])
 
-  function handleKeyDown(e) {
-    if (e.key === 'Enter' && input.trim()) {
-      onCommand(input.trim().toLowerCase())
-      setInput('')
-    }
-  }
-
   const labels = ['home', 'services', 'about', 'contact']
   const hudLabel = `//${id.toUpperCase()}`
 
@@ -465,15 +437,6 @@ function SectionComponent({ id, lines, img, onCommand, currentSection }) {
               <LinesContainer>
                 {lines.slice(0, count).join('\n')}
               </LinesContainer>
-              <InputLine>
-                <Prompt>$</Prompt>
-                <CommandInput
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  autoFocus={id === 'home'}
-                />
-              </InputLine>
             </Content>
           </TerminalBody>
         </Terminal>
