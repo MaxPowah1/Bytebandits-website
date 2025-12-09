@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindShift - Projektübersicht</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        .toc {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .toc h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin: 10px 0;
+        }
+
+        .toc a {
+            color: #555;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        .toc a:hover {
+            color: #667eea;
+        }
+
+        section {
+            background: white;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section-content {
+            margin-top: 20px;
+        }
+
+        .accordion-section {
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .accordion-header {
+            background: #f8f9fa;
+            padding: 20px;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .accordion-header:hover {
+            background: #f0f0f0;
+        }
+
+        .accordion-header h2,
+        .accordion-header h3,
+        .accordion-header h4 {
+            margin: 0;
+            flex: 1;
+        }
+
+        .accordion-header h2 {
+            color: #667eea;
+            font-size: 2em;
+            border: none;
+            padding: 0;
+        }
+
+        .accordion-header h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .accordion-header h4 {
+            color: #555;
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .accordion-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .accordion-section.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 20px;
+        }
+
+        .accordion-section.active .accordion-content {
+            max-height: 10000px;
+            padding: 20px;
+        }
+
+        section h2 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        section h3 {
+            color: #764ba2;
+            font-size: 1.6em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        section h4 {
+            color: #555;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        section ul, section ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        section li {
+            margin-bottom: 8px;
+        }
+
+        section strong {
+            color: #667eea;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.02);
+        }
+
+        .highlight-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .quote {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            border-radius: 5px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 MindShift</h1>
+            <p>Dein persönlicher KI-Coach für nachhaltige Veränderung</p>
+        </header>
+
+        <div class="toc">
+            <h2>📑 Inhaltsverzeichnis</h2>
+            <ul>
+                <li><a href="#core-idea">1. Kernidee & Vision</a></li>
+                <li><a href="#design">2. Design & UX-Leitlinien</a></li>
+                <li><a href="#technical">3. Technischer Stack</a></li>
+                <li><a href="#backend">4. Backend-Architektur</a></li>
+                <li><a href="#images">5. Design-Assets</a></li>
+            </ul>
+        </div>
+
+        <section id="core-idea">
+            <h2>1. Kernidee & Vision</h2>
+            <div class="section-content">
+            
+            <h3>Arbeitstitel</h3>
+            <p>Menschen wollen sich weiterentwickeln, setzen sich Ziele – und scheitern oft an Alltag, Motivation und Struktur. <strong>MindShift</strong> ist ein KI-basierter Coach, der Nutzer:innen hilft, <em>konsequent</em> an einem persönlichen Ziel zu arbeiten: Schritt für Schritt, alltagsnah, motivierend und empathisch.</p>
+            
+            <p>Die App verbindet:</p>
+            <ul>
+                <li><strong>Coaching-Logik</strong> (Fragen, Reflexion, nächste Schritte)</li>
+                <li><strong>KI-Dialog</strong> (immer verfügbar, personalisiert)</li>
+                <li><strong>Verhaltenspsychologie & Gamification</strong> (Streaks, kleine Schritte, positive Verstärkung)</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p><strong>Ziel:</strong> Aus „Ich sollte mal…" wird „Ich ziehe das wirklich durch".</p>
+            </div>
+
+            <h3>Zielgruppe</h3>
+            <ul>
+                <li>Menschen zwischen ca. 20–50 Jahren</li>
+                <li>die sich <strong>konkret verbessern</strong> wollen (z. B. Fitness, Fokus, Stress, Selbstvertrauen, neue Gewohnheit)</li>
+                <li>aber ohne Lust auf starre Programme oder teure 1:1-Coaches</li>
+                <li>tech-affin, gewohnt an Messenger/Chat-Interfaces, aber überfordert von generischen To-do-Apps</li>
+            </ul>
+
+            <h3>Kern-Nutzenversprechen</h3>
+            <div class="quote">
+                <p><strong>„Eine App, die dich kennt, dich versteht und dich jeden Tag ein kleines bisschen näher an dein Ziel bringt."</strong></p>
+            </div>
+            <ul>
+                <li>Kein generisches Programm, sondern ein <strong>individuell gebauter Veränderungsplan</strong></li>
+                <li><strong>Täglicher Dialog</strong> statt toter Checklisten</li>
+                <li><strong>Kleine, machbare Schritte</strong>, die an dein Leben angepasst sind</li>
+                <li><strong>Motivation, Reflexion und Accountability</strong> aus einer Hand</li>
+            </ul>
+
+            <h3>Onboarding & Profil</h3>
+            <p>Beim ersten Start wird der Nutzer durch ein kurzes, aber tiefes Onboarding geführt:</p>
+
+            <h4>1. Persönliches Profil</h4>
+            <ul>
+                <li><strong>Basisdaten:</strong> Alter, Alltag (Beruf, Stunden pro Woche, Familie), Schlaf, Stresslevel</li>
+                <li><strong>Persönlichkeitstendenzen:</strong> eher kopfgesteuert / emotional, introvertiert / extrovertiert, eher planend / spontan</li>
+                <li><strong>Präferenzen:</strong> Ton des Coaches (sehr sanft, sachlich, direkt-motivierend)</li>
+            </ul>
+
+            <h4>2. Zieldefinition</h4>
+            <ul>
+                <li>Nutzer wählt <strong>ein Hauptthema</strong>: z. B. „Produktiver arbeiten", „Sport-Routine starten", „Weniger Prokrastination", „Mehr Selbstvertrauen", „Stress reduzieren"</li>
+                <li>KI hilft, das Ziel <strong>klar zu formulieren</strong>:
+                    <ul>
+                        <li>Von: „Ich will fitter werden"</li>
+                        <li>Zu: „Ich möchte 3x die Woche 30 Minuten Sport machen und mich wieder wohl in meinem Körper fühlen."</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>3. Rahmenbedingungen</h4>
+            <ul>
+                <li>Wieviel Zeit kann realistisch pro Tag/Woche investiert werden?</li>
+                <li>Welche Tage sind absolute No-Gos?</li>
+                <li>Welche Hindernisse erwartet die Person (z. B. Müdigkeit nach Arbeit, Kinder, Termine)?</li>
+            </ul>
+
+            <h3>KI-Coach: Rollenbild</h3>
+            <p>Der KI-Coach ist eine <strong>persönliche Mischung aus Coach, motivierendem Buddy und strukturiertem Projektleiter</strong>:</p>
+            <ul>
+                <li>stellt Fragen statt nur Anweisungen zu geben</li>
+                <li>hilft bei <strong>Reflexion</strong> („Was hat diese Woche gut funktioniert? Was nicht?")</li>
+                <li>schlägt <strong>konkrete Mikro-Schritte</strong> vor</li>
+                <li>trackt Fortschritt und passt den Plan ständig an</li>
+                <li>spricht in einer <strong>konsistenten Persönlichkeit</strong> (z. B. „ruhig und reflektiert" oder „energievoll und pushend" – nach Nutzerwahl)</li>
+            </ul>
+
+            <h3>Kernfunktionen der App</h3>
+
+            <h4>6.1 Individueller Aktionsplan</h4>
+            <p>Aus den Antworten im Onboarding erstellt der KI-Coach:</p>
+            <ul>
+                <li>eine <strong>Zielbeschreibung</strong> (Was? Warum? Bis wann?)</li>
+                <li><strong>Wochenstruktur</strong> (z. B. 3 Tage mit Aktionen, 1 Tag Review)</li>
+                <li><strong>konkrete erste Woche</strong> mit Mini-Aufgaben („heute nur 10 Minuten", „Morgen: Vorbereitung", etc.)</li>
+            </ul>
+            <p>Der Plan ist <strong>dynamisch</strong>: Er wird ständig basierend auf Fortschritt, Rückmeldungen und Stimmung angepasst.</p>
+
+            <h4>6.2 Täglicher Dialog</h4>
+            <ul>
+                <li>Nutzer öffnet die App (oder reagiert auf eine Push-Nachricht) und landet im <strong>Chat mit dem Coach</strong></li>
+                <li>Typische Dialoge:
+                    <ul>
+                        <li>„Wie lief dein Tag in Bezug auf dein Ziel?"</li>
+                        <li>„Hast du die geplante Aktion von heute geschafft?"</li>
+                        <li>„Wenn nein: Was hat dich blockiert?"</li>
+                    </ul>
+                </li>
+                <li>Coach reagiert empathisch, schlägt neue Mini-Action vor, oder verschiebt/vereinfacht sie</li>
+                <li>Optional: <strong>kurze Reflexionsfragen</strong> (Skalen, Text), um Muster zu erkennen (z. B. wann Motivation sinkt)</li>
+            </ul>
+
+            <h4>6.3 Aufgaben & Steps</h4>
+            <p>Aufgaben haben:</p>
+            <ul>
+                <li>Zeitaufwand (z. B. 5–20 Minuten)</li>
+                <li>klaren Zweck („Heute: Hürde identifizieren", „Heute: 10 Minuten Laufen")</li>
+                <li>Erfolgsmessung (habe ich es gemacht? Wie hat es sich angefühlt?)</li>
+            </ul>
+            <p>Nutzer kann den Aufwand im Chat verhandeln: „Das ist mir heute zu viel." → Coach schlägt kleinere Alternative vor.</p>
+            <p>Aufgaben erscheinen im Chat, optional in einer <strong>übersichtlichen Tages-/Wochenansicht</strong>.</p>
+
+            <h4>6.4 Gamification & Bindung</h4>
+            <ul>
+                <li><strong>Streaks:</strong> Anzahl der Tage in Folge, an denen zumindest <em>ein Schritt</em> gemacht wurde</li>
+                <li><strong>Levels / Progress-Bars:</strong> Visualisierung: „Du bist bei 35 % deines 8-Wochen-Ziels."</li>
+                <li><strong>Badges:</strong> z. B. „Dranbleiber: 7 Tage in Folge", „Comeback: Nach Rückfall wieder gestartet"</li>
+                <li><strong>Journaling-Light:</strong> kurze Stimmungs-Skala (1–5) pro Tag → Visualisierung über die Zeit</li>
+            </ul>
+            <p><em>Wichtig:</em> Gamification unterstützt, aber <strong>überfordert nicht</strong>. Fokus bleibt auf echter Veränderung, nicht auf reinen Zahlen.</p>
+
+            <h4>6.5 Erinnerungen & Nudges</h4>
+            <ul>
+                <li>Smarte <strong>Push-Benachrichtigungen</strong>:
+                    <ul>
+                        <li>Erinnerungen zu selbstgewählten Zeiten („Abends um 20 Uhr nach dem Abendessen")</li>
+                        <li>„Soft Nudges" wenn Nutzer länger inaktiv war: „Hey, wir haben seit 3 Tagen nicht gesprochen – wollen wir mit einem Mini-Schritt von 2 Minuten wieder einsteigen?"</li>
+                    </ul>
+                </li>
+                <li>Optional: <strong>Wochen-Review</strong> am Wochenende:
+                    <ul>
+                        <li>„Was war dein größter Erfolg diese Woche?"</li>
+                        <li>„Was möchtest du nächste Woche anders machen?"</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Datensicht & Auswertungen</h3>
+            <ul>
+                <li><strong>Dashboard light:</strong> Streak, Anzahl erledigter Aufgaben, Entwicklung der Stimmung, ggf. simple Diagramme (z. B. Wochenfortschritt)</li>
+                <li>Fokus: <strong>Verständlich, nicht technisch</strong> – es geht um Selbstwahrnehmung, nicht um „Quantified Self Overkill"</li>
+            </ul>
+
+            <h3>Emotionaler Kern</h3>
+            <p>Die App soll sich <strong>nicht</strong> wie ein strenger Projektmanager anfühlen, sondern wie eine Mischung aus:</p>
+            <ul>
+                <li>„Coach, der weiter denkt als du"</li>
+                <li>„Freund, der an dich glaubt"</li>
+                <li>„System, das dich strukturiert, ohne dich zu nerven"</li>
+            </ul>
+            <div class="quote">
+                <p><strong>„Du musst das nicht allein schaffen – aber den ersten Schritt machst du. Den Rest gehen wir gemeinsam."</strong></p>
+            </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2>2. Design & UX-Leitlinien</h2>
+            <div class="section-content">
+
+            <h3>1. Grundprinzip: Focus & Flow</h3>
+            <p><strong>Ziel:</strong> Der Nutzer soll sich zu jedem Zeitpunkt nur auf <strong>eine Sache</strong> konzentrieren müssen.</p>
+            <ul>
+                <li>Pro Screen: <strong>ein Hauptziel</strong> (z. B. Frage beantworten, Aufgabe ansehen, Reflexion machen)</li>
+                <li>Keine „Dashboard-Überforderung" mit 20 Infos gleichzeitig</li>
+                <li>Der Coach „führt" – der Nutzer muss nicht überlegen, wo er hin tippt, sondern folgt dem Flow</li>
+            </ul>
+
+            <h4>Konsequenzen für das Design:</h4>
+            <ul>
+                <li>Wenige UI-Elemente pro Screen</li>
+                <li>Klare visuelle Hierarchie: eine dominante Nachricht oder Frage, darunter 1–3 Handlungsoptionen</li>
+                <li>Möglichst wenig Text auf einmal, lieber in <strong>Sequenzen</strong> aufteilen (Schritt-für-Schritt)</li>
+            </ul>
+
+            <h3>2. Minimalistische Optik</h3>
+            <p><strong>Stil:</strong></p>
+            <ul>
+                <li>Viel Weißraum</li>
+                <li>Klare Linien, keine überladenen Illustrationen</li>
+                <li>Sanfte Farben, evtl. ein Akzentton (z. B. für Call-to-Actions)</li>
+            </ul>
+
+            <h4>Konkrete Leitplanken:</h4>
+            <ul>
+                <li>1–2 Hauptfarben + 1 Akzentfarbe</li>
+                <li>Max. 2 Schriftarten (Flutter: in der Regel eine Familie mit verschiedenen Schnitten)</li>
+                <li>Symbole nur dort, wo sie wirklich helfen (z. B. Stimmungs-Smileys, nicht überall Icons)</li>
+            </ul>
+
+            <h3>3. Typografie als „Führungsinstrument"</h3>
+            <p>Texte mit verschiedenen Schriftgrößen sollen den Nutzer führen.</p>
+
+            <h4>Typische Struktur pro Screen:</h4>
+            <ul>
+                <li><strong>Headline (H1/H2):</strong> kurze, klare Aussage oder Frage des Coaches. Beispiel: „Wie war dein Tag heute?"</li>
+                <li><strong>Subheadline / Hilfstext:</strong> ein Satz, der erklärt, was passieren soll. Beispiel: „Wähle einfach schnell aus – das dauert nur 10 Sekunden."</li>
+                <li><strong>Interaktionselemente:</strong> Buttons, Slider, Auswahlchips</li>
+            </ul>
+
+            <h4>In Flutter:</h4>
+            <p>Sauber definiertes <code>TextTheme</code> im globalen Theme:</p>
+            <ul>
+                <li><code>headlineMedium</code> → Hauptfrage / Coach-Aussage</li>
+                <li><code>titleMedium</code> → Untertitel / Erklärtext</li>
+                <li><code>bodyMedium</code> → normaler Fließtext</li>
+                <li><code>labelLarge</code> → kleine Hinweise oder Button-Text</li>
+            </ul>
+            <p>Konsistente Abstände (<code>SizedBox(height: ...)</code>, <code>Padding</code>) für ruhige Struktur.</p>
+
+            <h3>4. Intuitive, ergonomische Bedienung</h3>
+            <p><strong>Prinzip: „Ohne Nachdenken nutzbar"</strong></p>
+            <ul>
+                <li>Klar erkennbare Primäraktion (z. B. großer Button unten)</li>
+                <li>Sekundäre Aktionen (z. B. „Später", „Überspringen") optisch zurückhaltender</li>
+                <li>Bereiche gut mit dem Daumen erreichbar (besonders wichtig auf Android)</li>
+                <li>Keine verschachtelten Menüs mit 4–5 Ebenen</li>
+            </ul>
+
+            <h4>Navigation:</h4>
+            <ul>
+                <li>Haupt-Entry-Point ist der <strong>Chat-Screen</strong> (der Coach)</li>
+                <li>Von dort aus: dezente Navigation zu:
+                    <ul>
+                        <li>Wochenübersicht / Dashboard</li>
+                        <li>Einstellungen</li>
+                    </ul>
+                </li>
+                <li>Für den Fokus-Flow-Ansatz bietet sich an:
+                    <ul>
+                        <li><strong>Burger-Menü oder Side Drawer</strong> mit wenigen klaren Punkten</li>
+                        <li>oder eine <strong>Bottom Navigation</strong> mit max. 3 Tabs:
+                            <ul>
+                                <li>„Coach" (Chat)</li>
+                                <li>„Heute" (Tagesplan / Aufgaben)</li>
+                                <li>„Ich" (Profil/Einstellungen)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <p>Aber: Immer so designen, dass der Nutzer selten „menügt", sondern meist dem Chat folgt.</p>
+
+            <h3>5. Nicht zu viel auf einer Seite</h3>
+            <p>Konkrete Regeln:</p>
+            <ul>
+                <li>Max. <strong>1 zentrale Aktion</strong> pro Screen</li>
+                <li>Nicht mehr als <strong>3–5 interaktive Elemente</strong> (Buttons, Slider, Eingabefelder) gleichzeitig sichtbar</li>
+                <li>Komplexere Dinge in <strong>Schritte aufteilen</strong> (Stepper / „Weiter"-Button)</li>
+            </ul>
+
+            <h4>Beispiele:</h4>
+            <ul>
+                <li>Onboarding-Fragen: lieber <strong>eine Frage pro Screen</strong> als eine Riesenliste</li>
+                <li>Wochenreview: nacheinander „Stimmung?", „Größter Erfolg?", „Größte Hürde?" statt alles auf einer Seite</li>
+            </ul>
+
+            <h3>6. „Geführt werden" als zentrales UX-Konzept</h3>
+            <p>Die App soll sich wie ein kleiner Guided Flow anfühlen:</p>
+            <ul>
+                <li>Der Coach spricht → Nutzer antwortet → App zeigt den nächsten logischen Mini-Schritt</li>
+                <li>Statt viele manuelle Optionen zu geben, sagt die App oft: „Wir könnten X oder Y tun – was passt besser?" → Auswahl zwischen 2–3 klaren Optionen</li>
+            </ul>
+            <p>Das ist UX + KI-Logik zusammen: Die KI entscheidet nicht nur <em>was</em> gesagt wird, das UI entscheidet <em>wie</em> es präsentiert wird (Schritt für Schritt, nie alles auf einmal).</p>
+
+            <h3>7. Flutter-spezifische Umsetzungsideen</h3>
+            <h4>Zentrale Theme-Datei:</h4>
+            <ul>
+                <li><code>ThemeData</code> mit:
+                    <ul>
+                        <li><code>colorScheme</code> (helles Schema, 1 Akzent)</li>
+                        <li><code>textTheme</code> (definierte Größen für Headline, Body, Labels)</li>
+                    </ul>
+                </li>
+                <li>So ist die Typo-Führung überall konsistent</li>
+            </ul>
+
+            <h4>Reusable Widgets:</h4>
+            <ul>
+                <li><code>CoachMessageBubble</code> (für die Nachrichten des KI-Coachs)</li>
+                <li><code>UserMessageBubble</code></li>
+                <li><code>PrimaryActionButton</code> (immer gleich aussehend)</li>
+                <li><code>ScreenScaffold</code> mit immer ähnlichem Aufbau:
+                    <ul>
+                        <li>oben Headline</li>
+                        <li>in der Mitte Inhalt</li>
+                        <li>unten Action-Button</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Responsiveness für Web & Android:</h4>
+            <ul>
+                <li>Layout so planen, dass auf Web einfach mehr Weißraum entsteht, aber die Logik gleich bleibt</li>
+                <li>z. B. alles in einer mittig zentrierten Spalte mit max. Breite (z. B. 600–800 px) → keine „Brei-Web-App"</li>
+            </ul>
+
+            <h3>8. Emotionale Wirkung</h3>
+            <p>Durch das minimalistische, geführte Design erreichst du:</p>
+            <ul>
+                <li>Weniger Überforderung → höhere Nutzungsbereitschaft</li>
+                <li>Klarer Fokus → Nutzer kommt schneller in Handlung („Okay, das ist jetzt der eine Step")</li>
+                <li>Die App wirkt eher wie ein ruhiger, klarer Coach statt wie eine laute Fitness-App mit 200 Badges</li>
+            </ul>
+        </section>
+
+        <section id="technical">
+            <h2>3. Technischer Stack</h2>
+
+            <h3>1. Tech-Stack – Überblick</h3>
+            <ul>
+                <li><strong>Framework:</strong> Flutter</li>
+                <li><strong>Plattformen:</strong>
+                    <ul>
+                        <li>Android-App</li>
+                        <li>Web-App (Flutter Web)</li>
+                    </ul>
+                </li>
+                <li><strong>Programmiersprache:</strong> Dart</li>
+                <li><strong>Backend / KI-Integration:</strong>
+                    <ul>
+                        <li>Leichtgewichtiger Backend-Server (z. B. Node.js oder Python/FastAPI)</li>
+                        <li>Anbindung an <strong>OpenAI / ChatGPT API</strong> (für den KI-Coach)</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><strong>Ziel:</strong> Einfach, modern, möglichst wenig Moving Parts.</p>
+
+            <h3>2. Flutter-App – Architektur</h3>
+            <h4>2.1 Projektstruktur (grob)</h4>
+            <div class="code-block">
+lib/
+  main.dart – App-Start, Routing
+  ui/ – Screens, Widgets
+    onboarding/
+    chat/
+    dashboard/
+    settings/
+  state/ – State-Management
+  services/ – API- und Storage-Services
+  models/ – Datenklassen (User, Goal, Task, Mood, etc.)
+            </div>
+
+            <h4>2.2 State-Management</h4>
+            <ul>
+                <li>Einfach, übersichtlich – z. B.: <strong>Riverpod</strong> oder <strong>Provider</strong> (kein Overkill wie riesige Architekturen)</li>
+                <li>Ein globaler <code>AppState</code> für:
+                    <ul>
+                        <li>eingeloggter User</li>
+                        <li>aktuelles Ziel</li>
+                        <li>aktueller Plan</li>
+                        <li>Cache des Chatverlaufs (lokal & vom Backend)</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>3. Backend & Datenhaltung (so einfach wie möglich)</h3>
+            <div class="highlight-box">
+                <p><strong>Wichtig:</strong> Die <strong>OpenAI-API darf nicht direkt aus der App/Web</strong> aufgerufen werden (API-Key-Sicherheit). Deshalb: kleiner, schlanker Backend-Service dazwischen.</p>
+            </div>
+
+            <h4>3.1 Backend-Aufgaben</h4>
+            <ul>
+                <li><strong>Auth & User-Verwaltung</strong> (Basic): E-Mail/Passwort oder Social Login (später)</li>
+                <li><strong>Speicher</strong> von:
+                    <ul>
+                        <li>User-Profil (Fragebogen-Ergebnisse)</li>
+                        <li>Ziele, Pläne, Tasks</li>
+                        <li>Chat-Kontext (für den KI-Coach)</li>
+                    </ul>
+                </li>
+                <li><strong>Proxy zur OpenAI-API</strong>:
+                    <ul>
+                        <li>Flutter schickt: User-ID + Kontext + aktuelle Nachricht</li>
+                        <li>Backend ruft OpenAI auf, formt Antwort, schickt zurück</li>
+                    </ul>
+                </li>
+                <li><strong>Business-Logik leichtgewichtig</strong>: Teil der „Coach-Logik" (Prompts, Systemnachrichten) im Backend hinterlegt</li>
+            </ul>
+
+            <h4>3.2 Datenbank (simple Variante)</h4>
+            <ul>
+                <li>Kleine, einfache DB reicht völlig: z. B. PostgreSQL oder MongoDB</li>
+                <li>Tabellen / Collections z. B.:
+                    <ul>
+                        <li><code>users</code></li>
+                        <li><code>goals</code></li>
+                        <li><code>plans</code></li>
+                        <li><code>tasks</code></li>
+                        <li><code>sessions</code> / <code>messages</code></li>
+                        <li><code>mood_logs</code></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>4. KI-Integration mit OpenAI / ChatGPT</h3>
+            <h4>4.1 Prinzip</h4>
+            <ol>
+                <li>Nutzer schreibt im Chat</li>
+                <li>App sendet Request an dein Backend: User-Daten (ID, aktueller Kontext), letzte Chatnachrichten, evtl. Strukturinfos (Plan, heutige Aufgabe, Stimmung)</li>
+                <li>Backend baut daraus einen <strong>strukturierten Prompt</strong>:
+                    <ul>
+                        <li>System-Message: „Du bist ein empathischer Coaching-Assistent..."</li>
+                        <li>Kontext: Ziel, Woche, aktueller Tag, letzte Erfolge/Probleme</li>
+                        <li>User-Message: aktuelle Eingabe</li>
+                    </ul>
+                </li>
+                <li>Backend ruft OpenAI-Chat-API auf</li>
+                <li>Antwort wird an die App zurückgegeben</li>
+            </ol>
+
+            <h4>4.2 Prompt-Design (Kern deiner „KI-Logik")</h4>
+            <ul>
+                <li>System-Prompt definiert:
+                    <ul>
+                        <li>Rolle des Coaches</li>
+                        <li>Stil (sanft, direkt, etc.)</li>
+                        <li>Struktur: kurze Antworten, konkrete Mini-Steps, Nachfragen</li>
+                    </ul>
+                </li>
+                <li>Optional: zusätzliche „Tools" über strukturierte Daten (z. B. Liste geplanter Tasks als JSON, die der KI-Coach berücksichtigen soll)</li>
+            </ul>
+
+            <h3>5. Offline & Performance</h3>
+            <ul>
+                <li><strong>Cache in Flutter:</strong> Letzte Konversationen, aktueller Tages-/Wochenplan</li>
+                <li>Wenn offline: Anzeige des letzten Plans, einfache „Offline-Notiz", die später gesynct wird</li>
+            </ul>
+            <p>Kein vollwertiger Offline-KI-Modus in der ersten Version, um es <strong>einfach zu halten</strong>.</p>
+
+            <h3>6. Sicherheit & Datenschutz (Kurzfassung)</h3>
+            <ul>
+                <li><strong>Keine API-Keys im Client</strong> → nur im Backend</li>
+                <li>Kommunikation: App ↔ Backend: HTTPS, Backend ↔ OpenAI: HTTPS</li>
+                <li>Minimale Datenerhebung: Nur, was für Coaching nötig ist (Ziele, Stimmung, Chatverlauf)</li>
+                <li>Möglichkeit, Daten zu löschen: „Account & Daten löschen"-Funktion in der App</li>
+            </ul>
+
+            <h3>7. Build & Deployment</h3>
+            <h4>7.1 Flutter</h4>
+            <ul>
+                <li><strong>Android:</strong> Release-Build (APK / AAB), Signiertes Release über Play Console (oder zunächst Sideload/Test)</li>
+                <li><strong>Web:</strong> <code>flutter build web</code>, Bereitstellung auf einfachem Webserver (Nginx, Apache) oder Hosting wie Firebase Hosting, Netlify, Vercel</li>
+            </ul>
+
+            <h4>7.2 Backend</h4>
+            <ul>
+                <li>Leichtgewicht: Node.js (Express / NestJS Light) oder Python (FastAPI)</li>
+                <li>Deployment: z. B. kleiner vServer, Render, Railway, Fly.io etc.</li>
+                <li>Env-Variablen: <code>OPENAI_API_KEY</code>, DB-Zugang, CORS-Konfiguration für deine Flutter-Web-Domain</li>
+            </ul>
+
+            <h3>8. „Modern, aber einfach"</h3>
+            <ul>
+                <li><strong>Modern:</strong> Flutter + Web, Clean Architecture light (Services/State/Views), OpenAI-Integration, einfache CI/CD-Pipeline später möglich</li>
+                <li><strong>Einfach:</strong> nur ein Backend-Service, eine Datenbank, keine Microservices, einfaches Role/Permission-System (nur normale User, kein komplexes Rechte-Management zu Beginn)</li>
+            </ul>
+
+            <div class="quote">
+                <p><strong>Kurz-Zusammenfassung:</strong> Eine in Flutter entwickelte, plattformübergreifende Android- und Web-App, die über ein schlankes Backend (Node/Python) mit Datenbank an die OpenAI-ChatGPT-API angebunden ist, um einen personalisierten, KI-basierten Coaching-Chat anzubieten – mit möglichst einfacher, moderner Architektur, ohne unnötige Komplexität.</p>
+            </div>
+        </section>
+
+        <section id="backend">
+            <h2>4. Backend-Architektur</h2>
+
+            <h3>1. Brauchen wir trotzdem ein Backend?</h3>
+            <p><strong>Ja – aber nur ein sehr kleines.</strong></p>
+            <p>Der einzige harte Grund bleibt:</p>
+            <div class="highlight-box">
+                <p><strong>🔐 Der OpenAI-API-Key darf nicht in die APK.</strong></p>
+                <p>Selbst bei Android-only könnte man die APK dekompilieren und den Key auslesen – völlig egal, ob du ihn aus einer <code>.env</code> generierst oder „versteckst".</p>
+            </div>
+            <p>Also: <strong>Backend bleibt nötig</strong>, aber <strong>User-Accounts, Sync & große Datenbanken sind optional</strong> und können wegfallen.</p>
+
+            <h3>2. Was kann komplett lokal auf dem Smartphone bleiben?</h3>
+            <p>Da du keine Cross-Plattform brauchst, kannst du <strong>praktisch den gesamten Coaching-Zustand lokal</strong> speichern:</p>
+            <ul>
+                <li>Profil & Onboarding-Antworten</li>
+                <li>Ziele & Teilziele</li>
+                <li>Tages- und Wochenpläne</li>
+                <li>Streaks, Badges, Fortschrittsbalken</li>
+                <li>Mood-Logs & Reflexionsnotizen</li>
+                <li>Lokaler Chat-Verlauf (was der User gesehen hat)</li>
+            </ul>
+            <p>In Flutter z. B. mit:</p>
+            <ul>
+                <li><code>sqflite</code> oder <code>isar</code> / <code>hive</code> für eine kleine lokale DB</li>
+                <li>optional Verschlüsselung (<code>flutter_secure_storage</code> für Schlüssel, verschlüsselte DB)</li>
+            </ul>
+            <p><strong>Vorteile:</strong></p>
+            <ul>
+                <li>Kein Server-Zwang für die Nutzung (außer beim KI-Call)</li>
+                <li>Datenschutzfreundlich: fast alles bleibt auf dem Gerät</li>
+                <li>Kein Registrierungs-/Login-Prozess nötig</li>
+            </ul>
+
+            <h3>3. Minimal-Backend: was muss es können?</h3>
+            <h4>3.1 Pflicht: KI-Proxy</h4>
+            <p>Ein einziger Endpoint reicht für den Anfang, z. B.:</p>
+            <div class="code-block">POST /api/chat</div>
+
+            <h4>Request von der App:</h4>
+            <ul>
+                <li>anonymisierte oder pseudonyme User-ID (z. B. zufällig generierte UUID)</li>
+                <li>ein komprimierter Kontext:
+                    <ul>
+                        <li>Zielbeschreibung (kurz)</li>
+                        <li>aktueller Tages-/Wochenstatus (kannst du schon im Client auf wenige Sätze zusammenfassen)</li>
+                        <li>letzte 3–5 Nachrichten (User/AI)</li>
+                    </ul>
+                </li>
+                <li>aktuelle User-Nachricht</li>
+            </ul>
+
+            <h4>Was das Backend macht:</h4>
+            <ol>
+                <li>Validiert die Daten (kein Unsinn, Größe begrenzen etc.)</li>
+                <li>Baut daraus einen <strong>Prompt</strong>:
+                    <ul>
+                        <li>System: „Du bist ein empathischer Coaching-Assistent..."</li>
+                        <li>Kontext (Ziel, Fortschritt, Stimmung)</li>
+                        <li>Chat-Historie</li>
+                    </ul>
+                </li>
+                <li>Ruft die OpenAI-API mit <strong>Server-seitigem Key</strong> auf</li>
+                <li>Gibt die KI-Antwort an die App zurück</li>
+            </ol>
+            <p><strong>Wichtig:</strong> Das Backend muss selbst <strong>keine</strong> dauerhafte User-Datenhaltung haben, wenn du das nicht willst. Es kann völlig stateless sein (nur für jeden Request kurz rechnen und wieder fertig).</p>
+
+            <h4>3.2 Optionale Extras (kannst du weglassen oder später nachrüsten)</h4>
+            <ul>
+                <li><strong>Rate Limiting</strong> (z. B. max X Anfragen / Minute / User-ID)</li>
+                <li><strong>Logging</strong> von Request-Metadaten (Zeit, Dauer, Kosten), aber ohne Inhalt → für Monitoring</li>
+                <li><strong>Simple „Remote Config"</strong>: z. B. Endpoint <code>/api/config</code>, um Parameter wie „max. Nachrichten pro Tag" auszuspielen, ohne App-Update</li>
+            </ul>
+
+            <h3>4. Brauchen wir eine Datenbank im Backend?</h3>
+            <p><strong>Kurz:</strong> Für das, was du beschrieben hast, <strong>nein – nicht zwingend.</strong></p>
+
+            <h4>Variante A: Backend ohne DB (nur Proxy)</h4>
+            <ul>
+                <li>Alles Coaching-relevante liegt lokal auf dem Gerät</li>
+                <li>Backend: hat nur OpenAI-Key + ein paar Konfigs als Umgebungsvariablen, kann komplett stateless laufen</li>
+                <li>Das ist <strong>die leichteste und datenschutzfreundlichste Lösung</strong></li>
+            </ul>
+            <p><em>Nutcase:</em> Wenn ein User die App deinstalliert → seine Daten sind weg. Da du aber kein Multi-Device/Cloud-Feature willst, ist das ok.</p>
+
+            <h4>Variante B: Backend mit kleiner DB (optional für später)</h4>
+            <p>Sinnvoll, wenn du später möchtest:</p>
+            <ul>
+                <li>neue Geräte-Nutzung (z. B. neues Handy → Daten mitnehmen)</li>
+                <li>Statistiken/Analytics</li>
+                <li>Payment/Abomodell</li>
+            </ul>
+            <p>Dann würdest du: User-/Device-ID im Backend speichern, optional Ziele, Moods, Nutzungsstatistik. Das ist aber kein Muss für die erste Version.</p>
+
+            <h3>5. Wie soll das Backend aussehen? (Container-Fokus)</h3>
+            <p>Da du Container möchtest, würde ich es <strong>sehr schlank</strong> halten:</p>
+
+            <h4>5.1 Architektur (für Variante A: Proxy-only)</h4>
+            <div class="code-block">
++------------------------+
+|  Backend-Container     |  (FastAPI oder Express)
+|  - /api/chat           |
+|  - /api/config (opt.)  |
++------------------------+
+            </div>
+            <ul>
+                <li>Kein Nginx zwingend nötig, wenn du z. B. nur intern/über einen einfachen Port arbeitest oder die Cloud dir HTTPS abnimmt</li>
+                <li>Später kannst du immer noch einen Reverse Proxy davorsetzen</li>
+            </ul>
+
+            <h4>5.2 Beispiel-Stack</h4>
+            <p><strong>Option 1: Python / FastAPI</strong></p>
+            <ul>
+                <li>Image: <code>python:3.12-slim</code></li>
+                <li>Dependencies: <code>fastapi</code>, <code>uvicorn</code>, <code>httpx</code> oder <code>requests</code> für OpenAI-Call</li>
+                <li>Env-Variablen: <code>OPENAI_API_KEY</code>, <code>ALLOWED_ORIGINS</code> (für CORS, wenn dein Debug-Web-Client zugreift)</li>
+            </ul>
+
+            <p><strong>Option 2: Node / Express</strong></p>
+            <ul>
+                <li>Image: <code>node:20-alpine</code></li>
+                <li>Dependencies: <code>express</code>, <code>axios</code> oder <code>node-fetch</code></li>
+                <li>Env: analog zu oben</li>
+            </ul>
+
+            <h4>5.3 Docker sehr grob (FastAPI-Beispiel, nur zur Vorstellung)</h4>
+            <div class="code-block">
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+ENV PORT=8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+            </div>
+            <p>Und in <code>docker-compose.yml</code> z. B.:</p>
+            <div class="code-block">
+services:
+  coach-backend:
+    build: .
+    environment:
+      - OPENAI_API_KEY=dein_key
+    ports:
+      - "8000:8000"
+            </div>
+            <p>Mehr brauchst du für den Anfang wirklich nicht.</p>
+
+            <h3>6. Zusammenfassung für deine Entscheidung</h3>
+            <ul>
+                <li><strong>Android-only</strong> ändert nichts daran, dass der <strong>OpenAI-Key nicht in die App</strong> darf → <strong>Backend bleibt Pflicht</strong></li>
+                <li>Du kannst es aber <strong>extrem minimal halten</strong>:
+                    <ul>
+                        <li>nur <code>/api/chat</code> + evtl. <code>/api/config</code></li>
+                        <li>kein Login</li>
+                        <li>keine Datenbank</li>
+                        <li>alle Userdaten lokal auf dem Gerät</li>
+                    </ul>
+                </li>
+                <li>Container-seitig reicht: ein einzelner kleiner Backend-Container (FastAPI/Express) mit OpenAI-Proxy</li>
+            </ul>
+        </section>
+
+        <section id="images">
+            <h2>5. Design-Assets</h2>
+            <div class="image-gallery">
+                <img src="045a0805-14c7-4749-9efd-5f74129ca5e3.png" alt="Design Asset 1">
+                <img src="139e1007-7e42-4a8c-88f7-f3341a9e53a5.png" alt="Design Asset 2">
+                <img src="55b67361-9c14-402d-bce4-1b467cca8d69.png" alt="Design Asset 3">
+                <img src="76d30b5e-2d1a-4768-b6c5-a0bf4c669e61.png" alt="Design Asset 4">
+                <img src="93ebfbc0-beda-40e3-b6b1-6065ec29bc4a.png" alt="Design Asset 5">
+                <img src="b07c5542-ed8c-401e-a9e2-07d4efb7f327.png" alt="Design Asset 6">
+            </div>
+        </section>
+
+        <footer>
+            <p>MindShift Projektübersicht | Generiert am <span id="date"></span></p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('date').textContent = new Date().toLocaleDateString('de-DE');
+
+        // Auto-convert h3 and h4 to accordion structure
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section[id]');
+            
+            sections.forEach(section => {
+                // Ensure section-content wrapper exists
+                let sectionContent = section.querySelector('.section-content');
+                if (!sectionContent) {
+                    sectionContent = document.createElement('div');
+                    sectionContent.className = 'section-content';
+                    const h2 = section.querySelector('h2');
+                    if (h2 && h2.nextSibling) {
+                        let node = h2.nextSibling;
+                        while (node) {
+                            const next = node.nextSibling;
+                            sectionContent.appendChild(node);
+                            node = next;
+                        }
+                    } else if (!h2) {
+                        // If no h2, move all children
+                        while (section.firstChild) {
+                            sectionContent.appendChild(section.firstChild);
+                        }
+                    }
+                    if (h2) {
+                        h2.after(sectionContent);
+                    } else {
+                        section.appendChild(sectionContent);
+                    }
+                }
+                
+                // Convert h3 elements to accordion
+                const h3Elements = Array.from(sectionContent.querySelectorAll('h3'));
+                h3Elements.forEach(h3 => {
+                    // Skip if already in accordion
+                    if (h3.closest('.accordion-section')) return;
+                    
+                    const accordionSection = document.createElement('div');
+                    accordionSection.className = 'accordion-section';
+                    
+                    const header = document.createElement('div');
+                    header.className = 'accordion-header';
+                    
+                    const icon = document.createElement('span');
+                    icon.className = 'accordion-icon';
+                    icon.textContent = '▶';
+                    
+                    const h3Clone = h3.cloneNode(true);
+                    header.appendChild(h3Clone);
+                    header.appendChild(icon);
+                    
+                    const content = document.createElement('div');
+                    content.className = 'accordion-content';
+                    
+                    // Move all following siblings until next h3/h4 or end
+                    let next = h3.nextSibling;
+                    const siblings = [];
+                    while (next) {
+                        if (next.nodeType === 1) {
+                            if (next.tagName === 'H3' || next.tagName === 'H4' || 
+                                next.classList.contains('accordion-section')) {
+                                break;
+                            }
+                        }
+                        siblings.push(next);
+                        next = next.nextSibling;
+                    }
+                    
+                    siblings.forEach(sibling => {
+                        content.appendChild(sibling);
+                    });
+                    
+                    accordionSection.appendChild(header);
+                    accordionSection.appendChild(content);
+                    h3.replaceWith(accordionSection);
+                });
+                
+                // Convert h4 elements to accordion (nested)
+                const h4Elements = Array.from(sectionContent.querySelectorAll('h4'));
+                h4Elements.forEach(h4 => {
+                    if (h4.closest('.accordion-section')) return;
+                    
+                    const accordionSection = document.createElement('div');
+                    accordionSection.className = 'accordion-section';
+                    
+                    const header = document.createElement('div');
+                    header.className = 'accordion-header';
+                    
+                    const icon = document.createElement('span');
+                    icon.className = 'accordion-icon';
+                    icon.textContent = '▶';
+                    
+                    const h4Clone = h4.cloneNode(true);
+                    header.appendChild(h4Clone);
+                    header.appendChild(icon);
+                    
+                    const content = document.createElement('div');
+                    content.className = 'accordion-content';
+                    
+                    let next = h4.nextSibling;
+                    const siblings = [];
+                    while (next) {
+                        if (next.nodeType === 1) {
+                            if (next.tagName === 'H3' || next.tagName === 'H4' || 
+                                next.classList.contains('accordion-section')) {
+                                break;
+                            }
+                        }
+                        siblings.push(next);
+                        next = next.nextSibling;
+                    }
+                    
+                    siblings.forEach(sibling => {
+                        content.appendChild(sibling);
+                    });
+                    
+                    accordionSection.appendChild(header);
+                    accordionSection.appendChild(content);
+                    h4.replaceWith(accordionSection);
+                });
+            });
+            
+            // Accordion click functionality
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.accordion-header')) {
+                    const header = e.target.closest('.accordion-header');
+                    const section = header.parentElement;
+                    section.classList.toggle('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
