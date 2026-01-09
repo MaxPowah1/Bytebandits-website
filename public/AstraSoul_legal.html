@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AstraSoul – Rechtliche Informationen</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+          Ubuntu, Cantarell, sans-serif;
+        background-color: #050712;
+        color: #e0e0e0;
+        line-height: 1.8;
+        padding: 20px;
+      }
+      .container { max-width: 980px; margin: 0 auto; }
+      .header {
+        text-align: center;
+        padding: 30px 0;
+        border-bottom: 2px solid #29e0ff;
+        margin-bottom: 26px;
+      }
+      .header h1 {
+        color: #29e0ff;
+        font-size: 2.1em;
+        margin-bottom: 6px;
+      }
+      .header p { opacity: 0.9; }
+
+      .lang-toggle {
+        text-align: center;
+        margin: 18px 0;
+        padding: 14px;
+        background-color: #0f1a2e;
+        border-radius: 10px;
+      }
+      .lang-toggle button {
+        background-color: #29e0ff;
+        color: #050712;
+        border: none;
+        padding: 10px 16px;
+        margin: 0 6px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 800;
+        font-size: 14px;
+      }
+      .lang-toggle button.secondary {
+        background-color: transparent;
+        border: 1px solid rgba(41, 224, 255, 0.6);
+        color: #29e0ff;
+      }
+      .lang-toggle button:hover { filter: brightness(0.95); }
+
+      .nav-menu {
+        background-color: #0f1a2e;
+        padding: 18px;
+        border-radius: 10px;
+        margin: 18px 0 22px;
+      }
+      .nav-menu h2 { color: #29e0ff; margin-bottom: 12px; font-size: 1.15em; }
+      .nav-menu ul { list-style: none; }
+      .nav-menu li { margin: 8px 0; }
+      .nav-menu a {
+        color: #e0e0e0;
+        text-decoration: none;
+        padding: 8px 10px;
+        display: block;
+        border-radius: 8px;
+        transition: background-color 0.2s, color 0.2s;
+      }
+      .nav-menu a:hover { background-color: #1a2a3e; color: #29e0ff; }
+
+      section {
+        margin: 26px 0;
+        padding: 22px 18px;
+        background-color: #0f1a2e;
+        border-radius: 12px;
+        border-left: 4px solid #29e0ff;
+      }
+      section h2 {
+        color: #29e0ff;
+        font-size: 1.6em;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #1a2a3e;
+      }
+      section h3 { color: #29e0ff; font-size: 1.15em; margin-top: 16px; margin-bottom: 10px; }
+      section p { margin-bottom: 12px; text-align: justify; }
+      section ul { margin-left: 22px; margin-bottom: 12px; }
+      section li { margin-bottom: 8px; }
+      a { color: #29e0ff; }
+      code {
+        background: rgba(255,255,255,0.08);
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+      }
+      .muted { opacity: 0.85; }
+      .notice {
+        border-left: 4px solid rgba(255, 215, 0, 0.75);
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: rgba(255, 215, 0, 0.10);
+        margin: 10px 0 12px;
+      }
+      .danger {
+        border-left: 4px solid rgba(255, 107, 107, 0.85);
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: rgba(255, 107, 107, 0.12);
+        margin: 10px 0 12px;
+      }
+
+      .lang-de.hidden, .lang-en.hidden { display: none; }
+
+      .back-to-top {
+        position: fixed;
+        bottom: 18px;
+        right: 18px;
+        background-color: #29e0ff;
+        color: #050712;
+        padding: 12px 16px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 900;
+        box-shadow: 0 4px 10px rgba(41, 224, 255, 0.25);
+      }
+      .back-to-top:hover { filter: brightness(0.95); }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>AstraSoul – Rechtliche Informationen</h1>
+        <p class="muted">Legal information (Imprint, Privacy, Disclaimer, Terms)</p>
+      </div>
+
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button id="btn-de" onclick="setLang('de')">Deutsch</button>
+        <button id="btn-en" class="secondary" onclick="setLang('en')">English</button>
+        <div class="muted" style="margin-top:10px; font-size: 13px;">
+          Hinweis: Für App-Sprachen außerhalb Deutsch/Englisch wird in der App standardmäßig die englische Version angezeigt.
+        </div>
+      </div>
+
+      <div class="nav-menu">
+        <h2>Navigation</h2>
+        <ul>
+          <li><a href="#impressum">Impressum</a></li>
+          <li><a href="#datenschutz">Datenschutz / Privacy</a></li>
+          <li><a href="#haftungsausschluss">Haftungsausschluss / Disclaimer</a></li>
+          <li><a href="#agb">Nutzungsbedingungen / Terms</a></li>
+          <li><a href="#widerrufsrecht">Widerruf / Withdrawal</a></li>
+        </ul>
+      </div>
+
+      <!-- IMPRESSUM -->
+      <section id="impressum">
+        <div class="lang-de">
+          <h2>Impressum</h2>
+          <p><strong>Verantwortlich i. S. d. § 5 TMG / Art. 4 Nr. 7 DSGVO</strong></p>
+          <p>
+            <strong>Bytebandits OÜ</strong><br/>
+            Tartu mnt 67/1-13b, Kesklinna linnaosa<br/>
+            Tallinn 10115, Eesti<br/>
+            Management Board: M. Scherb<br/>
+            Registration code: 17265228 (Harju County Court)
+          </p>
+          <p>
+            Kontakt: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>
+          </p>
+        </div>
+        <div class="lang-en hidden">
+          <h2>Legal Notice (Imprint)</h2>
+          <p><strong>Controller within the meaning of applicable laws (incl. GDPR)</strong></p>
+          <p>
+            <strong>Bytebandits OÜ</strong><br/>
+            Tartu mnt 67/1-13b, Kesklinna linnaosa<br/>
+            Tallinn 10115, Estonia<br/>
+            Management Board: M. Scherb<br/>
+            Registry Code: 17265228 (Harju County Court)
+          </p>
+          <p>
+            Contact: <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- DATENSCHUTZ -->
+      <section id="datenschutz">
+        <div class="lang-de">
+          <h2>Datenschutzerklärung</h2>
+          <p class="muted">Stand: 2026-01-09</p>
+
+          <h3>1. Überblick</h3>
+          <p>
+            AstraSoul ist eine KI-gestützte Astrologie-App. Um personalisierte Inhalte zu erzeugen, verarbeitet die App
+            bestimmte Angaben (z. B. Name sowie Geburtsdaten). Zudem nutzt die App Fehler-/Diagnosefunktionen (optional),
+            um Stabilität und Qualität zu verbessern.
+          </p>
+
+          <h3>2. Welche Daten werden verarbeitet?</h3>
+          <ul>
+            <li><strong>Profil- & Geburtsdaten</strong>: Name, Geburtsdatum, Geburtszeit, Geburtsort. Optional zusätzlich: Breite/Länge & Zeitzone.</li>
+            <li><strong>Lokale App-Einstellungen</strong>: z. B. Sprache, Fast-Mode, Benachrichtigungs-Status.</li>
+            <li><strong>Technische Daten</strong>: Server-Logs (z. B. Zeitpunkt, Endpoint, Statuscode) zur Fehleranalyse/Sicherheit.</li>
+            <li><strong>Fehlerberichte (optional)</strong>: wenn aktiviert, werden Absturz-/Fehlerinformationen an Sentry übermittelt (ohne bewusstes Senden von Klardaten-Inhalten).</li>
+          </ul>
+
+          <h3>3. Zwecke & Rechtsgrundlagen</h3>
+          <ul>
+            <li><strong>Bereitstellung der App-Funktionen</strong> (z. B. Horoskop-/Analyse-Generierung): Art. 6 Abs. 1 lit. b DSGVO.</li>
+            <li><strong>Stabilität/Sicherheit/Funktionsverbesserung</strong> (Logs, Debugging): Art. 6 Abs. 1 lit. f DSGVO.</li>
+            <li><strong>Benachrichtigungen</strong>: Einwilligung über OS/Device-Prompt (Art. 6 Abs. 1 lit. a DSGVO), soweit erforderlich.</li>
+          </ul>
+
+          <h3>4. Empfänger / Drittanbieter</h3>
+          <ul>
+            <li><strong>OpenAI</strong> (KI-Modelle): Zur Generierung von Textinhalten werden Prompts an ein KI-Backend übermittelt. Dabei können – je nach Eingabe – auch personenbezogene Angaben enthalten sein (z. B. Geburtsdaten).</li>
+            <li><strong>Sentry</strong> (optional): Fehlerberichte zur App-/Backend-Stabilität. Die Konfiguration ist auf Minimierung personenbezogener Daten ausgelegt.</li>
+            <li><strong>OpenStreetMap Nominatim</strong> (Fallback, Geocoding): Wenn ein Ort nicht in der lokalen Stadt-Datenbank gefunden wird, kann der Geburtsort zur Geokodierung an Nominatim übermittelt werden.</li>
+          </ul>
+
+          <div class="notice">
+            <strong>Wichtig:</strong> Die Ortsauflösung nutzt primär eine lokale, deterministische Stadt-Datenbank.
+            Nur bei unbekannten Orten kann als Fallback ein externer Geocoding-Request nötig sein.
+          </div>
+
+          <h3>5. Speicherdauer</h3>
+          <ul>
+            <li><strong>Lokale Daten</strong> bleiben in der App gespeichert, bis du sie zurücksetzt oder die App deinstallierst.</li>
+            <li><strong>Server-Logs</strong> werden nur so lange gespeichert, wie es für Betrieb/Sicherheit erforderlich ist.</li>
+          </ul>
+
+          <h3>6. Deine Rechte</h3>
+          <p>
+            Du hast Rechte nach Art. 15–21 DSGVO (Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch).
+            Bitte kontaktiere uns unter <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>.
+          </p>
+        </div>
+
+        <div class="lang-en hidden">
+          <h2>Privacy Policy</h2>
+          <p class="muted">Last updated: 2026-01-09</p>
+
+          <h3>1. Overview</h3>
+          <p>
+            AstraSoul is an AI-powered astrology app. To generate personalized content, the app processes certain inputs
+            (e.g., name and birth data). The app may also use optional diagnostics to improve stability and quality.
+          </p>
+
+          <h3>2. What data do we process?</h3>
+          <ul>
+            <li><strong>Profile & birth data</strong>: name, birth date, birth time, birth place. Optionally: latitude/longitude & timezone.</li>
+            <li><strong>Local app settings</strong>: language, fast mode, notification status.</li>
+            <li><strong>Technical data</strong>: server logs (e.g. timestamp, endpoint, status code) for security and debugging.</li>
+            <li><strong>Crash reports (optional)</strong>: if enabled, crash/error diagnostics may be sent to Sentry (configured to minimize personal data).</li>
+          </ul>
+
+          <h3>3. Purposes & legal bases</h3>
+          <ul>
+            <li><strong>Providing app functionality</strong>: GDPR Art. 6(1)(b).</li>
+            <li><strong>Stability/security</strong> (logs/debugging): GDPR Art. 6(1)(f).</li>
+            <li><strong>Notifications</strong>: consent via OS permission prompt where required (GDPR Art. 6(1)(a)).</li>
+          </ul>
+
+          <h3>4. Recipients / third parties</h3>
+          <ul>
+            <li><strong>OpenAI</strong>: prompts are sent to an AI backend to generate text content. Depending on your input, prompts may include personal data (e.g., birth data).</li>
+            <li><strong>Sentry</strong> (optional): crash/error diagnostics to improve stability.</li>
+            <li><strong>OpenStreetMap Nominatim</strong> (fallback geocoding): if a place is not found in the local city database, the birth place string may be sent to Nominatim for geocoding.</li>
+          </ul>
+
+          <div class="notice">
+            <strong>Note:</strong> place resolving primarily uses an offline, deterministic city database. External geocoding is a fallback only.
+          </div>
+
+          <h3>5. Retention</h3>
+          <ul>
+            <li><strong>Local data</strong> remains on your device until you reset it or uninstall the app.</li>
+            <li><strong>Server logs</strong> are retained only as long as needed for operations/security.</li>
+          </ul>
+
+          <h3>6. Your rights</h3>
+          <p>
+            You have GDPR rights (access, rectification, erasure, restriction, objection). Contact:
+            <a href="mailto:max@byte-bandits.com">max@byte-bandits.com</a>.
+          </p>
+        </div>
+      </section>
+
+      <!-- DISCLAIMER -->
+      <section id="haftungsausschluss">
+        <div class="lang-de">
+          <h2>Haftungsausschluss / Disclaimer</h2>
+          <div class="danger">
+            <strong>Wichtig:</strong> AstraSoul liefert Orientierung und Reflexions-Impulse. Die Inhalte sind
+            <strong>keine</strong> medizinische, psychologische, rechtliche oder finanzielle Beratung und ersetzen
+            keine professionelle Diagnose/Behandlung.
+          </div>
+          <ul>
+            <li><strong>Astrologie ist symbolisch</strong>: Ergebnisse sind keine Tatsachenbehauptungen und keine Vorhersagen.</li>
+            <li><strong>KI-Generierung</strong>: Texte können Fehler enthalten. Es gibt keine Garantie für Richtigkeit/Vollständigkeit.</li>
+            <li><strong>Eigenverantwortung</strong>: Entscheidungen liegen bei dir; nutze Inhalte als Denkanstoß, nicht als Grundlage für kritische Entscheidungen.</li>
+          </ul>
+        </div>
+        <div class="lang-en hidden">
+          <h2>Disclaimer</h2>
+          <div class="danger">
+            <strong>Important:</strong> AstraSoul provides reflective guidance. Content is <strong>not</strong> medical,
+            psychological, legal, or financial advice and does not replace professional diagnosis or treatment.
+          </div>
+          <ul>
+            <li><strong>Astrology is symbolic</strong>: outputs are not factual claims and not predictions.</li>
+            <li><strong>AI-generated content</strong>: may contain mistakes; no guarantee of accuracy or completeness.</li>
+            <li><strong>Your responsibility</strong>: use as inspiration, not as basis for critical decisions.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- TERMS -->
+      <section id="agb">
+        <div class="lang-de">
+          <h2>Nutzungsbedingungen (AGB)</h2>
+          <h3>1. Gegenstand</h3>
+          <p>AstraSoul stellt KI-gestützte, astrologische Inhalte zur Verfügung. Die App kann kostenlose und kostenpflichtige Funktionen enthalten (z. B. Abonnements).</p>
+          <h3>2. Nutzung</h3>
+          <ul>
+            <li>Du erhältst ein einfaches, nicht übertragbares Nutzungsrecht für die bestimmungsgemäße Nutzung.</li>
+            <li>Missbrauch (z. B. Reverse Engineering soweit unzulässig) ist untersagt.</li>
+          </ul>
+          <h3>3. Käufe & Abonnements</h3>
+          <p>Abonnements werden über den jeweiligen App-Store (z. B. Google Play) verwaltet. Preise, Laufzeiten, Verlängerung und Kündigung richten sich nach den Store-Bedingungen und dem angezeigten Checkout.</p>
+          <h3>4. Gewährleistung/Haftung</h3>
+          <p>Die App wird „wie besehen“ bereitgestellt. Haftung ist – soweit gesetzlich zulässig – ausgeschlossen bzw. beschränkt; unberührt bleiben zwingende Haftungsregeln (Vorsatz, grobe Fahrlässigkeit, Verletzung von Leben/Körper/Gesundheit).</p>
+        </div>
+        <div class="lang-en hidden">
+          <h2>Terms of Service</h2>
+          <h3>1. Scope</h3>
+          <p>AstraSoul provides AI-powered astrology content. The app may include free and paid features (e.g., subscriptions).</p>
+          <h3>2. Use</h3>
+          <ul>
+            <li>Non-exclusive, non-transferable license for intended use.</li>
+            <li>Abuse (e.g., unlawful reverse engineering) is prohibited.</li>
+          </ul>
+          <h3>3. Purchases & subscriptions</h3>
+          <p>Subscriptions are managed via your app store (e.g., Google Play). Pricing, term, renewal and cancellation follow store terms and the checkout flow shown to you.</p>
+          <h3>4. Warranty / liability</h3>
+          <p>Provided “as is”. Liability is excluded/limited to the extent permitted by law; mandatory liability rules remain unaffected.</p>
+        </div>
+      </section>
+
+      <!-- WITHDRAWAL -->
+      <section id="widerrufsrecht">
+        <div class="lang-de">
+          <h2>Widerrufsrecht (digitale Inhalte)</h2>
+          <p>
+            Bei digitalen Inhalten, die nicht auf einem körperlichen Datenträger geliefert werden, kann das Widerrufsrecht
+            erlöschen, wenn du ausdrücklich zustimmst, dass wir vor Ablauf der Widerrufsfrist mit der Ausführung beginnen,
+            und du bestätigst, dass du dadurch dein Widerrufsrecht verlierst.
+          </p>
+          <p>Details ergeben sich aus dem Checkout/Store-Prozess und den jeweiligen Store-Bedingungen.</p>
+        </div>
+        <div class="lang-en hidden">
+          <h2>Right of Withdrawal (digital content)</h2>
+          <p>
+            For digital content not supplied on a tangible medium, your right of withdrawal may be lost if you expressly
+            consent to performance beginning before the withdrawal period ends and acknowledge the loss of your right.
+          </p>
+          <p>Details depend on your checkout/store process and the applicable store terms.</p>
+        </div>
+      </section>
+
+      <a class="back-to-top" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">↑</a>
+    </div>
+
+    <script>
+      function setLang(lang) {
+        var de = document.querySelectorAll('.lang-de');
+        var en = document.querySelectorAll('.lang-en');
+        var btnDe = document.getElementById('btn-de');
+        var btnEn = document.getElementById('btn-en');
+
+        if (lang === 'de') {
+          de.forEach(function (el) { el.classList.remove('hidden'); });
+          en.forEach(function (el) { el.classList.add('hidden'); });
+          btnDe.classList.remove('secondary');
+          btnEn.classList.add('secondary');
+        } else {
+          de.forEach(function (el) { el.classList.add('hidden'); });
+          en.forEach(function (el) { el.classList.remove('hidden'); });
+          btnDe.classList.add('secondary');
+          btnEn.classList.remove('secondary');
+        }
+
+        try {
+          var url = new URL(window.location.href);
+          url.searchParams.set('lang', lang);
+          window.history.replaceState({}, '', url.toString());
+        } catch (e) {}
+      }
+
+      function initLangFromQuery() {
+        try {
+          var url = new URL(window.location.href);
+          var lang = (url.searchParams.get('lang') || '').toLowerCase();
+          if (lang === 'de' || lang === 'en') return lang;
+        } catch (e) {}
+        return 'de';
+      }
+
+      function scrollToHashIfNeeded() {
+        var hash = window.location.hash;
+        if (!hash) return;
+        var id = hash.replace('#', '');
+        if (!id) return;
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        setLang(initLangFromQuery());
+        // Delay to ensure layout is ready before scrolling (helps in mobile webviews)
+        setTimeout(scrollToHashIfNeeded, 120);
+      });
+      window.addEventListener('hashchange', function () {
+        setTimeout(scrollToHashIfNeeded, 0);
+      });
+    </script>
+  </body>
+</html>
+
+
